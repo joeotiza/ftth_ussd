@@ -30,47 +30,69 @@ if($_SESSION['login_type'] != 1)
     ?>
         
       <div class="row">
-          <div class="col-12 col-sm-6 col-md-12">
+          <div class="col-md-6">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `get_internet` WHERE request_date > DATE_SUB(NOW(), INTERVAL 1 MONTH);")->num_rows; ?></h3>
                 <p>Get Internet Requests in the past one month</p>
               </div>
               <div class="icon">
-                <i class="fa fa-tasks"></i>
+                <i class="fa fa-wifi"></i>
               </div>
             </div>
           </div>
-          <div class="col-12 col-sm-6 col-md-12">
+          <div class="col-md-6">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `customers`;")->num_rows; ?></h3>
                 <p>Recorded Customers</p>
               </div>
               <div class="icon">
-                <i class="fa fa-tasks"></i>
+                <i class="fa fa-users"></i>
               </div>
             </div>
           </div>
-          <div class="col-12 col-sm-6 col-md-12">
+          <div class="col-md-6">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `cases_reported`;")->num_rows; ?></h3>
                 <p>Pending Reported Cases</p>
               </div>
               <div class="icon">
-                <i class="fa fa-tasks"></i>
+                <i class="fa fa-wrench"></i>
               </div>
             </div>
           </div>
-          <div class="col-12 col-sm-6 col-md-12">
+          <div class="col-md-6">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `customer_details`;")->num_rows; ?></h3>
                 <p>New Customer Requests</p>
               </div>
               <div class="icon">
-                <i class="fa fa-tasks"></i>
+                <i class="fa fa-user-plus"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="small-box bg-light shadow-sm border">
+              <div class="inner">
+                <h3><?php echo $conn->query("SELECT * FROM `plan_change`;")->num_rows; ?></h3>
+                <p>Change Plan Requests</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-bolt"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="small-box bg-light shadow-sm border">
+              <div class="inner">
+                <h3><?php echo $conn->query("SELECT * FROM `chat`;")->num_rows; ?></h3>
+                <p>Chat Requests</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-comment"></i>
               </div>
             </div>
           </div>

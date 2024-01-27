@@ -57,7 +57,7 @@
           <?php if($_SESSION['login_type'] == 1): ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_user">
-              <i class="nav-icon fas fa-user-plus"></i>
+              <i class="nav-icon fas fa-user-tie"></i>
               <p>
                 Web Portal Users
                 <i class="right fas fa-angle-left"></i>
