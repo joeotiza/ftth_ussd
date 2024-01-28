@@ -1,0 +1,1 @@
+sudo ~/Downloads/ngrok http 80
