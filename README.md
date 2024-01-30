@@ -45,9 +45,7 @@ php composer.phar require phpoffice/phpspreadsheet
 5. If working from localhost you can set up a `Ngrok` server or `Localtunnel` to expose your localhost to the internet. Use the temporary URL provided as your callback e.g http://6a71f5ec.ngrok.io/ftth_ussd/ussd.php. This only works when the computer is on and connected to the internet. If using `Ngrok` free package this address may change every 8 hours. You could opt for a paid version at 5 US dollars a month. Configure `Ngrok` using the command:
 
 ```
-
 sudo ~/Downloads/ngrok http 80
-
 ```
 
 
