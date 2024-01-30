@@ -8,7 +8,7 @@ For testing download `Africa's Talking` android app from Google Playstore or use
 
 ## Installation
 
-This project needs composer to use phpspreadsheet to handle import and export of xlsx/xls/csv files.
+This project needs composer to use phpspreadsheet to handle import and export of `.xlsx`/`.xls`/`.csv` files.
 
 - Run the following commands in terminal to install composer
 
