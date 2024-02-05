@@ -73,7 +73,8 @@ if(isset($_POST['export_new_customers_btn']))
 if(isset($_POST['export_get_internet_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
-    $exportquery = "SELECT * FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc";
+    $exportquery = "SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc";
     $myresult = mysqli_query($conn, $exportquery);
 
     $fileName = "Get_Internet";
@@ -201,7 +202,8 @@ if(isset($_POST['export_get_internet_new_btn']))
 if(isset($_POST['export_cases_reported_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
-    $exportquery = "SELECT * FROM `customers` RIGHT JOIN `cases_reported`
+    $exportquery = "SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` RIGHT JOIN `cases_reported`
         ON `customers`.`Correlation ID`=`cases_reported`.`Correlation ID` order by `time` desc";
 
     $myresult = mysqli_query($conn, $exportquery);
@@ -269,7 +271,8 @@ if(isset($_POST['export_cases_reported_btn']))
 if(isset($_POST['export_change_plan_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
-    $exportquery = "SELECT * FROM `customers` RIGHT JOIN `plan_change`
+    $exportquery = "SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` RIGHT JOIN `plan_change`
     ON `customers`.`Correlation ID`=`plan_change`.`Correlation ID` order by `request_time` desc";
 
     $myresult = mysqli_query($conn, $exportquery);
@@ -339,7 +342,8 @@ if(isset($_POST['export_change_plan_btn']))
 if(isset($_POST['export_chats_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
-    $exportquery = "SELECT * FROM `customers` RIGHT JOIN `chat`
+    $exportquery = "SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` RIGHT JOIN `chat`
     ON `customers`.`Customer ID`=`chat`.`Customer ID` order by `time` desc";
 
     $myresult = mysqli_query($conn, $exportquery);
