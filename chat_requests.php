@@ -24,7 +24,7 @@
 			<table class="table tabe-hover table-bordered" id="list">
 				<thead>
 					<tr>
-						<th class="text-center">CustomerID</th>
+						<th class="text-center">Customer ID</th>
 						<th>Name</th>
                         <th>E-Mail Address</th>
 						<th>Mobile Number</th>
@@ -38,16 +38,16 @@
 					//$i = 1;
 					$type = array('',"Admin","Project Manager","Employee");
 					$qry = $conn->query("SELECT *,concat(chat.FirstName,' ',chat.LastName) as name FROM `customers` RIGHT JOIN `chat`
-                     ON `customers`.`CustomerID`=`chat`.`CustomerID` order by `time` desc");
+                     ON `customers`.`Customer ID`=`chat`.`Customer ID` order by `time` desc");
 
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
-						<th class="text-center"><?php echo $row['CustomerID'] ?></th>
+						<th class="text-center"><?php echo $row['Customer ID'] ?></th>
 						<td><?php echo ucwords($row['name']) ?></td>
-						<td><?php echo $row['EMailAddress'] ?></td>
-                        <td><?php echo $row['MobileNumber'] ?></td>
-                        <td><?php echo $row['haik_Ref'] ?></td>
+						<td><?php echo $row['EMail Address'] ?></td>
+                        <td><?php echo $row['Contact Number'] ?></td>
+                        <td><?php echo $row['Correlation ID'] ?></td>
 						<td><?php echo $row['time'] ?></td>
 						<td class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

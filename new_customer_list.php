@@ -34,16 +34,16 @@
 					<tr>
 						<th class="text-center"><?php echo $i++ ?></th>
 						<td><?php echo ucwords($row['name']) ?></td>
-						<td><?php echo $row['MobileNumber'] ?></td>
+						<td><?php echo $row['Contact Number'] ?></td>
 						<td><?php echo $row['reg_date'] ?></td>
 						<td class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action
 		                    </button>
 		                    <div class="dropdown-menu" style="">
-		                      <a class="dropdown-item view_customer" href="javascript:void(0)" data-id="<?php echo $row['CustomerID'] ?>">View</a>
+		                      <a class="dropdown-item view_customer" href="javascript:void(0)" data-id="<?php echo $row['Customer ID'] ?>">View</a>
 		                      <div class="dropdown-divider"></div>
-		                      <a class="dropdown-item delete_customer" href="javascript:void(0)" data-id="<?php echo $row['CustomerID'] ?>">Delete</a>
+		                      <a class="dropdown-item delete_customer" href="javascript:void(0)" data-id="<?php echo $row['Customer ID'] ?>">Delete</a>
 		                    </div>
 						</td>
 					</tr>	

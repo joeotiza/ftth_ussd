@@ -24,7 +24,7 @@
 			<table class="table tabe-hover table-bordered" id="list">
 				<thead>
 					<tr>
-						<th class="text-center">CustomerID</th>
+						<th class="text-center">Customer ID</th>
 						<th>Name</th>
                         <th>E-Mail Address</th>
 						<th>Mobile Number</th>
@@ -39,17 +39,17 @@
 					<?php
 					//$i = 1;
 					$type = array('',"Admin","Project Manager","Employee");
-					$qry = $conn->query("SELECT *,concat(FirstName,' ',LastName) as name FROM `customers` RIGHT JOIN `plan_change`
-                     ON `customers`.`haik_Ref`=`plan_change`.`haik_Ref` order by `request_time` desc");
+					$qry = $conn->query("SELECT * FROM `customers` RIGHT JOIN `plan_change`
+                     ON `customers`.`Correlation ID`=`plan_change`.`Correlation ID` order by `request_time` desc");
 
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
-						<th class="text-center"><?php echo $row['CustomerID'] ?></th>
-						<td><?php echo ucwords($row['name']) ?></td>
-						<td><?php echo $row['EMailAddress'] ?></td>
-                        <td><?php echo $row['MobileNumber'] ?></td>
-                        <td><?php echo $row['haik_Ref'] ?></td>
+						<th class="text-center"><?php echo $row['Customer ID'] ?></th>
+						<td><?php echo ucwords($row['Customer Name']) ?></td>
+						<td><?php echo $row['EMail Address'] ?></td>
+                        <td><?php echo $row['Contact Number'] ?></td>
+                        <td><?php echo $row['Correlation ID'] ?></td>
                         <td><?php echo $row['from_mbps'] ?></td>
                         <td><?php echo $row['to_mbps'] ?></td>
 						<td><?php echo $row['request_time'] ?></td>

@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cases_reported` (
   `id` int(11) NOT NULL,
-  `haik_Ref` varchar(20) NOT NULL,
+  `Correlation ID` varchar(20) NOT NULL,
   `reported_case` text NOT NULL,
   `time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -42,10 +42,10 @@ CREATE TABLE `cases_reported` (
 
 CREATE TABLE `chat` (
   `id` int(11) NOT NULL,
-  `CustomerID` varchar(20) DEFAULT NULL,
+  `Customer ID` varchar(20) DEFAULT NULL,
   `FirstName` text NOT NULL,
   `LastName` text NOT NULL,
-  `MobileNumber` varchar(30) NOT NULL,
+  `Contact Number` varchar(30) NOT NULL,
   `time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -53,7 +53,7 @@ CREATE TABLE `chat` (
 -- Dumping data for table `chat`
 --
 
-INSERT INTO `chat` (`id`, `CustomerID`, `FirstName`, `LastName`, `MobileNumber`, `time`) VALUES
+INSERT INTO `chat` (`id`, `Customer ID`, `FirstName`, `LastName`, `Contact Number`, `time`) VALUES
 (2, 'LHK-00011', 'John', 'Mutata', '+254717810466', '2024-01-27 14:10:37');
 
 -- --------------------------------------------------------
@@ -63,17 +63,17 @@ INSERT INTO `chat` (`id`, `CustomerID`, `FirstName`, `LastName`, `MobileNumber`,
 --
 
 CREATE TABLE `customers` (
-  `CustomerID` varchar(20) NOT NULL,
+  `Customer ID` varchar(20) NOT NULL,
   `CustomerName` text NOT NULL,
   `FirstName` text NOT NULL,
   `LastName` text NOT NULL,
   `AddressLine1` text NOT NULL,
-  `EMailAddress` text NOT NULL,
-  `MobileNumber` varchar(20) NOT NULL,
+  `EMail Address` text NOT NULL,
+  `Contact Number` varchar(20) NOT NULL,
   `ServiceID` varchar(30) NOT NULL,
-  `haik_Ref` varchar(30) NOT NULL,
+  `Correlation ID` varchar(30) NOT NULL,
   `PyramitePackageName` text NOT NULL,
-  `PrismPackageName` text NOT NULL,
+  `GPONPlan` text NOT NULL,
   `Response` text NOT NULL,
   `ServiceUserGrp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -82,7 +82,7 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`CustomerID`, `CustomerName`, `FirstName`, `LastName`, `AddressLine1`, `EMailAddress`, `MobileNumber`, `ServiceID`, `haik_Ref`, `PyramitePackageName`, `PrismPackageName`, `Response`, `ServiceUserGrp`) VALUES
+INSERT INTO `customers` (`Customer ID`, `CustomerName`, `FirstName`, `LastName`, `AddressLine1`, `EMail Address`, `Contact Number`, `ServiceID`, `Correlation ID`, `PyramitePackageName`, `GPONPlan`, `Response`, `ServiceUserGrp`) VALUES
 ('LHK-00003', 'Brian Nyikuli', 'Brian', 'Nyikuli', 'Box 62499-00200', 'brian.nyikuli554@gmail.com', '725451031', 'LHK-00003-0001', 'haik111098', 'NULL', 'FIBER 100MBPS HOME PAYG', 'haik111098@ke.liquidtelecom.net', 'NULL'),
 ('LHK-00010', 'Joash Mkitanga', 'Joash', 'Mkitanga', 'KITENGELA', 'joash.mkitanga@liquidtelecom.com', '780419095', 'LHK-00010-0001', 'haik105551', 'NULL', 'FIBER 50MBPS HOME PAYG', 'haik105551@ke.liquidtelecom.net', 'HAI-WAYA HOME'),
 ('LHK-00011', 'John Mutata', 'John', 'Mutata', 'Ravine Apartments', 'johnymtata@gmail.com', '717810466', 'LHK-00011-0001', 'haik110744', 'NULL', 'FIBER 10MBPS HOME PAYG', 'haik110744@ke.liquidtelecom.net', 'Hai-Max Home'),
@@ -95,10 +95,10 @@ INSERT INTO `customers` (`CustomerID`, `CustomerName`, `FirstName`, `LastName`, 
 --
 
 CREATE TABLE `customer_details` (
-  `CustomerID` int(11) NOT NULL,
+  `Customer ID` int(11) NOT NULL,
   `FirstName` text NOT NULL,
   `LastName` text NOT NULL,
-  `MobileNumber` varchar(20) NOT NULL,
+  `Contact Number` varchar(20) NOT NULL,
   `reg_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -106,7 +106,7 @@ CREATE TABLE `customer_details` (
 -- Dumping data for table `customer_details`
 --
 
-INSERT INTO `customer_details` (`CustomerID`, `FirstName`, `LastName`, `MobileNumber`, `reg_date`) VALUES
+INSERT INTO `customer_details` (`Customer ID`, `FirstName`, `LastName`, `Contact Number`, `reg_date`) VALUES
 (2, 'Joseph', 'Otieno', '+254711952087', '2024-01-26 13:03:42');
 
 -- --------------------------------------------------------
@@ -116,7 +116,7 @@ INSERT INTO `customer_details` (`CustomerID`, `FirstName`, `LastName`, `MobileNu
 --
 
 CREATE TABLE `get_internet` (
-  `CustomerID` varchar(30) NOT NULL,
+  `Customer ID` varchar(30) NOT NULL,
   `Capacity` varchar(20) NOT NULL,
   `Location` varchar(30) NOT NULL,
   `request_date` datetime NOT NULL DEFAULT current_timestamp()
@@ -126,7 +126,7 @@ CREATE TABLE `get_internet` (
 -- Dumping data for table `get_internet`
 --
 
-INSERT INTO `get_internet` (`CustomerID`, `Capacity`, `Location`, `request_date`) VALUES
+INSERT INTO `get_internet` (`Customer ID`, `Capacity`, `Location`, `request_date`) VALUES
 ('2', '10Mbps', 'Syokimau', '2024-01-26 13:03:42'),
 ('2', '25Mbps', 'Runda', '2024-01-26 13:04:20'),
 ('LHK-00010', '25Mbps', 'Syokimau', '2024-01-26 15:05:26'),
@@ -140,7 +140,7 @@ INSERT INTO `get_internet` (`CustomerID`, `Capacity`, `Location`, `request_date`
 
 CREATE TABLE `plan_change` (
   `id` int(11) NOT NULL,
-  `haik_Ref` varchar(30) NOT NULL,
+  `Correlation ID` varchar(30) NOT NULL,
   `from_mbps` varchar(20) NOT NULL,
   `to_mbps` varchar(20) NOT NULL,
   `request_time` datetime NOT NULL DEFAULT current_timestamp()
@@ -297,7 +297,7 @@ ALTER TABLE `chat`
 -- Indexes for table `customer_details`
 --
 ALTER TABLE `customer_details`
-  ADD PRIMARY KEY (`CustomerID`);
+  ADD PRIMARY KEY (`Customer ID`);
 
 --
 -- Indexes for table `plan_change`
@@ -355,7 +355,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `customer_details`
 --
 ALTER TABLE `customer_details`
-  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Customer ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `plan_change`

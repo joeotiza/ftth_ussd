@@ -2,8 +2,9 @@
 <?php
 if(isset($_GET['id'])){
 	$type_arr = array('',"Admin","Project Manager","Employee");
-	$qry = $conn->query("SELECT *,concat(FirstName,' ',LastName) as name FROM `customer_details` where CustomerID = ".$_GET['id'])->fetch_array();
+	$qry = $conn->query("SELECT *,concat(FirstName,' ',LastName) as name FROM `customer_details` where `Customer ID` = ".$_GET['id'])->fetch_array();
 	foreach($qry as $k => $v){
+		$k = str_replace(' ', '_', $k);
 		$$k = $v;
 	}
 }
@@ -12,7 +13,7 @@ if(isset($_GET['id'])){
 	<div class="card card-widget widget-user shadow">
       <div class="widget-user-header bg-dark">
         <h3 class="widget-user-username"><?php echo ucwords($name) ?></h3>
-        <h5 class="widget-user-desc"><?php echo $MobileNumber ?></h5>
+        <h5 class="widget-user-desc"><?php echo $Contact_Number ?></h5>
       </div>
       <div class="card-footer">
         <div class="container-fluid">
@@ -26,7 +27,7 @@ if(isset($_GET['id'])){
 				</thead>
 				<tbody>
 					<?php
-					$qry = $conn->query("SELECT * FROM `get_internet` WHERE CustomerID=".$_GET['id']);
+					$qry = $conn->query("SELECT * FROM `get_internet` WHERE `Customer ID`=".$_GET['id']);
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>

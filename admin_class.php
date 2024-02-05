@@ -186,7 +186,7 @@ Class Action {
 	}
 	function delete_customer(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM `customer_details` where CustomerID = ".$id);
+		$delete = $this->db->query("DELETE FROM `customer_details` where Customer ID = ".$id);
 		if($delete)
 			return 1;
 	}

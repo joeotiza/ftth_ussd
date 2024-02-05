@@ -35,7 +35,7 @@
                 <tbody>
                 <?php
                 $i = 1;
-                $qry = $conn->query("SELECT *,concat(FirstName,' ',LastName) as name FROM `get_internet` INNER JOIN `customer_details` ON `get_internet`.`CustomerID`=`customer_details`.`CustomerID` order by `request_date` desc");
+                $qry = $conn->query("SELECT * FROM `get_internet` INNER JOIN `customer_details` ON `get_internet`.`Customer ID`=`customer_details`.`Customer ID` order by `request_date` desc");
                 while($row= $qry->fetch_assoc()):
                   ?>
                   <tr>
@@ -43,10 +43,10 @@
                          <?php echo $i++ ?>
                       </td>
                       <td>
-                        <?php echo ucwords($row['name']) ?>
+                        <?php echo ucwords($row['FirstName']." ".$row['LastName']) ?>
                       </td>
                       <td class="text-center">
-                      	<?php echo $row['MobileNumber'] ?>
+                      	<?php echo $row['Contact Number'] ?>
                       </td>
                       <td class="text-center">
                       	<?php echo $row['Location'] ?>

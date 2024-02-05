@@ -25,7 +25,7 @@
                   <col width="15%">
                 </colgroup> -->
                 <thead>
-                  <th>CustomerID</th>
+                  <th>Customer ID</th>
                   <th>Customer Name</th>
                   <th>Mobile Number</th>
                   <th>Location</th>
@@ -34,18 +34,18 @@
                 </thead>
                 <tbody>
                 <?php
-                $qry = $conn->query("SELECT *,concat(FirstName,' ',LastName) as name FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`CustomerID`=`customers`.`CustomerID` order by `request_date` desc");
+                $qry = $conn->query("SELECT * FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc");
                 while($row= $qry->fetch_assoc()):
                   ?>
                   <tr>
                       <td>
-                         <?php echo $row['CustomerID'] ?>
+                         <?php echo $row['Customer ID'] ?>
                       </td>
                       <td>
-                        <?php echo ucwords($row['name']) ?>
+                        <?php echo ucwords($row['Customer Name']) ?>
                       </td>
                       <td class="text-center">
-                      	<?php echo $row['MobileNumber'] ?>
+                      	<?php echo $row['Contact Number'] ?>
                       </td>
                       <td class="text-center">
                       	<?php echo $row['Location'] ?>
