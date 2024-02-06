@@ -83,6 +83,7 @@ Class Action {
 
 		if($save){
 			return 1;
+			exit;
 		}
 	}
 	function signup(){

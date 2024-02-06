@@ -43,7 +43,7 @@
 						<div class="form-group">
 							<label class="control-label">Email</label>
 							<input type="email" class="form-control form-control-sm" name="email" required value="<?php echo isset($email) ? $email : '' ?>">
-							<small id="#msg"></small>
+							<small id="msg"></small>
 						</div>
 						<div class="form-group">
 							<label class="control-label">Password</label>
@@ -122,14 +122,14 @@
 		    type: 'POST',
 			success:function(resp){
 				if(resp == 1){
-					alert_toast('Data successfully saved.',"success");
+					alert_toast("Data successfully saved.",'success')
 					setTimeout(function(){
-						location.replace('index.php?page=user_list')
+						location.replace('./index.php?page=user_list')
 					},750)
 				}else if(resp == 2){
 					$('#msg').html("<div class='alert alert-danger'>Email already exist.</div>");
-					$('[name="email"]').addClass("border-danger")
-					end_load()
+					$('[name="email"]').addClass("border-danger");
+					end_load();
 				}
 			}
 		})

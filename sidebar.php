@@ -21,7 +21,6 @@
               </p>
             </a>
           </li>
-          <?php if($_SESSION['login_type'] != 3): ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_requests">
               <i class="fas fa-wifi nav-icon"></i>
@@ -45,7 +44,6 @@
               </li>
             </ul>
           </li>
-          <?php endif; ?>
           <li class="nav-item dropdown">
             <a href="./index.php?page=change_plan" class="nav-link nav-change_plan tree-item">
               <i class="nav-icon fas fa-bolt"></i>
@@ -78,6 +76,7 @@
               </li>
             </ul>
           </li>
+          <?php endif; ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_customer">
               <i class="nav-icon fas fa-users"></i>
@@ -107,7 +106,6 @@
               </li>
             </ul>
           </li>
-        <?php endif; ?>
           <li class="nav-item dropdown">
             <a href="./index.php?page=cases_reported" class="nav-link nav-cases_reported tree-item">
               <i class="nav-icon fas fa-wrench"></i>
