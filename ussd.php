@@ -55,7 +55,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
 
     //Check if the user is in the db
     $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` WHERE (`Contact Number` LIKE '".$phoneNumber."' OR `Contact Number` LIKE substring('".$phoneNumber."', -9)) LIMIT 1");
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
     $stmt->execute();
     
     $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -145,7 +145,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."');");
                                 //$stmt->execute();
 
-                                $stmt = $db->query("SELECT * FROM customer_details WHERE (`Contact Number` LIKE '".$phoneNumber."' OR `Contact Number` LIKE substring('".$phoneNumber."', -9)) LIMIT 1");
+                                $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
                                 $stmt->execute();
                                 
                                 $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
