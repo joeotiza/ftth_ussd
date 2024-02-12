@@ -829,7 +829,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 }
                 break;
 
-            default:
+            case "5":
                 if (!$textArray[1])
                 {
                     $response = "CON What would you like to know:\n";
@@ -900,6 +900,12 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         } 
                     }  
                 }
+                break;
+
+            default:
+                $response = "END Invalid Choice";
+                echo $response;
+                break;
                            
         }
     }
