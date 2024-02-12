@@ -2,7 +2,7 @@
  <div class="col-md-12">
         <div class="card card-outline card-success">
           <div class="card-header">
-            <b>Project Progress</b>
+            <b>New Customers</b>
             <div class="card-tools">
               <form action="excel.php" method="POST">
                     <select name="export_file_type" class="form_control">
@@ -28,7 +28,8 @@
                   <th>#</th>
                   <th>Customer Name</th>
                   <th>Mobile Number</th>
-                  <th>Location</th>
+                  <th>Area</th>
+                  <th>Address</th>
                   <th>Requested Capacity</th>
                   <th>Request Time</th>
                 </thead>
@@ -49,7 +50,10 @@
                       	<?php echo $row['Contact Number'] ?>
                       </td>
                       <td class="text-center">
-                      	<?php echo $row['Location'] ?>
+                      	<?php echo $row['Area'] ?>
+                      </td>
+                      <td class="text-left">
+                      	<?php echo $row['Address'] ?>
                       </td>
                       <td class="text-center">
                       	<?php echo $row['Capacity'] ?>

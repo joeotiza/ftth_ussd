@@ -61,6 +61,35 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
     $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
     $firstName = ($userAvailable) ? $userAvailable['FirstName'] : '';
 
+    $questions = array
+    (
+        "1" => array
+                (
+                    "question" => "Question 1?",
+                    "answer" => "Answer to question one.",
+                ),
+        "2" => array
+                (
+                    "question" => "Question 2?",
+                    "answer" => "Answer to question two.",
+                ),
+        "3" => array
+                (
+                    "question" => "Question three?",
+                    "answer" => "Answer to question three.",
+                ),
+        "4" => array
+                (
+                    "question" => "Question four?",
+                    "answer" => "Answer to question four.",
+                ),
+        "5" => array
+                (
+                    "question" => "Question five?",
+                    "answer" => "Answer to question five.",
+                )
+    );
+
     if (!$textArray[0] || $textArray[sizeof($textArray)-1]=="0")
     {
         $response = "CON Welcome " . $firstName;
@@ -68,8 +97,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
         $response .= " 1. Get Home Internet\n";
         $response .= " 2. Pay\n";
         $response .= " 3. Report a Case\n";
-        $response .= " 4. Change Plan\n";						
-        $response .= " 5. Speak with one of us.\n";
+        $response .= " 4. Manage Account\n";						
+        $response .= " 5. FAQs\n";
                                                                                                                                                     
 
         // Print the response onto the page so that our gateway can read it
@@ -90,18 +119,33 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 "4"=>"50Mbps (KES 6,554)",
                 "5"=>"100Mbps (KES 11,499)");
 
-                $location = array(
-                "1"=>"Embakasi",
-                "2"=>"Runda",
-                "3"=>"Syokimau");
+                $area = array(
+                "1"=>"Runda",
+                "2"=>"Greatwall",
+                "3"=>"Embakasi",
+                "4"=>"Westlands",
+                "5"=>"Gigiri",
+                "6"=>"Kileleshwa",
+                "7"=>"Kilimani",
+                "8"=>"Ngong Road",
+                "9"=>"Karen",
+                "10"=>"Kitusuru",
+                "11"=>"Kikuyu",
+                "12"=>"Mwimuto",
+                "13"=>"Kiambu",
+                "14"=>"Ruiru",
+                "15"=>"Thika",
+                "16"=>"Kawangware");
 
                 if (!$textArray[1])
                 {
-                    $response = "CON Select a package.\n";
-                    foreach($package as $key=>$value)
+                    $response = "CON Select an Area.\n";
+                    foreach($area as $key=>$value)
                     {
+                        if ($key > 6) continue;//ignore areas with index > 6
                         $response .=  " " . $key . ". " . $value . "\n";
-                    }						
+                    }
+                    $response .= " 98. MORE\n";						
                     $response .= "\n 0. Back to Main Menu\n";
                     
                     // Print the response onto the page so that our gateway can read it
@@ -110,26 +154,52 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 }
                 else
                 {
-                    $capacity = substr($package[$textArray[1]], 0, strpos($package[$textArray[1]], " (KES"));
-                    $response = "CON Get Home Internet: ";
-                    $response .= $capacity ."\n";
-
-                    if (!$textArray[2])
+                    $continue = 0;
+                    
+                    if ($textArray[1] == 98)
                     {
-                        $response = "CON Address Location.\n";
-                        foreach($location as $key=>$value)
+                        $continue = 1;
+                        if ($textArray[2] == 98) $continue=2;
+                        if ($textArray[2] == 98 && !$textArray[3])
                         {
-                            $response .=  " " . $key . ". " . $value . "\n";
+                            // $continue = 2;
+                            $response = "CON Select an Area.\n";
+                            foreach($area as $key=>$value)
+                            {
+                                if ($key <= 12) continue;//ignore areas with index <=12
+                                $response .=  " " . $key . ". " . $value . "\n";
+                            }						
+                            $response .= "\n 0. Back to Main Menu\n";
+                                
+                            // Print the response onto the page so that our gateway can read it
+                            header('Content-type: text/plain');
+                            echo $response;
+                            break;
                         }
-
-                        header('Content-type: text/plain');
-                        echo $response;
-                    }
-                    else
-                    {
-                        if (!$textArray[3] && !$userAvailable)
+                        elseif(!$textArray[2])
                         {
-                            $response .= "Provide your full name.\n";
+                                
+                            $response = "CON Select an Area.\n";
+                            foreach($area as $key=>$value)
+                            {
+                                if ($key <= 6 || $key > 12) continue;//ignore areas with index <6 and >12
+                                $response .=  " " . $key . ". " . $value . "\n";
+                            }
+                            $response .= " 98. MORE\n";					
+                            $response .= "\n 0. Back to Main Menu\n";
+                                
+                            // Print the response onto the page so that our gateway can read it
+                            header('Content-type: text/plain');
+                            echo $response;
+                            break;
+                        }
+                    }
+                    // else
+                    {
+                        //enter address
+                        if (!$textArray[$continue+2])
+                        {
+                            $response = "CON Enter the Address.\n";
                             $response .= "\n 0. Back to Main Menu\n";
 
                             header('Content-type: text/plain');
@@ -137,47 +207,75 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         }
                         else
                         {
-                            if (!$userAvailable)
+                            if (!$textArray[$continue+3])
                             {
-                                //Record Customer Details
-                                $fullName = explode(" ", $textArray[3], 2);
-                                $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`)
-                                VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."');");
-                                //$stmt->execute();
+                                $response = "CON Select a Package.\n";
+                                foreach($package as $key=>$value)
+                                {
+                                    $response .=  " " . $key . ". " . $value . "\n";
+                                }						
+                                $response .= "\n 0. Back to Main Menu\n";
 
-                                $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
-                                $stmt->execute();
-                                
-                                $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+                                header('Content-type: text/plain');
+                                echo $response;
                             }
+                            else
+                            {
+                                $capacity = substr($package[$textArray[$continue+3]], 0, strpos($package[$textArray[$continue+3]], " (KES"));
+                                if (!$textArray[$continue+4] && !$userAvailable)
+                                {
+                                    $response = "CON Provide your full name.\n";
+                                    $response .= "\n 0. Back to Main Menu\n";
 
-                            //Record Get Internet Details
-                            $stmt = $db->query("INSERT INTO `get_internet` (`Customer ID`,`Location`,`Capacity`)
-                            VALUES ('".$userAvailable['Customer ID']."', '".$location[$textArray[2]]."', '" .$capacity."');");
-                            //$stmt->execute();
+                                    header('Content-type: text/plain');
+                                    echo $response;
+                                }
+                                else
+                                {
+                                    if (!$userAvailable)
+                                    {
+                                        //Record Customer Details
+                                        $fullName = explode(" ", $textArray[$continue+4], 2);
+                                        $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`)
+                                        VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."');");
+                                        //$stmt->execute();
 
-                            $response = "END Thank you ";
-                            $response .= $userAvailable['FirstName'].".\n";
-                            $response .= "Your details have been captured.\n";
-                            $response .= "You will get a call from us to schedule the date of installation.\n";
+                                        $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
+                                        $stmt->execute();
+                                        
+                                        $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+                                    }
+                                    
+                                    //Record Get Internet Details
+                                    $stmt = $db->query("INSERT INTO `get_internet` (`Customer ID`,`Area`,`Address`,`Capacity`)
+                                    VALUES ('".$userAvailable['Customer ID']."', '".$area[$textArray[$continue+1]]."', '".$textArray[$continue+2]."', '" .$capacity."');");
+                                    //$stmt->execute();
 
-                            header('Content-type: text/plain');
-                            echo $response;
-                        }
-                    }
-                    
+                                    $response = "END Thank you ";
+                                    $response .= $userAvailable['FirstName'].".\n";
+                                    $response .= "Your details have been captured.\n";
+                                    $response .= "You will get a call from us to schedule the date of installation.\n";
+
+                                    header('Content-type: text/plain');
+                                    echo $response;
+                                }
+                            }   
+                        } 
+                    }                  
                 }
                 break;
 
             case "2":
+                $counter = ($userAvailable) ? 2 : 1 ;
                 if (!$textArray[1])
                 {
+                    $counterDisplay = 1;
                     $response = "CON Pay for:\n";
-                    $response .= " 1. Other Account\n";
                     if ($userAvailable)
                     {
-                        $response .= " 2. My Account\n";
+                        $response .= " ".$counterDisplay++ . ". ".$userAvailable['Correlation ID']."\n";
                     }
+                    $response .= " ".$counterDisplay. ". Other Account\n";
                     $response .= "\n 0. Back to Main Menu\n";
 
                     header('Content-type: text/plain');
@@ -185,7 +283,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 }
                 else
                 {
-                    if ($textArray[1] == "1")
+                    if ($textArray[1] == $counter)
                     {
                         if (!$textArray[2])
                         {
@@ -234,7 +332,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         }
                         
                     }
-                    elseif ($textArray[1] == "2")
+                    elseif ($textArray[1] == "1")
                     {
                         if (!$textArray[2])
                         {
@@ -284,14 +382,16 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 {
                     if ($textArray[1])
                     {
+                        $counter = ($userAvailable) ? 2 : 1 ;
                         if (!$textArray[2])
                         {
+                            $counterDisplay = 1;
                             $response = "CON Report ".$cases[$textArray[1]]." for:\n";
-                            $response .= " 1. Other Account\n";
                             if ($userAvailable)
                             {
-                                $response .= " 2. My Account\n";
+                                $response .= " ".$counterDisplay++ . ". ".$userAvailable['Correlation ID']."\n";
                             }
+                            $response .= " ".$counterDisplay. ". Other Account\n";
                             $response .= "\n 0. Back to Main Menu\n";
 
                             header('Content-type: text/plain');
@@ -299,7 +399,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         }
                         else
                         {
-                            if ($textArray[2] == "1")
+                            if ($textArray[2] == $counter)
                             {
                                 if (!$textArray[3])
                                 {
@@ -353,7 +453,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 }
                                 
                             }
-                            elseif ($textArray[2] == "2")
+                            elseif ($textArray[2] == "1")
                             {
                                 if (!$textArray[3])
                                 {
@@ -403,12 +503,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
 
                 if (!$textArray[1])
                 {
-                    $response = "CON Change Plan for:\n";
-                    $response .= " 1. Other Account\n";
-                    if ($userAvailable)
-                    {
-                        $response .= " 2. My Account\n";
-                    }
+                    $response = "CON 1. Check service status\n";
+                    $response .= " 2. Change Plan\n";
                     $response .= "\n 0. Back to Main Menu\n";
 
                     header('Content-type: text/plain');
@@ -416,37 +512,123 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 }
                 else
                 {
-                    if ($textArray[1] == "1")
+                    if ($textArray[1] == 1)
                     {
+                        $counter = ($userAvailable) ? 2 : 1 ;
                         if (!$textArray[2])
                         {
-                            $response = "CON Input the account number:\n";
+                            $counterDisplay = 1;
+                            $response = "CON Check status for:\n";
+                            if ($userAvailable)
+                            {
+                                $response .= " ".$counterDisplay++ . ". ".$userAvailable['Correlation ID']."\n";
+                            }
+                            $response .= " ".$counterDisplay. ". Other Account\n";
                             $response .= "\n 0. Back to Main Menu\n";
+
+                            header('Content-type: text/plain');
                             echo $response;
                         }
                         else
                         {
-                            $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                            TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$textArray[2]."%' LIMIT 1");
-                            $stmt->execute();
-                                
-                            $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                            if (($key = array_search($accountAvailable['capacity'], $offered_package)) !== false) {
-                                unset($offered_package[$key]);
-                            }
-                            $i = 1;
-                            foreach($offered_package as $mbps)
+                            if ($textArray[2] == $counter)
                             {
-                                $notmypackage[$i++] = $mbps;
-                            }
-
-                            if (!$textArray[3])
-                            {
-                                if ($accountAvailable)
+                                if (!$textArray[3])
                                 {
-                                    $response = "CON Change plan of the account no.".$accountAvailable['Correlation ID']." belonging to ";
-                                    $response .= $accountAvailable['FirstName']." ".$accountAvailable['LastName']." from ".$accountAvailable['capacity']." to:\n";
+                                    $response = "CON Input the account number:\n";
+                                    $response .= "\n 0. Back to Main Menu\n";
+                                    echo $response;
+                                }
+                                else
+                                {
+                                    $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
+                                    $stmt->execute();
+                                        
+                                    $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                    if (($key = array_search($accountAvailable['capacity'], $offered_package)) !== false) {
+                                        unset($offered_package[$key]);
+                                    }
+                                    $i = 1;
+                                    foreach($offered_package as $mbps)
+                                    {
+                                        $notmypackage[$i++] = $mbps;
+                                    }
+
+                                    if (!$textArray[4])
+                                    {
+                                        if ($accountAvailable)
+                                        {
+                                            $response = "CON Change plan of the account no.".$accountAvailable['Correlation ID']." belonging to ";
+                                            $response .= $accountAvailable['FirstName']." ".$accountAvailable['LastName']." from ".$accountAvailable['capacity']." to:\n";
+                                            foreach($notmypackage as $key=>$value)
+                                            {
+                                                $response .=  " " . $key . ". " . $value . "\n";
+                                            }
+                                            $response .= "\n 0. Back to Main Menu\n";
+                                            echo $response;
+                                        }
+                                        else
+                                        {
+                                            $response = "END The specified account could not be found in our records.";
+                                            echo $response;
+                                        }                                
+                                    }
+                                    else
+                                    {
+                                        if (!$textArray[5])
+                                        {
+                                            $response = "CON Change Plan for account no.".$accountAvailable['Correlation ID']." from ";
+                                            $response .= $accountAvailable['capacity']." to ".$notmypackage[$textArray[4]].":\n";
+                                            $response .= " 1. Yes\n";
+                                            $response .= " 2. No\n";
+                                            $response .= "\n 0. Back to Main Menu\n";
+
+                                            echo $response;
+                                        }
+                                        else
+                                        {
+                                            if ($textArray[5] == "1")
+                                            {
+                                                $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
+                                                    VALUES ('".$accountAvailable['Correlation ID']."', '".$accountAvailable['capacity']."', '".$notmypackage[$textArray[4]]."');");
+                                                
+                                                $response = "END Your details have been captured and you will get a call from us soon.";
+                                                echo $response;
+                                            }
+                                            else
+                                            {
+                                                $response = "END Thank you for accessing our services.";
+                                                echo $response;
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                                
+                            }
+                            elseif ($textArray[2] == "1")
+                            {
+                                $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$userAvailable['Correlation ID']."%' LIMIT 1");
+                                $stmt->execute();
+                                        
+                                $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                if (($key = array_search($userAvailable['capacity'], $offered_package)) !== false) {
+                                    unset($offered_package[$key]);
+                                }
+                                $i = 1;
+                                foreach($offered_package as $mbps)
+                                {
+                                    $notmypackage[$i++] = $mbps;
+                                }
+
+                                if (!$textArray[3])
+                                {
+                                    $response = "CON Change Plan of the account no.".$userAvailable['Correlation ID']." belonging to ";
+                                    $response .= $userAvailable['FirstName']." ".$userAvailable['LastName']." from ".$userAvailable['capacity']." to:\n";
                                     foreach($notmypackage as $key=>$value)
                                     {
                                         $response .=  " " . $key . ". " . $value . "\n";
@@ -456,99 +638,191 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 }
                                 else
                                 {
-                                    $response = "END The specified account could not be found in our records.";
-                                    echo $response;
-                                }                                
-                            }
-                            else
-                            {
-                                if (!$textArray[4])
-                                {
-                                    $response = "CON Change Plan for account no.".$accountAvailable['Correlation ID']." from ";
-                                    $response .= $accountAvailable['capacity']." to ".$notmypackage[$textArray[3]].":\n";
-                                    $response .= " 1. Yes\n";
-                                    $response .= " 2. No\n";
-                                    $response .= "\n 0. Back to Main Menu\n";
-
-                                    echo $response;
-                                }
-                                else
-                                {
-                                    if ($textArray[4] == "1")
+                                    if (!$textArray[4])
                                     {
-                                        $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
-                                            VALUES ('".$accountAvailable['Correlation ID']."', '".$accountAvailable['capacity']."', '".$notmypackage[$textArray[3]]."');");
-                                        
-                                        $response = "END Your details have been captured and you will get a call from us soon.";
+                                        $response = "CON Change Plan for account no.".$userAvailable['Correlation ID']." from ";
+                                        $response .= $userAvailable['capacity']." to ".$notmypackage[$textArray[3]].":\n";
+                                        $response .= " 1. Yes\n";
+                                        $response .= " 2. No\n";
+                                        $response .= "\n 0. Back to Main Menu\n";
+
                                         echo $response;
                                     }
                                     else
                                     {
-                                        $response = "END Thank you for accessing our services.";
-                                        echo $response;
+                                        if ($textArray[4] == "1")
+                                        {
+                                            $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
+                                                VALUES ('".$userAvailable['Correlation ID']."', '".$userAvailable['capacity']."', '".$notmypackage[$textArray[3]]."');");
+                                        
+                                            $response = "END Your details have been captured and you will get a call from us soon.";
+                                            echo $response;
+                                        }
+                                        else
+                                        {
+                                            $response = "END Thank you for accessing our services.";
+                                            echo $response;
+                                        }
+                                        
                                     }
-                                    
                                 }
                             }
                         }
-                        
                     }
-                    elseif ($textArray[1] == "2")
+                    elseif ($textArray[1] == 2)
                     {
-                        $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                        TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$userAvailable['Correlation ID']."%' LIMIT 1");
-                        $stmt->execute();
-                                
-                        $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                        if (($key = array_search($userAvailable['capacity'], $offered_package)) !== false) {
-                            unset($offered_package[$key]);
-                        }
-                        $i = 1;
-                        foreach($offered_package as $mbps)
-                        {
-                            $notmypackage[$i++] = $mbps;
-                        }
-
+                        $counter = ($userAvailable) ? 2 : 1 ;
                         if (!$textArray[2])
                         {
-                            $response = "CON Change Plan of the account no.".$userAvailable['Correlation ID']." belonging to ";
-                            $response .= $userAvailable['FirstName']." ".$userAvailable['LastName']." from ".$userAvailable['capacity']." to:\n";
-                            foreach($notmypackage as $key=>$value)
+                            $counterDisplay = 1;
+                            $response = "CON Change Plan for:\n";
+                            if ($userAvailable)
                             {
-                                $response .=  " " . $key . ". " . $value . "\n";
+                                $response .= " ".$counterDisplay++ . ". ".$userAvailable['Correlation ID']."\n";
                             }
+                            $response .= " ".$counterDisplay. ". Other Account\n";
                             $response .= "\n 0. Back to Main Menu\n";
+
+                            header('Content-type: text/plain');
                             echo $response;
                         }
                         else
                         {
-                            if (!$textArray[3])
+                            if ($textArray[2] == $counter)
                             {
-                                $response = "CON Change Plan for account no.".$userAvailable['Correlation ID']." from ";
-                                $response .= $userAvailable['capacity']." to ".$notmypackage[$textArray[2]].":\n";
-                                $response .= " 1. Yes\n";
-                                $response .= " 2. No\n";
-                                $response .= "\n 0. Back to Main Menu\n";
-
-                                echo $response;
-                            }
-                            else
-                            {
-                                if ($textArray[3] == "1")
+                                if (!$textArray[3])
                                 {
-                                    $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
-                                        VALUES ('".$userAvailable['Correlation ID']."', '".$userAvailable['capacity']."', '".$notmypackage[$textArray[2]]."');");
-                                
-                                    $response = "END Your details have been captured and you will get a call from us soon.";
+                                    $response = "CON Input the account number:\n";
+                                    $response .= "\n 0. Back to Main Menu\n";
                                     echo $response;
                                 }
                                 else
                                 {
-                                    $response = "END Thank you for accessing our services.";
-                                    echo $response;
+                                    $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
+                                    $stmt->execute();
+                                        
+                                    $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                    if (($key = array_search($accountAvailable['capacity'], $offered_package)) !== false) {
+                                        unset($offered_package[$key]);
+                                    }
+                                    $i = 1;
+                                    foreach($offered_package as $mbps)
+                                    {
+                                        $notmypackage[$i++] = $mbps;
+                                    }
+
+                                    if (!$textArray[4])
+                                    {
+                                        if ($accountAvailable)
+                                        {
+                                            $response = "CON Change plan of the account no.".$accountAvailable['Correlation ID']." belonging to ";
+                                            $response .= $accountAvailable['FirstName']." ".$accountAvailable['LastName']." from ".$accountAvailable['capacity']." to:\n";
+                                            foreach($notmypackage as $key=>$value)
+                                            {
+                                                $response .=  " " . $key . ". " . $value . "\n";
+                                            }
+                                            $response .= "\n 0. Back to Main Menu\n";
+                                            echo $response;
+                                        }
+                                        else
+                                        {
+                                            $response = "END The specified account could not be found in our records.";
+                                            echo $response;
+                                        }                                
+                                    }
+                                    else
+                                    {
+                                        if (!$textArray[5])
+                                        {
+                                            $response = "CON Change Plan for account no.".$accountAvailable['Correlation ID']." from ";
+                                            $response .= $accountAvailable['capacity']." to ".$notmypackage[$textArray[4]].":\n";
+                                            $response .= " 1. Yes\n";
+                                            $response .= " 2. No\n";
+                                            $response .= "\n 0. Back to Main Menu\n";
+
+                                            echo $response;
+                                        }
+                                        else
+                                        {
+                                            if ($textArray[5] == "1")
+                                            {
+                                                $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
+                                                    VALUES ('".$accountAvailable['Correlation ID']."', '".$accountAvailable['capacity']."', '".$notmypackage[$textArray[4]]."');");
+                                                
+                                                $response = "END Your details have been captured and you will get a call from us soon.";
+                                                echo $response;
+                                            }
+                                            else
+                                            {
+                                                $response = "END Thank you for accessing our services.";
+                                                echo $response;
+                                            }
+                                            
+                                        }
+                                    }
                                 }
                                 
+                            }
+                            elseif ($textArray[2] == "1")
+                            {
+                                $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$userAvailable['Correlation ID']."%' LIMIT 1");
+                                $stmt->execute();
+                                        
+                                $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                if (($key = array_search($userAvailable['capacity'], $offered_package)) !== false) {
+                                    unset($offered_package[$key]);
+                                }
+                                $i = 1;
+                                foreach($offered_package as $mbps)
+                                {
+                                    $notmypackage[$i++] = $mbps;
+                                }
+
+                                if (!$textArray[3])
+                                {
+                                    $response = "CON Change Plan of the account no.".$userAvailable['Correlation ID']." belonging to ";
+                                    $response .= $userAvailable['FirstName']." ".$userAvailable['LastName']." from ".$userAvailable['capacity']." to:\n";
+                                    foreach($notmypackage as $key=>$value)
+                                    {
+                                        $response .=  " " . $key . ". " . $value . "\n";
+                                    }
+                                    $response .= "\n 0. Back to Main Menu\n";
+                                    echo $response;
+                                }
+                                else
+                                {
+                                    if (!$textArray[4])
+                                    {
+                                        $response = "CON Change Plan for account no.".$userAvailable['Correlation ID']." from ";
+                                        $response .= $userAvailable['capacity']." to ".$notmypackage[$textArray[3]].":\n";
+                                        $response .= " 1. Yes\n";
+                                        $response .= " 2. No\n";
+                                        $response .= "\n 0. Back to Main Menu\n";
+
+                                        echo $response;
+                                    }
+                                    else
+                                    {
+                                        if ($textArray[4] == "1")
+                                        {
+                                            $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
+                                                VALUES ('".$userAvailable['Correlation ID']."', '".$userAvailable['capacity']."', '".$notmypackage[$textArray[3]]."');");
+                                        
+                                            $response = "END Your details have been captured and you will get a call from us soon.";
+                                            echo $response;
+                                        }
+                                        else
+                                        {
+                                            $response = "END Thank you for accessing our services.";
+                                            echo $response;
+                                        }
+                                        
+                                    }
+                                }
                             }
                         }
                     }
@@ -558,52 +832,76 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
             default:
                 if (!$textArray[1])
                 {
-                    $response = "CON Would you like to speak with one of us?\n";
-                    $response .= " 1. Yes\n";
-                    $response .= " 2. No\n";
+                    $response = "CON What would you like to know:\n";
+                    foreach($questions as $key=>$value)
+                    {
+                        $response .=  " " . $key . ". " . $value['question'] . "\n";
+                    }
+                    $response .= " ".strval(sizeof($questions)+1).". Speak with one of us\n";						
                     $response .= "\n 0. Back to Main Menu\n";
+                    
+                    // Print the response onto the page so that our gateway can read it
+                    header('Content-type: text/plain');
                     echo $response;
                 }
                 else
                 {
-                    if ($textArray[1] == "1")
+                    if ($textArray[1] <= sizeof($questions))
                     {
-                        if ($userAvailable)
+                        $response = "END ".$questions[$textArray[1]]['answer']."\n";
+                        echo $response;
+                    }
+                    if ($textArray[1] == sizeof($questions)+1)
+                    {
+                        if (!$textArray[2])
                         {
-                            $stmt = $db->query("INSERT INTO `chat` (`Customer ID`,`FirstName`,`LastName`,`Contact Number`)
-                                VALUES ('".$userAvailable['Customer ID']."', '".$userAvailable['FirstName']."','".$userAvailable['LastName']."', '".$phoneNumber."');");
-
-                            $response = "END Our representative will reach out to you shortly.";
+                            $response = "CON Would you like to speak with one of us?\n";
+                            $response .= " 1. Yes\n";
+                            $response .= " 2. No\n";
+                            $response .= "\n 0. Back to Main Menu\n";
                             echo $response;
                         }
                         else
                         {
-                            if (!$textArray[2])
+                            if ($textArray[2] == "1")
                             {
-                                $response = "CON Input your full name.\n";
-                                $response .= "\n 0. Back to Main Menu\n";
-                                echo $response;
+                                if ($userAvailable)
+                                {
+                                    $stmt = $db->query("INSERT INTO `chat` (`Customer ID`,`FirstName`,`LastName`,`Contact Number`)
+                                        VALUES ('".$userAvailable['Customer ID']."', '".$userAvailable['FirstName']."','".$userAvailable['LastName']."', '".$phoneNumber."');");
+
+                                    $response = "END Our representative will reach out to you shortly.";
+                                    echo $response;
+                                }
+                                else
+                                {
+                                    if (!$textArray[3])
+                                    {
+                                        $response = "CON Input your full name.\n";
+                                        $response .= "\n 0. Back to Main Menu\n";
+                                        echo $response;
+                                    }
+                                    else
+                                    {
+                                        $fullName = explode(" ", $textArray[3], 2);
+                                        $stmt = $db->query("INSERT INTO `chat` (`FirstName`,`LastName`,`Contact Number`)
+                                            VALUES ('".$fullName[0]."','".$fullName[1]."', '".$phoneNumber."');");
+
+                                        $response = "END Our representative will reach out to you shortly.";
+                                        echo $response;
+                                    }  
+                                }
                             }
                             else
                             {
-                                $fullName = explode(" ", $textArray[2], 2);
-                                $stmt = $db->query("INSERT INTO `chat` (`FirstName`,`LastName`,`Contact Number`)
-                                    VALUES ('".$fullName[0]."','".$fullName[1]."', '".$phoneNumber."');");
-
-                                $response = "END Our representative will reach out to you shortly.";
+                                $response = "END Thank you for accessing our services.";
                                 echo $response;
-                            }  
-                        }
-                    }
-                    else
-                    {
-                        $response = "END Thank you for accessing our services.";
-                        echo $response;
-                    }
-                }              
+                            }
+                        } 
+                    }  
+                }
+                           
         }
     }
 }
-     
-
 ?>

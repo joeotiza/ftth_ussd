@@ -2,7 +2,7 @@
  <div class="col-md-12">
         <div class="card card-outline card-success">
           <div class="card-header">
-            <b>Project Progress</b>
+            <b>Existing Customers</b>
             <div class="card-tools">
                 <form action="excel.php" method="POST">
                     <select name="export_file_type" class="form_control">
@@ -28,13 +28,14 @@
                   <th>Customer ID</th>
                   <th>Customer Name</th>
                   <th>Mobile Number</th>
-                  <th>Location</th>
+                  <th>Area</th>
+                  <th>Address</th>
                   <th>Requested Capacity</th>
                   <th>Request Time</th>
                 </thead>
                 <tbody>
                 <?php
-                $qry = $conn->query("SELECT * FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc");
+                $qry = $conn->query("SELECT *, `get_internet`.`Address` as `myAddress` FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc");
                 while($row= $qry->fetch_assoc()):
                   ?>
                   <tr>
@@ -48,7 +49,10 @@
                       	<?php echo $row['Contact Number'] ?>
                       </td>
                       <td class="text-center">
-                      	<?php echo $row['Location'] ?>
+                      	<?php echo $row['Area'] ?>
+                      </td>
+                      <td class="text-left">
+                      	<?php echo $row['myAddress'] ?>
                       </td>
                       <td class="text-center">
                       	<?php echo $row['Capacity'] ?>

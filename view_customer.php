@@ -21,7 +21,8 @@ if(isset($_GET['id'])){
 				<thead>
 					<tr>
 						<th>&nbspRequest Time&nbsp</th>
-						<th>&nbspLocation&nbsp</th>
+						<th>&nbspArea&nbsp</th>
+						<th>&nbspAddress&nbsp</th>
 						<th>&nbspCapacity</th>
 					</tr>
 				</thead>
@@ -32,7 +33,8 @@ if(isset($_GET['id'])){
 					?>
 					<tr>
 						<td>&nbsp<?php echo $row['request_date'] ?>&nbsp</td>
-						<td>&nbsp<?php echo $row['Location'] ?>&nbsp</td>
+						<td>&nbsp<?php echo $row['Area'] ?>&nbsp</td>
+						<td>&nbsp<?php echo $row['Address'] ?>&nbsp</td>
 						<td>&nbsp<?php echo $row['Capacity'] ?>&nbsp</td>
 					</tr>	
 					<?php endwhile; ?>
