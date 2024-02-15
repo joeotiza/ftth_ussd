@@ -31,14 +31,16 @@
 					$type = array('',"Admin","Project Manager","Employee");
 
 					$readCapacity = "IF(`GPONPlan` LIKE \"%100%MBPS%\", '100Mbps',
-                                    IF(`GPONPlan` LIKE \"%60%MBPS%\", '60Mbps',
-										IF(`GPONPlan` LIKE \"%50%MBPS%\", '50Mbps',
-                                            IF(`GPONPlan` LIKE \"%40%MBPS%\", '40Mbps',
-											    IF(`GPONPlan` LIKE \"%25%MBPS%\", '25Mbps',
-												    IF(`GPONPlan` LIKE \"%10%MBPS%\", '10Mbps',
-													    IF(`GPONPlan` LIKE \"%5%MBPS%\", '5Mbps',
-                                                            IF(`GPONPlan` LIKE \"%3%MBPS%\", '3Mbps',
-														        'N/A'))))))))";
+										IF(`GPONPlan` LIKE \"%65%MBPS%\", '65Mbps',
+											IF(`GPONPlan` LIKE \"%60%MBPS%\", '60Mbps',
+												IF(`GPONPlan` LIKE \"%50%MBPS%\", '50Mbps',
+													IF(`GPONPlan` LIKE \"%40%MBPS%\", '40Mbps',
+														IF(`GPONPlan` LIKE \"%25%MBPS%\", '25Mbps',
+															IF(`GPONPlan` LIKE \"%10%MBPS%\", '10Mbps',
+																IF(`GPONPlan` LIKE \"%5%MBPS%\", '5Mbps',
+																	IF(`GPONPlan` LIKE \"%4%MBPS%\", '4Mbps',
+																		IF(`GPONPlan` LIKE \"%3%MBPS%\", '3Mbps',
+																			'N/A'))))))))))";
 
 					$qry = $conn->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
 					TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName, ".$readCapacity." as capacity FROM customers");

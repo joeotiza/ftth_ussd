@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 07, 2024 at 06:27 AM
+-- Generation Time: Feb 15, 2024 at 07:22 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -39,7 +39,8 @@ CREATE TABLE `cases_reported` (
 --
 
 INSERT INTO `cases_reported` (`id`, `Correlation ID`, `reported_case`, `time`) VALUES
-(2, 'haik101827', 'Poor Signal Strength', '2024-02-05 14:25:38');
+(2, 'haik101827', 'Poor Signal Strength', '2024-02-05 14:25:38'),
+(3, '94182', 'Poor Signal Strength', '2024-02-12 13:34:59');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,8 @@ CREATE TABLE `chat` (
 INSERT INTO `chat` (`id`, `Customer ID`, `FirstName`, `LastName`, `Contact Number`, `time`) VALUES
 (2, 'LHK-00011', 'John', 'Mutata', '+254717810466', '2024-01-27 14:10:37'),
 (3, NULL, 'Samson', 'Delilah', '+254722654333', '2024-02-05 14:24:20'),
-(4, 'LHK-00047', 'CAROLINE', 'MBAABU', '+254700781708', '2024-02-05 14:25:53');
+(4, 'LHK-00047', 'CAROLINE', 'MBAABU', '+254700781708', '2024-02-05 14:25:53'),
+(5, 'LHK-00010', 'Joash', 'Mkitanga', '+254780419095', '2024-02-12 12:56:59');
 
 -- --------------------------------------------------------
 
@@ -3652,10 +3654,7 @@ CREATE TABLE `customer_details` (
 --
 
 INSERT INTO `customer_details` (`Customer ID`, `FirstName`, `LastName`, `Contact Number`, `reg_date`) VALUES
-(2, 'Joseph', 'Otieno', '+254711952087', '2024-01-26 13:03:42'),
-(4, 'Chapo', 'Beans', '+254733678904', '2024-01-30 10:29:34'),
-(5, 'Case', 'Were', '+254788999444', '2024-01-31 12:51:13'),
-(6, 'Samson', 'Delilah', '+254722654333', '2024-02-05 14:16:40');
+(1, 'Joseph', 'Otieno', '+254711952087', '2024-02-12 14:02:10');
 
 -- --------------------------------------------------------
 
@@ -3666,7 +3665,8 @@ INSERT INTO `customer_details` (`Customer ID`, `FirstName`, `LastName`, `Contact
 CREATE TABLE `get_internet` (
   `Customer ID` varchar(30) NOT NULL,
   `Capacity` varchar(20) NOT NULL,
-  `Location` varchar(30) NOT NULL,
+  `Area` varchar(30) NOT NULL,
+  `Address` text DEFAULT NULL,
   `request_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -3674,14 +3674,15 @@ CREATE TABLE `get_internet` (
 -- Dumping data for table `get_internet`
 --
 
-INSERT INTO `get_internet` (`Customer ID`, `Capacity`, `Location`, `request_date`) VALUES
-('2', '10Mbps', 'Syokimau', '2024-01-26 13:03:42'),
-('2', '25Mbps', 'Runda', '2024-01-26 13:04:20'),
-('LHK-00010', '25Mbps', 'Syokimau', '2024-01-26 15:05:26'),
-('LHK-00011', '100Mbps', 'Embakasi', '2024-01-26 16:30:56'),
-('4', '25Mbps', 'Embakasi', '2024-01-30 10:29:34'),
-('5', '25Mbps', 'Runda', '2024-01-31 12:51:13'),
-('6', '10Mbps', 'Embakasi', '2024-02-05 14:16:40');
+INSERT INTO `get_internet` (`Customer ID`, `Capacity`, `Area`, `Address`, `request_date`) VALUES
+('LHK-00033', '25Mbps', 'Kikuyu', 'Kwa Makaa', '2024-02-12 13:55:22'),
+('1', '10Mbps', 'Gigiri', 'Gigiri Great Mall of champions', '2024-02-12 14:02:10'),
+('LHK-00004', '10Mbps', 'Embakasi', 'House 34', '2024-02-15 09:17:46'),
+('LHK-00003', '100Mbps', 'Gigiri', 'Warwick Centre Block 12', '2024-02-15 09:28:14'),
+('LHK-00011', '5Mbps', 'Ruiru', 'Sahara Ridge Estate, House 9', '2024-02-15 09:33:24'),
+('LHK-00026', '25Mbps', 'Greatwall', 'Great Wall Apartments Phase 2, House 12', '2024-02-15 11:05:52'),
+('LHK-00001', '100Mbps', 'Runda', 'Runda Estate, 12iop', '2024-02-15 11:25:22'),
+('LHK-00001', '40Mbps', 'Karen', 'Sandalwood Waterfront, 23', '2024-02-15 11:54:42');
 
 -- --------------------------------------------------------
 
@@ -3702,7 +3703,12 @@ CREATE TABLE `plan_change` (
 --
 
 INSERT INTO `plan_change` (`id`, `Correlation ID`, `from_mbps`, `to_mbps`, `request_time`) VALUES
-(3, 'haik100236', '5Mbps', '50Mbps', '2024-02-05 14:22:06');
+(3, 'haik100236', '5Mbps', '50Mbps', '2024-02-05 14:22:06'),
+(4, 'haik105551', '50Mbps', '100Mbps', '2024-02-12 12:28:44'),
+(5, 'haik100340', '10Mbps', '100Mbps', '2024-02-12 12:35:00'),
+(6, '94182', '10Mbps', '50Mbps', '2024-02-12 13:41:37'),
+(7, 'haik101142', '25Mbps', '50Mbps', '2024-02-15 11:07:14'),
+(8, 'haik101611', '100Mbps', '40Mbps', '2024-02-15 11:52:41');
 
 -- --------------------------------------------------------
 
@@ -3900,25 +3906,25 @@ ALTER TABLE `user_productivity`
 -- AUTO_INCREMENT for table `cases_reported`
 --
 ALTER TABLE `cases_reported`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `customer_details`
 --
 ALTER TABLE `customer_details`
-  MODIFY `Customer ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Customer ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `plan_change`
 --
 ALTER TABLE `plan_change`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `project_list`

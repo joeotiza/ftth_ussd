@@ -1,15 +1,15 @@
 <?php
 
 /**
-  * USSD Based Mobile Money Application  
+  * USSD Based FTTH account management Application  
   *
   * @category PHP
   *
-  * @author  Basil Ndonga <basilndonga@gmail.com>
+  * @author  Joseph Otieno <joeotiza@gmail.com>
   *
-  * @version 1.0.0
+  * @version 2.1.0
   *
-  * For enquies dont hesitate to contact me on +254 728 986 084
+  * For enquies dont hesitate to contact me on +254 711 952 087
   *
   **/
 
@@ -62,11 +62,11 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
     $firstName = ($userAvailable) ? $userAvailable['FirstName'] : '';
 
     $package = array(
-        "1"=>array('capacity'=>"5Mbps" ,'price'=>"(KES 2,395)"),
-        "2"=>array('capacity'=>"10Mbps",'price'=>"(KES 3,354)"),
-        "3"=>array('capacity'=>"25Mbps",'price'=>"(KES 4,982)"),
-        "4"=>array('capacity'=>"50Mbps",'price'=>"(KES 6,554)"),
-        "5"=>array('capacity'=>"100Mbps",'price'=>"(KES 11,499)"));
+        "1"=>array('capacity'=>"4Mbps" ,'price'=>"(KES 1,500)"),
+        "2"=>array('capacity'=>"10Mbps" ,'price'=>"(KES 2,799)"),
+        "3"=>array('capacity'=>"40Mbps",'price'=>"(KES 4,499)"),
+        "4"=>array('capacity'=>"65Mbps",'price'=>"(KES 9,499)"),
+        "5"=>array('capacity'=>"100Mbps",'price'=>"(KES 11,999)"));
 
     $questions = array
     (
@@ -101,7 +101,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
     {
         $response = "CON Welcome " . $firstName;
         $response .= "\nSelect an option.\n";
-        $response .= " 1. Get Home Internet\n";
+        $response .= " 1. Get Home Wi-Fi (Internet)\n";
         $response .= " 2. Pay\n";
         $response .= " 3. Report a Case\n";
         $response .= " 4. Manage Account\n";						
@@ -127,7 +127,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         2=>"Rosslyn Valley",
                         3=>"Runda Estate",
                         4=>"The Horseshoe Village",
-                        5=>"OTHER")
+                        5=>"Other")
                     ),
                 "2"=>array(
                     'name'=>"Greatwall",
@@ -136,7 +136,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         2=>"Great Wall Apartments Phase 2",
                         3=>"Great Wall Apartments Phase 3",
                         4=>"Wema Villas, Athi River",
-                        5=>"OTHER")
+                        5=>"Other")
                     ),
                 "3"=>array(
                     'name'=>"Embakasi",
@@ -147,7 +147,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         4=>"Tumaini Court",
                         5=>"Aviation/NSSF",
                         6=>"Kwa Ndege",
-                        7=>"OTHER")
+                        7=>"Other")
                     ),
                 "4"=>array(
                     'name'=>"Westlands",
@@ -155,7 +155,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         1=>"Muthithi Road",
                         2=>"Taarifa Road",
                         3=>"Mideya Gardens",
-                        4=>"OTHER")
+                        4=>"Other")
                     ),
                 "5"=>array(
                     'name'=>"Gigiri",
@@ -163,7 +163,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         1=>"Village Road",
                         2=>"Gigiri Drive",
                         3=>"Warwick Centre",
-                        4=>"OTHER")
+                        4=>"Other")
                     ),
                 "6"=>array(
                     'name'=>"Kileleshwa",
@@ -171,37 +171,37 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         1=>"Gatundu Road",
                         2=>"Mandera Road",
                         3=>"Gichugu Road",
-                        4=>"OTHER")
+                        4=>"Other")
                     ),
                 "7"=>array(
                     'name'=>"Kilimani",
                     'estate'=>array(
                         1=>"Naivasha Road",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "8"=>array(
                     'name'=>"Ngong Road",
                     'estate'=>array(
                         1=>"Ngong Road",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "9"=>array(
                     'name'=>"Karen",
                     'estate'=>array(
                         1=>"Sandalwood Waterfront",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "10"=>array(
                     'name'=>"Kitusuru",
                     'estate'=>array(
                         1=>"Kirawa Road",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "11"=>array(
                     'name'=>"Kikuyu",
                     'estate'=>array(
                         1=>"Liberty Suites Muthiga",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "12"=>array(
                     'name'=>"Mwimuto",
@@ -209,32 +209,32 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         1=>"Solomon Stump",
                         2=>"Getathuru Road",
                         3=>"The Aviv Kitusuru",
-                        4=>"OTHER")
+                        4=>"Other")
                     ),
                 "13"=>array(
                     'name'=>"Kiambu",
                     'estate'=>array(
                         1=>"Ndenderu-Banana Link",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "14"=>array(
                     'name'=>"Ruiru",
                     'estate'=>array(
                         1=>"Sahara Ridge Estate",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "15"=>array(
                     'name'=>"Thika",
                     'estate'=>array(
                         1=>"Imani Estate (Delmonte)",
-                        2=>"OTHER")
+                        2=>"Other")
                     ),
                 "16"=>array(
                     'name'=>"Kawangware",
                     'estate'=>array(
                         1=>"Gitanga Road",
                         2=>"Macharia Road",
-                        2=>"OTHER")
+                        2=>"Other")
                     ));
 
                 if (!$textArray[1])
@@ -314,7 +314,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         {
                             if (!$textArray[$continue+3])
                             {
-                                $response = "CON Enter further Address details(Block/House No/Description).\n";
+                                $response = "CON Enter House No.\n";
                                 $response .= "\n 0. Back to Main Menu\n";
 
                                 header('Content-type: text/plain');
@@ -614,14 +614,16 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 }
 
                 $readCapacity = "IF(`GPONPlan` LIKE \"%100%MBPS%\", '100Mbps',
-                                    IF(`GPONPlan` LIKE \"%60%MBPS%\", '60Mbps',
-										IF(`GPONPlan` LIKE \"%50%MBPS%\", '50Mbps',
-                                            IF(`GPONPlan` LIKE \"%40%MBPS%\", '40Mbps',
-											    IF(`GPONPlan` LIKE \"%25%MBPS%\", '25Mbps',
-												    IF(`GPONPlan` LIKE \"%10%MBPS%\", '10Mbps',
-													    IF(`GPONPlan` LIKE \"%5%MBPS%\", '5Mbps',
-                                                            IF(`GPONPlan` LIKE \"%3%MBPS%\", '3Mbps',
-														        'N/A'))))))))";
+                                    IF(`GPONPlan` LIKE \"%65%MBPS%\", '65Mbps',
+                                        IF(`GPONPlan` LIKE \"%60%MBPS%\", '60Mbps',
+                                            IF(`GPONPlan` LIKE \"%50%MBPS%\", '50Mbps',
+                                                IF(`GPONPlan` LIKE \"%40%MBPS%\", '40Mbps',
+                                                    IF(`GPONPlan` LIKE \"%25%MBPS%\", '25Mbps',
+                                                        IF(`GPONPlan` LIKE \"%10%MBPS%\", '10Mbps',
+                                                            IF(`GPONPlan` LIKE \"%5%MBPS%\", '5Mbps',
+                                                                IF(`GPONPlan` LIKE \"%4%MBPS%\", '4Mbps',
+                                                                    IF(`GPONPlan` LIKE \"%3%MBPS%\", '3Mbps',
+                                                                        'N/A'))))))))))";
 
                 if (!$textArray[1])
                 {
