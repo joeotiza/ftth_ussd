@@ -61,6 +61,13 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
     $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
     $firstName = ($userAvailable) ? $userAvailable['FirstName'] : '';
 
+    $package = array(
+        "1"=>array('capacity'=>"5Mbps" ,'price'=>"(KES 2,395)"),
+        "2"=>array('capacity'=>"10Mbps",'price'=>"(KES 3,354)"),
+        "3"=>array('capacity'=>"25Mbps",'price'=>"(KES 4,982)"),
+        "4"=>array('capacity'=>"50Mbps",'price'=>"(KES 6,554)"),
+        "5"=>array('capacity'=>"100Mbps",'price'=>"(KES 11,499)"));
+
     $questions = array
     (
         "1" => array
@@ -112,30 +119,123 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
         switch ($textArray[0])
         {
             case "1":
-                $package = array(
-                "1"=>"5Mbps (KES 2,395)",
-                "2"=>"10Mbps (KES 3,354)",
-                "3"=>"25Mbps (KES 4,982)",
-                "4"=>"50Mbps (KES 6,554)",
-                "5"=>"100Mbps (KES 11,499)");
-
                 $area = array(
-                "1"=>"Runda",
-                "2"=>"Greatwall",
-                "3"=>"Embakasi",
-                "4"=>"Westlands",
-                "5"=>"Gigiri",
-                "6"=>"Kileleshwa",
-                "7"=>"Kilimani",
-                "8"=>"Ngong Road",
-                "9"=>"Karen",
-                "10"=>"Kitusuru",
-                "11"=>"Kikuyu",
-                "12"=>"Mwimuto",
-                "13"=>"Kiambu",
-                "14"=>"Ruiru",
-                "15"=>"Thika",
-                "16"=>"Kawangware");
+                "1"=>array(
+                    'name'=>"Runda",
+                    'estate'=>array(
+                        1=>"Edenville Phase 1",
+                        2=>"Rosslyn Valley",
+                        3=>"Runda Estate",
+                        4=>"The Horseshoe Village",
+                        5=>"OTHER")
+                    ),
+                "2"=>array(
+                    'name'=>"Greatwall",
+                    'estate'=>array(
+                        1=>"Great Wall Apartments Phase 1",
+                        2=>"Great Wall Apartments Phase 2",
+                        3=>"Great Wall Apartments Phase 3",
+                        4=>"Wema Villas, Athi River",
+                        5=>"OTHER")
+                    ),
+                "3"=>array(
+                    'name'=>"Embakasi",
+                    'estate'=>array(
+                        1=>"Amani Court",
+                        2=>"Church Court",
+                        3=>"Afya Court",
+                        4=>"Tumaini Court",
+                        5=>"Aviation/NSSF",
+                        6=>"Kwa Ndege",
+                        7=>"OTHER")
+                    ),
+                "4"=>array(
+                    'name'=>"Westlands",
+                    'estate'=>array(
+                        1=>"Muthithi Road",
+                        2=>"Taarifa Road",
+                        3=>"Mideya Gardens",
+                        4=>"OTHER")
+                    ),
+                "5"=>array(
+                    'name'=>"Gigiri",
+                    'estate'=>array(
+                        1=>"Village Road",
+                        2=>"Gigiri Drive",
+                        3=>"Warwick Centre",
+                        4=>"OTHER")
+                    ),
+                "6"=>array(
+                    'name'=>"Kileleshwa",
+                    'estate'=>array(
+                        1=>"Gatundu Road",
+                        2=>"Mandera Road",
+                        3=>"Gichugu Road",
+                        4=>"OTHER")
+                    ),
+                "7"=>array(
+                    'name'=>"Kilimani",
+                    'estate'=>array(
+                        1=>"Naivasha Road",
+                        2=>"OTHER")
+                    ),
+                "8"=>array(
+                    'name'=>"Ngong Road",
+                    'estate'=>array(
+                        1=>"Ngong Road",
+                        2=>"OTHER")
+                    ),
+                "9"=>array(
+                    'name'=>"Karen",
+                    'estate'=>array(
+                        1=>"Sandalwood Waterfront",
+                        2=>"OTHER")
+                    ),
+                "10"=>array(
+                    'name'=>"Kitusuru",
+                    'estate'=>array(
+                        1=>"Kirawa Road",
+                        2=>"OTHER")
+                    ),
+                "11"=>array(
+                    'name'=>"Kikuyu",
+                    'estate'=>array(
+                        1=>"Liberty Suites Muthiga",
+                        2=>"OTHER")
+                    ),
+                "12"=>array(
+                    'name'=>"Mwimuto",
+                    'estate'=>array(
+                        1=>"Solomon Stump",
+                        2=>"Getathuru Road",
+                        3=>"The Aviv Kitusuru",
+                        4=>"OTHER")
+                    ),
+                "13"=>array(
+                    'name'=>"Kiambu",
+                    'estate'=>array(
+                        1=>"Ndenderu-Banana Link",
+                        2=>"OTHER")
+                    ),
+                "14"=>array(
+                    'name'=>"Ruiru",
+                    'estate'=>array(
+                        1=>"Sahara Ridge Estate",
+                        2=>"OTHER")
+                    ),
+                "15"=>array(
+                    'name'=>"Thika",
+                    'estate'=>array(
+                        1=>"Imani Estate (Delmonte)",
+                        2=>"OTHER")
+                    ),
+                "16"=>array(
+                    'name'=>"Kawangware",
+                    'estate'=>array(
+                        1=>"Gitanga Road",
+                        2=>"Macharia Road",
+                        2=>"OTHER")
+                    ));
 
                 if (!$textArray[1])
                 {
@@ -143,7 +243,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                     foreach($area as $key=>$value)
                     {
                         if ($key > 6) continue;//ignore areas with index > 6
-                        $response .=  " " . $key . ". " . $value . "\n";
+                        $response .=  " " . $key . ". " . $value['name'] . "\n";
                     }
                     $response .= " 98. MORE\n";						
                     $response .= "\n 0. Back to Main Menu\n";
@@ -167,7 +267,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                             foreach($area as $key=>$value)
                             {
                                 if ($key <= 12) continue;//ignore areas with index <=12
-                                $response .=  " " . $key . ". " . $value . "\n";
+                                $response .=  " " . $key . ". " . $value['name'] . "\n";
                             }						
                             $response .= "\n 0. Back to Main Menu\n";
                                 
@@ -183,7 +283,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                             foreach($area as $key=>$value)
                             {
                                 if ($key <= 6 || $key > 12) continue;//ignore areas with index <6 and >12
-                                $response .=  " " . $key . ". " . $value . "\n";
+                                $response .=  " " . $key . ". " . $value['name'] . "\n";
                             }
                             $response .= " 98. MORE\n";					
                             $response .= "\n 0. Back to Main Menu\n";
@@ -196,12 +296,17 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                     }
                     // else
                     {
-                        //enter address
                         if (!$textArray[$continue+2])
+                        //enter address
                         {
-                            $response = "CON Enter the Address.\n";
+                            $response = "CON Select Estate/Court/Road.\n";
+                            foreach($area[$textArray[$continue+1]]['estate'] as $key=>$value)
+                            {
+                                $response .=  " " . $key . ". " . $value . "\n";
+                            }				
                             $response .= "\n 0. Back to Main Menu\n";
-
+                                
+                            // Print the response onto the page so that our gateway can read it
                             header('Content-type: text/plain');
                             echo $response;
                         }
@@ -209,11 +314,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         {
                             if (!$textArray[$continue+3])
                             {
-                                $response = "CON Select a Package.\n";
-                                foreach($package as $key=>$value)
-                                {
-                                    $response .=  " " . $key . ". " . $value . "\n";
-                                }						
+                                $response = "CON Enter further Address details(Block/House No/Description).\n";
                                 $response .= "\n 0. Back to Main Menu\n";
 
                                 header('Content-type: text/plain');
@@ -221,10 +322,14 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                             }
                             else
                             {
-                                $capacity = substr($package[$textArray[$continue+3]], 0, strpos($package[$textArray[$continue+3]], " (KES"));
-                                if (!$textArray[$continue+4] && !$userAvailable)
+                                if (!$textArray[$continue+4])
                                 {
-                                    $response = "CON Provide your full name.\n";
+                                    $response = "CON Select a Package.\n";
+                                    //$response .= $area[$textArray[$continue+1]]['estate'][$textArray[$continue+2]]."\n";
+                                    foreach($package as $key=>$value)
+                                    {
+                                        $response .=  " " . $key . ". " . $value['capacity']." ".$value['price'] . "\n";
+                                    }						
                                     $response .= "\n 0. Back to Main Menu\n";
 
                                     header('Content-type: text/plain');
@@ -232,35 +337,48 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 }
                                 else
                                 {
-                                    if (!$userAvailable)
+                                    $capacity = $package[$textArray[$continue+4]]['capacity'];
+                                    if (!$textArray[$continue+5] && !$userAvailable)
                                     {
-                                        //Record Customer Details
-                                        $fullName = explode(" ", $textArray[$continue+4], 2);
-                                        $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`)
-                                        VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."');");
-                                        //$stmt->execute();
+                                        $response = "CON Provide your full name.\n";
+                                        $response .= "\n 0. Back to Main Menu\n";
 
-                                        $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
-                                        $stmt->execute();
-                                        
-                                        $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        header('Content-type: text/plain');
+                                        echo $response;
                                     }
-                                    
-                                    //Record Get Internet Details
-                                    $stmt = $db->query("INSERT INTO `get_internet` (`Customer ID`,`Area`,`Address`,`Capacity`)
-                                    VALUES ('".$userAvailable['Customer ID']."', '".$area[$textArray[$continue+1]]."', '".$textArray[$continue+2]."', '" .$capacity."');");
-                                    //$stmt->execute();
+                                    else
+                                    {
+                                        if (!$userAvailable)
+                                        {
+                                            //Record Customer Details
+                                            $fullName = explode(" ", $textArray[$continue+5], 2);
+                                            $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`)
+                                            VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."');");
+                                            //$stmt->execute();
 
-                                    $response = "END Thank you ";
-                                    $response .= $userAvailable['FirstName'].".\n";
-                                    $response .= "Your details have been captured.\n";
-                                    $response .= "You will get a call from us to schedule the date of installation.\n";
+                                            $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
+                                            $stmt->execute();
+                                            
+                                            $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        }
+                                        
+                                        //Record Get Internet Details
+                                        $stmt = $db->query("INSERT INTO `get_internet` (`Customer ID`,`Area`,`Address`,`Capacity`)
+                                        VALUES ('".$userAvailable['Customer ID']."', '".$area[$textArray[$continue+1]]['name']."', '".$area[$textArray[$continue+1]]['estate'][$textArray[$continue+2]].", ".$textArray[$continue+3]."', '" .$capacity."');");
+                                        //$stmt->execute();
+                                        //$textArray[$continue+1]['estate'][$textArray[$continue+2]].
 
-                                    header('Content-type: text/plain');
-                                    echo $response;
-                                }
-                            }   
-                        } 
+                                        $response = "END Thank you ";
+                                        $response .= $userAvailable['FirstName'].".\n";
+                                        $response .= "Your details have been captured.\n";
+                                        $response .= "You will get a call from us to schedule the date of installation.\n";
+
+                                        header('Content-type: text/plain');
+                                        echo $response;
+                                    }
+                                }   
+                            } 
+                        }
                     }                  
                 }
                 break;
@@ -489,7 +607,11 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                 break;
 
             case "4":
-                $offered_package = array("5Mbps","10Mbps","25Mbps","50Mbps","100Mbps");
+                $offered_package = array();
+                foreach($package as $key=>$value)
+                {
+                    array_push($offered_package,$value['capacity']);
+                }
 
                 $readCapacity = "IF(`GPONPlan` LIKE \"%100%MBPS%\", '100Mbps',
                                     IF(`GPONPlan` LIKE \"%60%MBPS%\", '60Mbps',
