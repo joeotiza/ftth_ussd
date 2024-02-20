@@ -61,41 +61,59 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
     $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
     $firstName = ($userAvailable) ? $userAvailable['FirstName'] : '';
 
-    $package = array(
-        "1"=>array('capacity'=>"4Mbps" ,'price'=>"(KES 1,500)"),
-        "2"=>array('capacity'=>"10Mbps" ,'price'=>"(KES 2,799)"),
-        "3"=>array('capacity'=>"40Mbps",'price'=>"(KES 4,499)"),
-        "4"=>array('capacity'=>"65Mbps",'price'=>"(KES 9,499)"),
-        "5"=>array('capacity'=>"100Mbps",'price'=>"(KES 11,999)"));
+    $package = array();
+    $index = 1;
+    $stmt = $db->query("SELECT * FROM `Package`");
+    while($row= $stmt->fetch(PDO::FETCH_ASSOC)):
+        $capacitymbps = $row['Capacity']."Mbps";
+        $pricekes = "(KES ".number_format($row['Price']).")";
+        $package[$index] = array('capacity'=>$capacitymbps, 'price'=>$pricekes);
+        $index++;
+    endwhile;
 
-    $questions = array
-    (
-        "1" => array
-                (
-                    "question" => "Question 1?",
-                    "answer" => "Answer to question one.",
-                ),
-        "2" => array
-                (
-                    "question" => "Question 2?",
-                    "answer" => "Answer to question two.",
-                ),
-        "3" => array
-                (
-                    "question" => "Question three?",
-                    "answer" => "Answer to question three.",
-                ),
-        "4" => array
-                (
-                    "question" => "Question four?",
-                    "answer" => "Answer to question four.",
-                ),
-        "5" => array
-                (
-                    "question" => "Question five?",
-                    "answer" => "Answer to question five.",
-                )
-    );
+    // $package = array(
+    //     "1"=>array('capacity'=>"4Mbps" ,'price'=>"(KES 1,500)"),
+    //     "2"=>array('capacity'=>"10Mbps" ,'price'=>"(KES 2,799)"),
+    //     "3"=>array('capacity'=>"40Mbps",'price'=>"(KES 4,499)"),
+    //     "4"=>array('capacity'=>"65Mbps",'price'=>"(KES 9,499)"),
+    //     "5"=>array('capacity'=>"100Mbps",'price'=>"(KES 11,999)"));
+
+    $questions = array();
+    $index = 1;
+    $stmt = $db->query("SELECT * FROM `questions`");
+    while($row= $stmt->fetch(PDO::FETCH_ASSOC)):
+        $questions[$index] = array('question'=>$row['question'], 'answer'=>$row['answer']);
+        $index++;
+    endwhile;
+
+    // $questions = array
+    // (
+    //     "1" => array
+    //             (
+    //                 "question" => "Question 1?",
+    //                 "answer" => "Answer to question one.",
+    //             ),
+    //     "2" => array
+    //             (
+    //                 "question" => "Question 2?",
+    //                 "answer" => "Answer to question two.",
+    //             ),
+    //     "3" => array
+    //             (
+    //                 "question" => "Question three?",
+    //                 "answer" => "Answer to question three.",
+    //             ),
+    //     "4" => array
+    //             (
+    //                 "question" => "Question four?",
+    //                 "answer" => "Answer to question four.",
+    //             ),
+    //     "5" => array
+    //             (
+    //                 "question" => "Question five?",
+    //                 "answer" => "Answer to question five.",
+    //             )
+    // );
 
     if (!$textArray[0] || $textArray[sizeof($textArray)-1]=="0")
     {
@@ -119,123 +137,138 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
         switch ($textArray[0])
         {
             case "1":
-                $area = array(
-                "1"=>array(
-                    'name'=>"Runda",
-                    'estate'=>array(
-                        1=>"Edenville Phase 1",
-                        2=>"Rosslyn Valley",
-                        3=>"Runda Estate",
-                        4=>"The Horseshoe Village",
-                        5=>"Other")
-                    ),
-                "2"=>array(
-                    'name'=>"Greatwall",
-                    'estate'=>array(
-                        1=>"Great Wall Apartments Phase 1",
-                        2=>"Great Wall Apartments Phase 2",
-                        3=>"Great Wall Apartments Phase 3",
-                        4=>"Wema Villas, Athi River",
-                        5=>"Other")
-                    ),
-                "3"=>array(
-                    'name'=>"Embakasi",
-                    'estate'=>array(
-                        1=>"Amani Court",
-                        2=>"Church Court",
-                        3=>"Afya Court",
-                        4=>"Tumaini Court",
-                        5=>"Aviation/NSSF",
-                        6=>"Kwa Ndege",
-                        7=>"Other")
-                    ),
-                "4"=>array(
-                    'name'=>"Westlands",
-                    'estate'=>array(
-                        1=>"Muthithi Road",
-                        2=>"Taarifa Road",
-                        3=>"Mideya Gardens",
-                        4=>"Other")
-                    ),
-                "5"=>array(
-                    'name'=>"Gigiri",
-                    'estate'=>array(
-                        1=>"Village Road",
-                        2=>"Gigiri Drive",
-                        3=>"Warwick Centre",
-                        4=>"Other")
-                    ),
-                "6"=>array(
-                    'name'=>"Kileleshwa",
-                    'estate'=>array(
-                        1=>"Gatundu Road",
-                        2=>"Mandera Road",
-                        3=>"Gichugu Road",
-                        4=>"Other")
-                    ),
-                "7"=>array(
-                    'name'=>"Kilimani",
-                    'estate'=>array(
-                        1=>"Naivasha Road",
-                        2=>"Other")
-                    ),
-                "8"=>array(
-                    'name'=>"Ngong Road",
-                    'estate'=>array(
-                        1=>"Ngong Road",
-                        2=>"Other")
-                    ),
-                "9"=>array(
-                    'name'=>"Karen",
-                    'estate'=>array(
-                        1=>"Sandalwood Waterfront",
-                        2=>"Other")
-                    ),
-                "10"=>array(
-                    'name'=>"Kitusuru",
-                    'estate'=>array(
-                        1=>"Kirawa Road",
-                        2=>"Other")
-                    ),
-                "11"=>array(
-                    'name'=>"Kikuyu",
-                    'estate'=>array(
-                        1=>"Liberty Suites Muthiga",
-                        2=>"Other")
-                    ),
-                "12"=>array(
-                    'name'=>"Mwimuto",
-                    'estate'=>array(
-                        1=>"Solomon Stump",
-                        2=>"Getathuru Road",
-                        3=>"The Aviv Kitusuru",
-                        4=>"Other")
-                    ),
-                "13"=>array(
-                    'name'=>"Kiambu",
-                    'estate'=>array(
-                        1=>"Ndenderu-Banana Link",
-                        2=>"Other")
-                    ),
-                "14"=>array(
-                    'name'=>"Ruiru",
-                    'estate'=>array(
-                        1=>"Sahara Ridge Estate",
-                        2=>"Other")
-                    ),
-                "15"=>array(
-                    'name'=>"Thika",
-                    'estate'=>array(
-                        1=>"Imani Estate (Delmonte)",
-                        2=>"Other")
-                    ),
-                "16"=>array(
-                    'name'=>"Kawangware",
-                    'estate'=>array(
-                        1=>"Gitanga Road",
-                        2=>"Macharia Road",
-                        2=>"Other")
-                    ));
+                $area = array();
+                $index = 1;
+                $stmt = $db->query("SELECT * FROM `AreaDetails`;");
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)):
+                    $area[$index]['name'] = $row['AreaName'];
+                    $indexLoc = 1;
+                    $stmtLoc = $db->query("SELECT * FROM `LocationDetails` WHERE `AreaCode`='".$row['AreaCode']."';");
+                    while($rowLoc = $stmtLoc->fetch(PDO::FETCH_ASSOC)):
+                        $area[$index]['estate'][$indexLoc] = $rowLoc['EstateName'];
+                        $indexLoc++;
+                    endwhile;
+                    $area[$index]['estate'][$indexLoc] = "Other";
+                    $index++;
+                endwhile;
+
+                // $area = array(
+                // "1"=>array(
+                //     'name'=>"Runda",
+                //     'estate'=>array(
+                //         1=>"Edenville Phase 1",
+                //         2=>"Rosslyn Valley",
+                //         3=>"Runda Estate",
+                //         4=>"The Horseshoe Village",
+                //         5=>"Other")
+                //     ),
+                // "2"=>array(
+                //     'name'=>"Greatwall",
+                //     'estate'=>array(
+                //         1=>"Great Wall Apartments Phase 1",
+                //         2=>"Great Wall Apartments Phase 2",
+                //         3=>"Great Wall Apartments Phase 3",
+                //         4=>"Wema Villas, Athi River",
+                //         5=>"Other")
+                //     ),
+                // "3"=>array(
+                //     'name'=>"Embakasi",
+                //     'estate'=>array(
+                //         1=>"Amani Court",
+                //         2=>"Church Court",
+                //         3=>"Afya Court",
+                //         4=>"Tumaini Court",
+                //         5=>"Aviation/NSSF",
+                //         6=>"Kwa Ndege",
+                //         7=>"Other")
+                //     ),
+                // "4"=>array(
+                //     'name'=>"Westlands",
+                //     'estate'=>array(
+                //         1=>"Muthithi Road",
+                //         2=>"Taarifa Road",
+                //         3=>"Mideya Gardens",
+                //         4=>"Other")
+                //     ),
+                // "5"=>array(
+                //     'name'=>"Gigiri",
+                //     'estate'=>array(
+                //         1=>"Village Road",
+                //         2=>"Gigiri Drive",
+                //         3=>"Warwick Centre",
+                //         4=>"Other")
+                //     ),
+                // "6"=>array(
+                //     'name'=>"Kileleshwa",
+                //     'estate'=>array(
+                //         1=>"Gatundu Road",
+                //         2=>"Mandera Road",
+                //         3=>"Gichugu Road",
+                //         4=>"Other")
+                //     ),
+                // "7"=>array(
+                //     'name'=>"Kilimani",
+                //     'estate'=>array(
+                //         1=>"Naivasha Road",
+                //         2=>"Other")
+                //     ),
+                // "8"=>array(
+                //     'name'=>"Ngong Road",
+                //     'estate'=>array(
+                //         1=>"Ngong Road",
+                //         2=>"Other")
+                //     ),
+                // "9"=>array(
+                //     'name'=>"Karen",
+                //     'estate'=>array(
+                //         1=>"Sandalwood Waterfront",
+                //         2=>"Other")
+                //     ),
+                // "10"=>array(
+                //     'name'=>"Kitusuru",
+                //     'estate'=>array(
+                //         1=>"Kirawa Road",
+                //         2=>"Other")
+                //     ),
+                // "11"=>array(
+                //     'name'=>"Kikuyu",
+                //     'estate'=>array(
+                //         1=>"Liberty Suites Muthiga",
+                //         2=>"Other")
+                //     ),
+                // "12"=>array(
+                //     'name'=>"Mwimuto",
+                //     'estate'=>array(
+                //         1=>"Solomon Stump",
+                //         2=>"Getathuru Road",
+                //         3=>"The Aviv Kitusuru",
+                //         4=>"Other")
+                //     ),
+                // "13"=>array(
+                //     'name'=>"Kiambu",
+                //     'estate'=>array(
+                //         1=>"Ndenderu-Banana Link",
+                //         2=>"Other")
+                //     ),
+                // "14"=>array(
+                //     'name'=>"Ruiru",
+                //     'estate'=>array(
+                //         1=>"Sahara Ridge Estate",
+                //         2=>"Other")
+                //     ),
+                // "15"=>array(
+                //     'name'=>"Thika",
+                //     'estate'=>array(
+                //         1=>"Imani Estate (Delmonte)",
+                //         2=>"Other")
+                //     ),
+                // "16"=>array(
+                //     'name'=>"Kawangware",
+                //     'estate'=>array(
+                //         1=>"Gitanga Road",
+                //         2=>"Macharia Road",
+                //         2=>"Other")
+                //     ));
 
                 if (!$textArray[1])
                 {

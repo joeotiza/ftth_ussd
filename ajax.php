@@ -20,11 +20,11 @@ if($action == 'logout'){
 	if($logout)
 		echo $logout;
 }
-if($action == 'logout2'){
-	$logout = $crud->logout2();
-	if($logout)
-		echo $logout;
-}
+// if($action == 'logout2'){
+// 	$logout = $crud->logout2();
+// 	if($logout)
+// 		echo $logout;
+// }
 
 if($action == 'signup'){
 	$save = $crud->signup();
@@ -36,6 +36,26 @@ if($action == 'save_user'){
 	if($save)
 		echo $save;
 }
+if($action == 'save_faq'){
+	$save = $crud->save_faq();
+	if($save)
+		echo $save;
+}
+if($action == 'save_area'){
+	$save = $crud->save_area();
+	if($save)
+		echo $save;
+}
+if($action == 'save_location'){
+	$save = $crud->save_location();
+	if($save)
+		echo $save;
+}
+if($action == 'save_package'){
+	$save = $crud->save_package();
+	if($save)
+		echo $save;
+}
 if($action == 'update_user'){
 	$save = $crud->update_user();
 	if($save)
@@ -43,6 +63,26 @@ if($action == 'update_user'){
 }
 if($action == 'delete_user'){
 	$save = $crud->delete_user();
+	if($save)
+		echo $save;
+}
+if($action == 'delete_area'){
+	$save = $crud->delete_area();
+	if($save)
+		echo $save;
+}
+if($action == 'delete_location'){
+	$save = $crud->delete_location();
+	if($save)
+		echo $save;
+}
+if($action == 'delete_faq'){
+	$save = $crud->delete_faq();
+	if($save)
+		echo $save;
+}
+if($action == 'delete_package'){
+	$save = $crud->delete_package();
 	if($save)
 		echo $save;
 }

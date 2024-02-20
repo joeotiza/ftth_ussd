@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 15, 2024 at 07:22 PM
+-- Generation Time: Feb 20, 2024 at 07:53 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,40 @@ SET time_zone = "+00:00";
 --
 -- Database: `ftth_ussd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AreaDetails`
+--
+
+CREATE TABLE `AreaDetails` (
+  `AreaID` int(11) NOT NULL,
+  `AreaCode` varchar(20) NOT NULL,
+  `AreaName` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `AreaDetails`
+--
+
+INSERT INTO `AreaDetails` (`AreaID`, `AreaCode`, `AreaName`) VALUES
+(1, 'lhkac-001', 'Runda'),
+(2, 'lhkac-002', 'Syokimau'),
+(3, 'lhkac-003', 'Embakasi'),
+(4, 'lhkac-004', 'Westlands'),
+(5, 'lhkac-005', 'Gigiri'),
+(6, 'lhkac-006', 'Kileleshwa'),
+(7, 'lhkac-007', 'Kilimani'),
+(8, 'lhkac-008', 'Ngong Road'),
+(9, 'lhkac-009', 'Karen'),
+(10, 'lhkac-010', 'Kitusuru'),
+(11, 'lhkac-011', 'Kikuyu'),
+(12, 'lhkac-012', 'Mwimuto'),
+(13, 'lhkac-013', 'Kiambu'),
+(14, 'lhkac-014', 'Ruiru'),
+(15, 'lhkac-015', 'Thika'),
+(16, 'lhkac-016', 'Kawangware');
 
 -- --------------------------------------------------------
 
@@ -3682,7 +3716,89 @@ INSERT INTO `get_internet` (`Customer ID`, `Capacity`, `Area`, `Address`, `reque
 ('LHK-00011', '5Mbps', 'Ruiru', 'Sahara Ridge Estate, House 9', '2024-02-15 09:33:24'),
 ('LHK-00026', '25Mbps', 'Greatwall', 'Great Wall Apartments Phase 2, House 12', '2024-02-15 11:05:52'),
 ('LHK-00001', '100Mbps', 'Runda', 'Runda Estate, 12iop', '2024-02-15 11:25:22'),
-('LHK-00001', '40Mbps', 'Karen', 'Sandalwood Waterfront, 23', '2024-02-15 11:54:42');
+('LHK-00001', '40Mbps', 'Karen', 'Sandalwood Waterfront, 23', '2024-02-15 11:54:42'),
+('LHK-00003', '100Mbps', 'Runda', 'Rosslyn Valley, 34', '2024-02-19 09:50:39'),
+('LHK-00002', '10Mbps', 'Mwimuto', 'The Aviv Kitusuru, House23', '2024-02-20 09:53:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LocationDetails`
+--
+
+CREATE TABLE `LocationDetails` (
+  `LocationID` int(11) NOT NULL,
+  `AreaCode` varchar(20) NOT NULL,
+  `LocationCode` varchar(20) NOT NULL,
+  `EstateName` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `LocationDetails`
+--
+
+INSERT INTO `LocationDetails` (`LocationID`, `AreaCode`, `LocationCode`, `EstateName`) VALUES
+(1, 'lhkac-001', 'lhkac-001-0001', 'Edenville Phase 1'),
+(2, 'lhkac-001', 'lhkac-001-0002', 'Rosslyn Valley'),
+(3, 'lhkac-001', 'lhkac-001-0003', 'Runda Estate'),
+(4, 'lhkac-001', 'lhkac-001-0004', 'The Horseshoe Village'),
+(5, 'lhkac-001', 'lhkac-001-0005', 'Cycads, Runda'),
+(6, 'lhkac-002', 'lhkac-002-0001', 'Great Wall Apartments Phase 1'),
+(7, 'lhkac-002', 'lhkac-002-0002', 'Great Wall Apartments Phase 2'),
+(8, 'lhkac-002', 'lhkac-002-0003', 'Great Wall Apartments Phase 3'),
+(9, 'lhkac-002', 'lhkac-002-0004', 'Wema Villas, Athi River'),
+(10, 'lhkac-003', 'lhkac-003-0001', 'Amani Court'),
+(11, 'lhkac-003', 'lhkac-003-0002', 'Church Court'),
+(12, 'lhkac-003', 'lhkac-003-0003', 'Afya Court'),
+(13, 'lhkac-003', 'lhkac-003-0004', 'Tumaini Court'),
+(14, 'lhkac-003', 'lhkac-003-0005', 'Aviation/NSSF'),
+(15, 'lhkac-003', 'lhkac-003-0006', 'Kwa Ndege'),
+(16, 'lhkac-004', 'lhkac-004-0001', 'Muthithi Road'),
+(17, 'lhkac-004', 'lhkac-004-0002', 'Taarifa Road'),
+(18, 'lhkac-004', 'lhkac-004-0003', 'Mideya Gardens'),
+(19, 'lhkac-005', 'lhkac-005-0001', 'Village Road'),
+(20, 'lhkac-005', 'lhkac-005-0002', 'Gigiri Drive'),
+(21, 'lhkac-005', 'lhkac-005-0003', 'Warwick Centre'),
+(22, 'lhkac-006', 'lhkac-006-0001', 'Gatundu Road'),
+(23, 'lhkac-006', 'lhkac-006-0002', 'Mandera Road'),
+(24, 'lhkac-006', 'lhkac-006-0003', 'Gichugu Road'),
+(25, 'lhkac-007', 'lhkac-007-0001', 'Naivasha Road'),
+(26, 'lhkac-008', 'lhkac-008-0001', 'Ngong Road'),
+(27, 'lhkac-009', 'lhkac-009-0001', 'Sandalwood Waterfront'),
+(28, 'lhkac-010', 'lhkac-010-0001', 'Kirawa Road'),
+(29, 'lhkac-011', 'lhkac-011-0001', 'Liberty Suites Muthiga'),
+(30, 'lhkac-012', 'lhkac-012-0001', 'Solomon Stump'),
+(31, 'lhkac-012', 'lhkac-012-0002', 'Getathuru Road'),
+(32, 'lhkac-012', 'lhkac-012-0003', 'The Aviv Kitusuru'),
+(33, 'lhkac-013', 'lhkac-013-0001', 'Ndenderu-Banana Link'),
+(34, 'lhkac-014', 'lhkac-014-0001', 'Sahara Ridge Estate'),
+(35, 'lhkac-015', 'lhkac-015-0001', 'Imani Estate (Delmonte)'),
+(36, 'lhkac-016', 'lhkac-016-0001', 'Gitanga Road'),
+(37, 'lhkac-016', 'lhkac-016-0002', 'Macharia Road');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Package`
+--
+
+CREATE TABLE `Package` (
+  `PackageID` int(11) NOT NULL,
+  `Capacity` int(11) NOT NULL,
+  `Price` int(11) NOT NULL,
+  `Description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `Package`
+--
+
+INSERT INTO `Package` (`PackageID`, `Capacity`, `Price`, `Description`) VALUES
+(1, 4, 1500, 'Budget Plan.'),
+(2, 10, 2799, NULL),
+(3, 40, 4499, NULL),
+(4, 65, 9499, NULL),
+(5, 100, 11999, NULL);
 
 -- --------------------------------------------------------
 
@@ -3735,6 +3851,27 @@ CREATE TABLE `project_list` (
 INSERT INTO `project_list` (`id`, `name`, `description`, `status`, `start_date`, `end_date`, `manager_id`, `user_ids`, `date_created`) VALUES
 (1, 'Sample Project', '								&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif; font-size: 14px; text-align: justify;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. In elementum, metus vitae malesuada mollis, urna nisi luctus ligula, vitae volutpat massa eros eu ligula. Nunc dui metus, iaculis id dolor non, luctus tristique libero. Aenean et sagittis sem. Nulla facilisi. Mauris at placerat augue. Nullam porttitor felis turpis, ac varius eros placerat et. Nunc ut enim scelerisque, porta lacus vitae, viverra justo. Nam mollis turpis nec dolor feugiat, sed bibendum velit placerat. Etiam in hendrerit leo. Nullam mollis lorem massa, sit amet tincidunt dolor lacinia at.&lt;/span&gt;							', 0, '2020-11-03', '2021-01-20', 2, '3,4,5', '2020-12-03 09:56:56'),
 (2, 'Sample Project 102', 'Sample Only', 0, '2020-12-02', '2020-12-31', 2, '3', '2020-12-03 13:51:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `questions`
+--
+
+CREATE TABLE `questions` (
+  `questionID` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `answer` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`questionID`, `question`, `answer`) VALUES
+(1, 'Question one?', 'Answer to question one.'),
+(2, 'Question two?', 'Jibu la swali la pili.'),
+(3, 'Question trio?', 'My third answer.');
 
 -- --------------------------------------------------------
 
@@ -3845,6 +3982,13 @@ INSERT INTO `user_productivity` (`id`, `project_id`, `task_id`, `comment`, `subj
 --
 
 --
+-- Indexes for table `AreaDetails`
+--
+ALTER TABLE `AreaDetails`
+  ADD PRIMARY KEY (`AreaID`),
+  ADD UNIQUE KEY `AreaCode` (`AreaCode`);
+
+--
 -- Indexes for table `cases_reported`
 --
 ALTER TABLE `cases_reported`
@@ -3863,6 +4007,20 @@ ALTER TABLE `customer_details`
   ADD PRIMARY KEY (`Customer ID`);
 
 --
+-- Indexes for table `LocationDetails`
+--
+ALTER TABLE `LocationDetails`
+  ADD PRIMARY KEY (`LocationID`),
+  ADD UNIQUE KEY `LocationCode` (`LocationCode`),
+  ADD KEY `AreaCode` (`AreaCode`);
+
+--
+-- Indexes for table `Package`
+--
+ALTER TABLE `Package`
+  ADD PRIMARY KEY (`PackageID`);
+
+--
 -- Indexes for table `plan_change`
 --
 ALTER TABLE `plan_change`
@@ -3873,6 +4031,12 @@ ALTER TABLE `plan_change`
 --
 ALTER TABLE `project_list`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `questions`
+--
+ALTER TABLE `questions`
+  ADD PRIMARY KEY (`questionID`);
 
 --
 -- Indexes for table `system_settings`
@@ -3903,6 +4067,12 @@ ALTER TABLE `user_productivity`
 --
 
 --
+-- AUTO_INCREMENT for table `AreaDetails`
+--
+ALTER TABLE `AreaDetails`
+  MODIFY `AreaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT for table `cases_reported`
 --
 ALTER TABLE `cases_reported`
@@ -3921,6 +4091,18 @@ ALTER TABLE `customer_details`
   MODIFY `Customer ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `LocationDetails`
+--
+ALTER TABLE `LocationDetails`
+  MODIFY `LocationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `Package`
+--
+ALTER TABLE `Package`
+  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `plan_change`
 --
 ALTER TABLE `plan_change`
@@ -3931,6 +4113,12 @@ ALTER TABLE `plan_change`
 --
 ALTER TABLE `project_list`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `system_settings`
@@ -3955,6 +4143,16 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_productivity`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `LocationDetails`
+--
+ALTER TABLE `LocationDetails`
+  ADD CONSTRAINT `locationdetails_ibfk_1` FOREIGN KEY (`AreaCode`) REFERENCES `AreaDetails` (`AreaCode`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

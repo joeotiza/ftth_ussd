@@ -122,6 +122,53 @@
               </p>
             </a>
           </li>
+          <?php if($_SESSION['login_type'] == 1): ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link nav-edit_area">
+              <i class="nav-icon fas fa-map"></i>
+              <p>
+                Areas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./index.php?page=new_area" class="nav-link nav-new_area tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Add New Area</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index.php?page=new_location" class="nav-link nav-new_location tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Add New Location</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index.php?page=area_list" class="nav-link nav-area_list tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="./index.php?page=packages" class="nav-link nav-packages tree-item">
+              <i class="nav-icon fas fa-tags"></i>
+              <p>
+                Packages
+              </p>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="./index.php?page=faqs" class="nav-link nav-faqs tree-item">
+              <i class="nav-icon fas fa-question"></i>
+              <p>
+                FAQs
+              </p>
+            </a>
+          </li>
+          <?php endif; ?>
         </ul>
       </nav>
     </div>

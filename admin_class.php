@@ -90,6 +90,94 @@ Class Action {
 			exit;
 		}
 	}
+	function save_faq(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('questionID'))){
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+		if(empty($questionID)){
+			$save = $this->db->query("INSERT INTO `questions` set $data");
+		}else{
+			$save = $this->db->query("UPDATE `questions` set $data where questionID = $questionID");
+		}
+		if($save){
+			return 1;
+			exit;
+		}
+	}
+	function save_area(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('AreaID'))){
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+		if(empty($AreaID)){
+			$save = $this->db->query("INSERT INTO `AreaDetails` set $data");
+		}else{
+			$save = $this->db->query("UPDATE `AreaDetails` set $data where `AreaID` = $AreaID");
+		}
+		if($save){
+			return 1;
+			exit;
+		}
+	}
+	function save_location(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('LocationID'))){
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+		if(empty($LocationID)){
+			$save = $this->db->query("INSERT INTO `LocationDetails` set $data");
+		}else{
+			$save = $this->db->query("UPDATE `LocationDetails` set $data where `LocationID` = $LocationID");
+		}
+		if($save){
+			return 1;
+			exit;
+		}
+	}
+	function save_package(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('PackageID'))){
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+		if(empty($PackageID)){
+			$save = $this->db->query("INSERT INTO `Package` set $data");
+		}else{
+			$save = $this->db->query("UPDATE `Package` set $data where PackageID = $PackageID");
+		}
+		if($save){
+			return 1;
+			exit;
+		}
+	}
 	function signup(){
 		extract($_POST);
 		$data = "";
@@ -186,6 +274,30 @@ Class Action {
 	function delete_user(){
 		extract($_POST);
 		$delete = $this->db->query("DELETE FROM users where id = ".$id);
+		if($delete)
+			return 1;
+	}
+	function delete_area(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM `AreaDetails` where `AreaID` = ".$id);
+		if($delete)
+			return 1;
+	}
+	function delete_location(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM `LocationDetails` where `LocationID` = ".$id);
+		if($delete)
+			return 1;
+	}
+	function delete_faq(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM `questions` where questionID = ".$id);
+		if($delete)
+			return 1;
+	}
+	function delete_package(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM `Package` where PackageID = ".$id);
 		if($delete)
 			return 1;
 	}
