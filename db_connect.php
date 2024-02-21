@@ -27,4 +27,4 @@ UNION
 SELECT * FROM `pyramite_expired`) AS `pyramite`)) AS `myCustomers`
 LEFT JOIN
 (SELECT `LocationCode`, `LocationDetails`.`AreaCode`, `AreaName`, `EstateName` FROM `LocationDetails` LEFT JOIN `AreaDetails` ON `LocationDetails`.`AreaCode`=`AreaDetails`.`AreaCode`) AS `myLocations`
-ON `myCustomers`.`LocationCode`=`myLocations`.`LocationCode` ";
+ON `myCustomers`.`LocationCode`=`myLocations`.`LocationCode` WHERE `Current_Package` LIKE '%home%' ";
