@@ -44,7 +44,7 @@ if($_SESSION['login_type'] != 1)
           <div class="col-md-6">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3><?php echo $conn->query("SELECT * FROM `customers`;")->num_rows; ?></h3>
+                <h3><?php echo number_format($conn->query($customersquery)->num_rows); ?></h3>
                 <p>Recorded Customers</p>
               </div>
               <div class="icon">

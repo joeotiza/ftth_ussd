@@ -70,6 +70,78 @@ if(isset($_POST['export_new_customers_btn']))
     }
 }
 
+if(isset($_POST['export_customers_btn']))
+{
+    $file_ext_name = $_POST['export_file_type'];
+    $exportquery = $customersquery;
+    $myresult = mysqli_query($conn, $exportquery);
+
+    $fileName = "Customers_List_".date('Y-m-d_H-i-s');
+
+    if (mysqli_num_rows($myresult) > 0)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Account_ID');
+        $sheet->setCellValue('B1', 'Status');
+        $sheet->setCellValue('C1', 'TED');
+        $sheet->setCellValue('D1', 'Current_Package');
+        $sheet->setCellValue('E1', 'FirstName');
+        $sheet->setCellValue('F1', 'LastName');
+        $sheet->setCellValue('G1', 'MobileNumber');
+        $sheet->setCellValue('H1', 'Email');
+        $sheet->setCellValue('I1', 'LocationCode');
+        $sheet->setCellValue('J1', 'AreaName');
+        $sheet->setCellValue('K1', 'Estate/Court/Road');
+
+        $rowCount = 2;
+        foreach($myresult as $data)
+        {
+            $sheet->setCellValue('A'.$rowCount, $data['Account_ID']);
+            $sheet->setCellValue('B'.$rowCount, $data['Status']);
+            $sheet->setCellValue('C'.$rowCount, $data['TED']);
+            $sheet->setCellValue('D'.$rowCount, $data['Current_Package']);
+            $sheet->setCellValue('E'.$rowCount, $data['FirstName']);
+            $sheet->setCellValue('F'.$rowCount, $data['LastName']);
+            $sheet->setCellValue('G'.$rowCount, $data['MobileNumber']);
+            $sheet->setCellValue('H'.$rowCount, $data['Email']);
+            $sheet->setCellValue('I'.$rowCount, $data['LocationCode']);
+            $sheet->setCellValue('J'.$rowCount, $data['AreaName']);
+            $sheet->setCellValue('K'.$rowCount, $data['EstateName']);
+            $rowCount++;
+        }
+
+        if($file_ext_name == 'xlsx')
+        {
+            //$writer = new Xlsx($spreadsheet);
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+            $final_filename = $fileName.'.xlsx';
+        }
+        elseif($file_ext_name == 'xls')
+        {
+            $writer = new Xls($spreadsheet);
+            $final_filename = $fileName.'.xls';
+        }
+        elseif($file_ext_name == 'csv')
+        {
+            $writer = new Csv($spreadsheet);
+            $final_filename = $fileName.'.csv';
+        }
+
+        // $writer->save($final_filename);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attactment; filename="'.urlencode($final_filename).'"');
+        $writer->save('php://output');
+    }
+    else
+    {
+        $_SESSION['message'] = "No Records Found";
+        header('Location: index.php?page=customer_list');
+        exit(0);
+    }
+}
+
 if(isset($_POST['export_get_internet_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
@@ -449,16 +521,283 @@ if(isset($_POST['save_excel_data']))
             $values = substr($values, 0, -2);
             if ($count > 1)
             {
-                
                 $excelquery = "INSERT INTO `customers` (".$columns.") VALUES (".$values.");";
-                //echo $excelquery;
-                $result = mysqli_query($conn, $excelquery);
-                $success = true;
-                
+                try {
+                    $result = mysqli_query($conn, $excelquery);
+                    $success = true;
+                }
+            
+                catch(PDOException $e) {
+                //var_dump($e);
+                    echo("PDO error occurred");
+                }
+            
+                catch(Exception $e) {
+                //var_dump($e);
+                echo("Error occurred");
+                }                
             }
             else
             {
                 $excelquery = "TRUNCATE `customers`;";
+                //echo $excelquery;
+                $result = mysqli_query($conn, $excelquery);
+                $success = true;
+                $columns = substr($columns, 0, -2);
+            }
+            $count++;
+        }
+        if (isset($success))
+        {
+            $_SESSION['message'] = "Successfully Imported";
+            header('Location: index.php?page=customer_list');
+            exit(0);
+        }
+        else
+        {
+            $_SESSION['message'] = "Not Imported";
+            header('Location: index.php?page=customer_list');
+            exit(0);
+        }
+    }
+    else
+    {
+        $_SESSION['message'] = "Invalid File";
+        header ('Location: index.php?page=new_customer');
+        exit(0);
+    }
+}
+
+if(isset($_POST['save_pyramite_active']))
+{
+    $fileName = $_FILES['import_pyramite_active']['name'];
+    $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    $allowed_ext = ['xls', 'csv', 'xlsx'];
+
+    if(in_array($file_ext, $allowed_ext))
+    {
+        $inputFileNamePath = $_FILES['import_pyramite_active']['tmp_name'];
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileNamePath);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+
+        //print_r ($data[0]);
+        $count = 0;
+        $columns = "";
+        foreach($data as $row)
+        {
+            $values = "";
+            $index = 0;
+            foreach($data[0] as $field)
+            {
+                if ($count >= 0)
+                {
+                    if ($count == 0)
+                    {
+                        $columns .= "`". $row[$index++]."`, ";
+                    }
+                    else
+                    {
+                        $$field = $row[$index++];
+                        $values .= "'".$$field."', ";
+                    }
+                }
+            }
+            
+            //$columns = substr($columns, 0, -2);
+            $values = substr($values, 0, -2);
+            if ($count > 0)
+            {
+                $excelquery = "INSERT INTO `pyramite_active` (".$columns.") VALUES (".$values.");";
+                try {
+                    $result = mysqli_query($conn, $excelquery);
+                    $success = true;
+                }
+            
+                catch(PDOException $e) {
+                //var_dump($e);
+                    echo("PDO error occurred");
+                }
+            
+                catch(Exception $e) {
+                //var_dump($e);
+                echo("Error occurred");
+                }                
+            }
+            else
+            {
+                $excelquery = "TRUNCATE `pyramite_active`;";
+                //echo $excelquery;
+                $result = mysqli_query($conn, $excelquery);
+                $success = true;
+                $columns = substr($columns, 0, -2);
+            }
+            $count++;
+        }
+        if (isset($success))
+        {
+            $_SESSION['message'] = "Successfully Imported";
+            header('Location: index.php?page=customer_list');
+            exit(0);
+        }
+        else
+        {
+            $_SESSION['message'] = "Not Imported";
+            header('Location: index.php?page=customer_list');
+            exit(0);
+        }
+    }
+    else
+    {
+        $_SESSION['message'] = "Invalid File";
+        header ('Location: index.php?page=new_customer');
+        exit(0);
+    }
+}
+
+if(isset($_POST['save_pyramite_expired']))
+{
+    $fileName = $_FILES['import_pyramite_expired']['name'];
+    $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    $allowed_ext = ['xls', 'csv', 'xlsx'];
+
+    if(in_array($file_ext, $allowed_ext))
+    {
+        $inputFileNamePath = $_FILES['import_pyramite_expired']['tmp_name'];
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileNamePath);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+
+        //print_r ($data[0]);
+        $count = 0;
+        $columns = "";
+        foreach($data as $row)
+        {
+            $values = "";
+            $index = 0;
+            foreach($data[0] as $field)
+            {
+                if ($count >= 0)
+                {
+                    if ($count == 0)
+                    {
+                        $columns .= "`". $row[$index++]."`, ";
+                    }
+                    else
+                    {
+                        $$field = $row[$index++];
+                        $values .= "'".$$field."', ";
+                    }
+                }
+            }
+            
+            //$columns = substr($columns, 0, -2);
+            $values = substr($values, 0, -2);
+            if ($count > 0)
+            {
+                $excelquery = "INSERT INTO `pyramite_expired` (".$columns.") VALUES (".$values.");";
+                try {
+                    $result = mysqli_query($conn, $excelquery);
+                    $success = true;
+                }
+            
+                catch(PDOException $e) {
+                //var_dump($e);
+                    echo("PDO error occurred");
+                }
+            
+                catch(Exception $e) {
+                //var_dump($e);
+                echo("Error occurred");
+                }                
+            }
+            else
+            {
+                $excelquery = "TRUNCATE `pyramite_expired`;";
+                //echo $excelquery;
+                $result = mysqli_query($conn, $excelquery);
+                $success = true;
+                $columns = substr($columns, 0, -2);
+            }
+            $count++;
+        }
+        if (isset($success))
+        {
+            $_SESSION['message'] = "Successfully Imported";
+            header('Location: index.php?page=customer_list');
+            exit(0);
+        }
+        else
+        {
+            $_SESSION['message'] = "Not Imported";
+            header('Location: index.php?page=customer_list');
+            exit(0);
+        }
+    }
+    else
+    {
+        $_SESSION['message'] = "Invalid File";
+        header ('Location: index.php?page=new_customer');
+        exit(0);
+    }
+}
+
+if(isset($_POST['save_location_codes']))
+{
+    $fileName = $_FILES['import_location_codes']['name'];
+    $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    $allowed_ext = ['xls', 'csv', 'xlsx'];
+
+    if(in_array($file_ext, $allowed_ext))
+    {
+        $inputFileNamePath = $_FILES['import_location_codes']['tmp_name'];
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileNamePath);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+
+        //print_r ($data[0]);
+        $count = 0;
+        $columns = "";
+        foreach($data as $row)
+        {
+            $values = "";
+            $index = 0;
+            foreach($data[0] as $field)
+            {
+                if ($count >= 0)
+                {
+                    if ($count == 0)
+                    {
+                        $columns .= "`". $row[$index++]."`, ";
+                    }
+                    else
+                    {
+                        $$field = $row[$index++];
+                        $values .= "'".$$field."', ";
+                    }
+                }
+            }
+            
+            //$columns = substr($columns, 0, -2);
+            $values = substr($values, 0, -2);
+            if ($count > 0)
+            {
+                $excelquery = "INSERT INTO `location_codes` (".$columns.") VALUES (".$values.");";
+                try {
+                    $result = mysqli_query($conn, $excelquery);
+                    $success = true;
+                }
+            
+                catch(PDOException $e) {
+                //var_dump($e);
+                    echo("PDO error occurred");
+                }
+            
+                catch(Exception $e) {
+                //var_dump($e);
+                echo("Error occurred");
+                }                
+            }
+            else
+            {
+                $excelquery = "TRUNCATE `location_codes`;";
                 //echo $excelquery;
                 $result = mysqli_query($conn, $excelquery);
                 $success = true;

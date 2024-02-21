@@ -9,6 +9,14 @@
                 unset ($_SESSION['message']);
             }
             ?>
+			<form action="excel.php" method="POST">
+                <select name="export_file_type" class="form_control">
+                	<option value="xlsx">.xlsx</option>
+                    <option value="xls">.xls</option>
+                    <option value="csv">.csv</option>
+                </select>
+                <button type="submit" name="export_customers_btn" class="btn btn-primary mt-3">Export</button>
+            </form>
 			<div class="card-tools">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_customer"><i class="fa fa-plus"></i> Upload Customers File</a>
 			</div>
@@ -17,12 +25,12 @@
 			<table class="table tabe-hover table-bordered" id="list">
 				<thead>
 					<tr>
-						<th class="text-center">Customer ID</th>
+						<th class="text-center">Account ID</th>
+						<th>Status</th>
+						<th>Current Package</th>
 						<th>Name</th>
-						<th>Email</th>
 						<th>Mobile Number</th>
-						<th>Account Number</th>
-						<th>Package</th>
+						<th>E-Mail</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,29 +38,16 @@
 					$i = 1;
 					$type = array('',"Admin","Project Manager","Employee");
 
-					$readCapacity = "IF(`GPONPlan` LIKE \"%100%MBPS%\", '100Mbps',
-										IF(`GPONPlan` LIKE \"%65%MBPS%\", '65Mbps',
-											IF(`GPONPlan` LIKE \"%60%MBPS%\", '60Mbps',
-												IF(`GPONPlan` LIKE \"%50%MBPS%\", '50Mbps',
-													IF(`GPONPlan` LIKE \"%40%MBPS%\", '40Mbps',
-														IF(`GPONPlan` LIKE \"%25%MBPS%\", '25Mbps',
-															IF(`GPONPlan` LIKE \"%10%MBPS%\", '10Mbps',
-																IF(`GPONPlan` LIKE \"%5%MBPS%\", '5Mbps',
-																	IF(`GPONPlan` LIKE \"%4%MBPS%\", '4Mbps',
-																		IF(`GPONPlan` LIKE \"%3%MBPS%\", '3Mbps',
-																			'N/A'))))))))))";
-
-					$qry = $conn->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-					TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName, ".$readCapacity." as capacity FROM customers");
+					$qry = $conn->query($customersquery);
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
-						<th class="text-center"><?php echo $row['Customer ID'] ?></th>
+						<th class="text-center"><?php echo $row['Account_ID'] ?></th>
+						<td><b><?php echo $row['Status'] ?></b></td>
+						<td><?php echo $row['Current_Package'] ?></td>
 						<td><?php echo ucwords($row['FirstName']. " ".$row['LastName']) ?></td>
-						<td><?php echo $row['EMail Address'] ?></td>
-						<td><?php echo $row['Contact Number'] ?></td>
-                        <td><?php echo $row['Correlation ID'] ?></td>
-						<td><?php echo $row['capacity'] ?></td>
+						<td><?php echo $row['MobileNumber'] ?></td>
+						<td><?php echo $row['Email'] ?></td>
 					</tr>	
 				<?php endwhile; ?>
 				</tbody>

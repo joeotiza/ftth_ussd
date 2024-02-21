@@ -25,7 +25,7 @@
             <a href="#" class="nav-link nav-edit_requests">
               <i class="fas fa-wifi nav-icon"></i>
               <p>
-                Home Internet Requests
+                Liquid Home Internet
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
