@@ -1,12 +1,18 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <style>
+      .bounding-box {
+      background-image: url('./assets/uploads/liquidlogo.png');
+      background-size: contain;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 8%;
+  width: 100%;
+    }
+    </style>
     <div class="dropdown">
-   	<a href="./" class="brand-link">
-        <?php if($_SESSION['login_type'] == 1): ?>
-        <h3 class="text-center p-0 m-0"><b>ADMIN</b></h3>
-        <?php else: ?>
-        <h3 class="text-center p-0 m-0"><b>USER</b></h3>
-        <?php endif; ?>
-
+   	<a href="./" class="brand-link bounding-box">
+        
     </a>
       
     </div>
@@ -22,8 +28,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link nav-edit_requests">
-              <i class="fas fa-wifi nav-icon"></i>
+            <a href="#" class="nav-link nav-edit_customer">
+              <i class="nav-icon fas fa-wifi"></i>
               <p>
                 Liquid Home Internet
                 <i class="right fas fa-angle-left"></i>
@@ -31,15 +37,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.php?page=get_internet" class="nav-link nav-get_internet tree-item">
+                <a href="./index.php?page=new_customer_list" class="nav-link nav-new_customer_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>From Existing Customers</p>
+                  <p>Interested Customers</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.php?page=get_internet_new" class="nav-link nav-get_internet_new tree-item">
+                <a href="./index.php?page=customer_list" class="nav-link nav-customer_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>From New Customers</p>
+                  <p>Existing Customers</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index.php?page=new_customer" class="nav-link nav-new_customer tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Upload File</p>
                 </a>
               </li>
             </ul>
@@ -78,30 +90,24 @@
           </li>
           <?php endif; ?>
           <li class="nav-item">
-            <a href="#" class="nav-link nav-edit_customer">
-              <i class="nav-icon fas fa-users"></i>
+            <a href="#" class="nav-link nav-edit_requests">
+              <i class="fas fa-network-wired nav-icon"></i>
               <p>
-                Customers
+                Get Home Wi-Fi
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.php?page=new_customer" class="nav-link nav-new_customer tree-item">
+                <a href="./index.php?page=get_internet" class="nav-link nav-get_internet tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Upload File</p>
+                  <p>From Existing Customers</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.php?page=new_customer_list" class="nav-link nav-new_customer_list tree-item">
+                <a href="./index.php?page=get_internet_new" class="nav-link nav-get_internet_new tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>New Customer Requests</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index.php?page=customer_list" class="nav-link nav-customer_list tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Recorded Customer List</p>
+                  <p>From New Customers</p>
                 </a>
               </li>
             </ul>
