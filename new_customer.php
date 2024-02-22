@@ -10,7 +10,7 @@
                 unset ($_SESSION['message']);
             }
             ?>
-            <h3>Supported formats: .xlsx/.xlx/.csv</h3>
+            <h3>Supported formats: .xlsx/.xls/.csv</h3>
 			<form action="excel.php" method="POST" enctype="multipart/form-data">
                 <label for="" class="control-label">Prism Active file</label><br>
                 Delete the empty column "J" but Leave the first row containing "LTK Active GPON Accounts" text<br>

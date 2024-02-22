@@ -20,7 +20,7 @@ TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS `LastName`,
 `Contact Number` AS `MobileNumber`, `EMail Address` AS `Email`, `ONT_Location_Code` AS `LocationCode`
 FROM `customers`
 LEFT JOIN `location_codes` ON `customers`.`Correlation ID`=`location_codes`.`ONT_Username`
-WHERE `Correlation ID` NOT IN
+WHERE `User Group` NOT LIKE '%Gratis%' AND `User Group` NOT LIKE '%Staff%' AND `Correlation ID` NOT IN
 (SELECT `User name` FROM
 (SELECT * FROM `pyramite_active`
 UNION
