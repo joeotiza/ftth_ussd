@@ -4080,7 +4080,7 @@ input[type="button"].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #ffffff;
-  background-color: #eba251;
+  background-color: #f89e3c;
 }
 
 .nav-fill .nav-item {
@@ -13036,7 +13036,7 @@ body.text-sm .control-sidebar {
 }
 
 .navbar-primary {
-  background-color: #2c3b83;
+  background-color: #273c88;
 }
 
 .navbar-secondary {
