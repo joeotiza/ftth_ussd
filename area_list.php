@@ -2,6 +2,14 @@
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
+			<form action="excel.php" method="POST">
+                <select name="export_file_type" class="form_control">
+                	<option value="xlsx">.xlsx</option>
+                    <option value="xls">.xls</option>
+                    <option value="csv">.csv</option>
+                </select>
+                <button type="submit" name="export_areas_btn" class="btn btn-primary">Export</button>
+            </form>
 			<div class="card-tools">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href=<?= (!$_GET['id']) ? "./index.php?page=new_area" : "./index.php?page=new_location"?>><i class="fa fa-plus"></i> Add New <?= (!$_GET['id']) ? "Area" : "Location"?></a>
 			</div>
@@ -15,6 +23,7 @@
 						<th>Name</th>
 						<th>Location Code</th>
                         <th>Estate/Court/Road</th>
+						<th>Penetration</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -33,12 +42,19 @@
                         <td rowspan=<?=($countestate!=0) ? $countestate : 1?>><b><?php echo ucwords($row['AreaName']) ?></b></td>
                         <?php
                         if ($countestate != 0){
-                        $qry2 = $conn->query("SELECT * FROM `LocationDetails` WHERE `LocationDetails`.`AreaCode`='".$row['AreaCode']."';");
-                        while($row2=$qry2->fetch_assoc()):
-                            if (!$first) echo "<tr>";
+							$estatequery = " SELECT *, COUNT(`location_codes`.`ONT_Location_Code`) AS `Connected`,
+								COUNT(`location_codes`.`ONT_Location_Code`) / NULLIF(`homes`, 0) AS `Penetration`
+								FROM `LocationDetails`
+								LEFT JOIN `location_codes`
+								ON `LocationDetails`.`LocationCode`=`location_codes`.`ONT_Location_Code`
+								GROUP BY `LocationDetails`.`LocationCode` ";
+                        	$qry2 = $conn->query("SELECT * FROM (".$estatequery.") AS `Locations` WHERE `AreaCode`='".$row['AreaCode']."';");
+                        	while($row2=$qry2->fetch_assoc()):
+                            	if (!$first) echo "<tr>";
                         ?>
 						<td><?php echo $row2['LocationCode']; ?></td>
-						<td><?php echo $row2['EstateName']."</td>"; ?>
+						<td><?php echo $row2['EstateName']; ?></td>
+						<td><?php echo $row2['Penetration'] ? round((float)$row2['Penetration']*100).'%' : 'No Homes Passed'; ?></td>
                         <?php if ($first || $_GET['id']){ ?>
 						<td rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

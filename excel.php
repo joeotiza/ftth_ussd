@@ -16,7 +16,7 @@ if(isset($_POST['export_new_customers_btn']))
     $exportquery = "SELECT * FROM `customer_details` order by reg_date desc;";
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "New_Customers";
+    $fileName = "New_Customers_".date('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -37,6 +37,74 @@ if(isset($_POST['export_new_customers_btn']))
             $sheet->setCellValue('C'.$rowCount, $data['LastName']);
             $sheet->setCellValue('D'.$rowCount, $data['Contact Number']);
             $sheet->setCellValue('E'.$rowCount, $data['reg_date']);
+            $rowCount++;
+        }
+
+        if($file_ext_name == 'xlsx')
+        {
+            //$writer = new Xlsx($spreadsheet);
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+            $final_filename = $fileName.'.xlsx';
+        }
+        elseif($file_ext_name == 'xls')
+        {
+            $writer = new Xls($spreadsheet);
+            $final_filename = $fileName.'.xls';
+        }
+        elseif($file_ext_name == 'csv')
+        {
+            $writer = new Csv($spreadsheet);
+            $final_filename = $fileName.'.csv';
+        }
+
+        // $writer->save($final_filename);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attactment; filename="'.urlencode($final_filename).'"');
+        $writer->save('php://output');
+    }
+    else
+    {
+        $_SESSION['message'] = "No Records Found";
+        header('Location: index.php?page=new_customer_list');
+        exit(0);
+    }
+}
+
+if(isset($_POST['export_areas_btn']))
+{
+    $file_ext_name = $_POST['export_file_type'];
+    $exportquery = $penetrationquery."ORDER BY `AreaCode`";
+    $myresult = mysqli_query($conn, $exportquery);
+
+    $fileName = "Area_Penetration_".date('Y-m-d_H-i-s');
+
+    if (mysqli_num_rows($myresult) > 0)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'AreaCode');
+        $sheet->setCellValue('B1', 'AreaName');
+        $sheet->setCellValue('C1', 'LocationCode');
+        $sheet->setCellValue('D1', 'Estate/Court/Road');
+        $sheet->setCellValue('E1', 'Homes_Passed');
+        $sheet->setCellValue('F1', 'Connected');
+        $sheet->setCellValue('G1', 'Penetration');
+        $sheet->setCellValue('H1', 'Active');
+        $sheet->setCellValue('I1', 'Expired');
+
+        $rowCount = 2;
+        foreach($myresult as $data)
+        {
+            $sheet->setCellValue('A'.$rowCount, $data['AreaCode']);
+            $sheet->setCellValue('B'.$rowCount, $data['AreaName']);
+            $sheet->setCellValue('C'.$rowCount, $data['LocationCode']);
+            $sheet->setCellValue('D'.$rowCount, $data['EstateName']);
+            $sheet->setCellValue('E'.$rowCount, $data['homes']);
+            $sheet->setCellValue('F'.$rowCount, $data['Active']+$data['Expired']);
+            $sheet->setCellValue('G'.$rowCount, $data['Penetration']);
+            $sheet->setCellValue('H'.$rowCount, $data['Active']);
+            $sheet->setCellValue('I'.$rowCount, $data['Expired']);
             $rowCount++;
         }
 
@@ -149,7 +217,7 @@ if(isset($_POST['export_get_internet_btn']))
     TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc";
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Get_Internet";
+    $fileName = "Get_Internet_".date('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -215,7 +283,7 @@ if(isset($_POST['export_get_internet_new_btn']))
     $exportquery = "SELECT * FROM `get_internet` INNER JOIN `customer_details` ON `get_internet`.`Customer ID`=`customer_details`.`Customer ID` order by `request_date` desc";
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Get_Internet_new";
+    $fileName = "Get_Internet_new_".date('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -284,7 +352,7 @@ if(isset($_POST['export_cases_reported_btn']))
 
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Reported_Cases";
+    $fileName = "Reported_Cases_".date('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -353,7 +421,7 @@ if(isset($_POST['export_change_plan_btn']))
 
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Change_Plan";
+    $fileName = "Change_Plan_".date('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -424,7 +492,7 @@ if(isset($_POST['export_chats_btn']))
 
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Chat_Requests";
+    $fileName = "Chat_Requests_".date('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {

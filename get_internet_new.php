@@ -10,13 +10,13 @@
                         <option value="xls">.xls</option>
                         <option value="csv">.csv</option>
                     </select>
-                    <button type="submit" name="export_get_internet_new_btn" class="btn btn-primary mt-3">Export</button>
+                    <button type="submit" name="export_get_internet_new_btn" class="btn btn-primary">Export</button>
               </form>
             </div>
           </div>
           <div class="card-body p-0">
             <div class="table-responsive" id="printable">
-              <table class="table m-0 table-bordered">
+              <table class="table m-0 table-bordered" id="list">
                <!--  <colgroup>
                   <col width="5%">
                   <col width="30%">
@@ -70,6 +70,9 @@
         </div>
         </div>
 <script>
+  $(document).ready(function(){
+    $('#list').dataTable()
+  })
 	$('#print').click(function(){
 		start_load()
 		var _h = $('head').clone()

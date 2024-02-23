@@ -16,7 +16,7 @@
                         <option value="xls">.xls</option>
                         <option value="csv">.csv</option>
                     </select>
-                    <button type="submit" name="export_chats_btn" class="btn btn-primary mt-3">Export</button>
+                    <button type="submit" name="export_chats_btn" class="btn btn-primary">Export</button>
                 </form>
 			</div>
 		</div>

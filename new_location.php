@@ -27,13 +27,16 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						
 						<div class="form-group">
 							<label class="control-label">Estate/Court/Road</label>
 							<input type="text" class="form-control form-control-sm" name="EstateName" required value="<?php echo isset($EstateName) ? $EstateName : '' ?>">
 							<small id="msg"></small>
 						</div>
-
+						<div class="form-group">
+							<label class="control-label">Homes Passed</label>
+							<input type="number" class="form-control form-control-sm" name="homes" required min="0" value="<?php echo isset($homes) ? $homes : '' ?>">
+							<small id="msg"></small>
+						</div>
 					</div>
 				</div>
 				<hr>
