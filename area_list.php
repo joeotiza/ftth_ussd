@@ -42,19 +42,13 @@
                         <td rowspan=<?=($countestate!=0) ? $countestate : 1?>><b><?php echo ucwords($row['AreaName']) ?></b></td>
                         <?php
                         if ($countestate != 0){
-							$estatequery = " SELECT *, COUNT(`location_codes`.`ONT_Location_Code`) AS `Connected`,
-								COUNT(`location_codes`.`ONT_Location_Code`) / NULLIF(`homes`, 0) AS `Penetration`
-								FROM `LocationDetails`
-								LEFT JOIN `location_codes`
-								ON `LocationDetails`.`LocationCode`=`location_codes`.`ONT_Location_Code`
-								GROUP BY `LocationDetails`.`LocationCode` ";
-                        	$qry2 = $conn->query("SELECT * FROM (".$estatequery.") AS `Locations` WHERE `AreaCode`='".$row['AreaCode']."';");
+                        	$qry2 = $conn->query("SELECT * FROM `LocationDetails` WHERE `AreaCode`='".$row['AreaCode']."';");
                         	while($row2=$qry2->fetch_assoc()):
                             	if (!$first) echo "<tr>";
                         ?>
 						<td><?php echo $row2['LocationCode']; ?></td>
 						<td><?php echo $row2['EstateName']; ?></td>
-						<td><?php echo $row2['Penetration'] ? round((float)$row2['Penetration']*100).'%' : 'No Homes Passed'; ?></td>
+						<td><b id="<?=$row2['LocationCode']?>" style="color:#273c88;">...</b></td>
                         <?php if ($first || $_GET['id']){ ?>
 						<td rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -102,6 +96,12 @@
 </div>
 <script>
 	$(document).ready(function(){
+	<?php
+	$qry = $conn->query($penetrationquery.$where);
+	while($row= $qry->fetch_assoc()):
+	?>
+	document.getElementById('<?= $row['LocationCode'] ?>').innerHTML="<?= $row['Penetration'] ? round((float)$row['Penetration']*100).'%' : 'No Homes Passed';  ?>";
+	<?php endwhile;?>
 	$('.delete_area').click(function(){
 	_conf("Are you sure to delete this area?","delete_area",[$(this).attr('data-id')])
 	})

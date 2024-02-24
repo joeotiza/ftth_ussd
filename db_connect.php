@@ -68,29 +68,35 @@ LEFT JOIN
 WHERE 
 `Current_Package` LIKE '%home%' ";
 
-$penetrationquery="SELECT 
-t1.*, t2.`AreaName`, 
+$penetrationquery="SELECT * FROM (SELECT `LocationDetails`.`LocationID`, `LocationDetails`.`LocationCode`, `LocationDetails`.`EstateName`,
+`LocationDetails`.`homes`, `AreaDetails`.`AreaID`, `AreaDetails`.`AreaCode`, `AreaDetails`.`AreaName`
+FROM `LocationDetails`
+LEFT JOIN `AreaDetails`
+ON `LocationDetails`.`AreaCode`=`AreaDetails`.`AreaCode`) AS t1
+LEFT JOIN
+(SELECT  
 t2.`LocationCode` AS `t1LocationCode`,
 SUM(CASE WHEN t2.`Status` = 'Active' THEN 1 ELSE 0 END) AS `Active`,
-SUM(CASE WHEN t2.`Status` = 'Expired' THEN 1 ELSE 0 END) AS `Expired`
+SUM(CASE WHEN t2.`Status` = 'Expired' THEN 1 ELSE 0 END) AS `Expired`,
+COUNT(`t2`.`Status`) AS `Connected`,
+COUNT(`t2`.`Status`) / NULLIF(`homes`, 0) AS `Penetration`
 FROM (
 SELECT 
 	`AreaCode`,
 	`LocationDetails`.`homes`,
 	`EstateName`,
-	`location_codes`.`ONT_Location_Code` AS `LocationCode`,
-	COUNT(`location_codes`.`ONT_Location_Code`) AS `Connected`,
-	COUNT(`location_codes`.`ONT_Location_Code`) / NULLIF(`homes`, 0) AS `Penetration`
+	`location_codes`.`ONT_Location_Code` AS `LocationCode`
 FROM 
 	`LocationDetails`
-LEFT JOIN 
+INNER JOIN 
 	`location_codes` ON `LocationDetails`.`LocationCode` = `location_codes`.`ONT_Location_Code`
 GROUP BY 
 	`LocationDetails`.`LocationCode`
 ) AS t1
-LEFT JOIN (
+INNER JOIN (
 SELECT 
 	`myLocations`.`AreaName`,
+    `myLocations`.`LocationID`,
 	`myCustomers`.`LocationCode` AS `LocationCode`,
 	DATEDIFF(`Expiration`, CURDATE()) AS `TED`,
 	(CASE
@@ -113,7 +119,7 @@ FROM (
 			UNION
 			SELECT * FROM `pyramite_expired`
 		) AS `pyramite`
-	LEFT JOIN 
+	INNER JOIN 
 		`location_codes` ON `pyramite`.`User name` = `location_codes`.`ONT_Username`
 	UNION
 	SELECT 
@@ -127,7 +133,7 @@ FROM (
 		`ONT_Location_Code` AS `LocationCode`
 	FROM 
 		`customers`
-	LEFT JOIN 
+	INNER JOIN 
 		`location_codes` ON `customers`.`Correlation ID` = `location_codes`.`ONT_Username`
 	WHERE 
 		`User Group` NOT LIKE '%Gratis%' 
@@ -141,21 +147,23 @@ FROM (
 			) AS `pyramite`
 		)
 ) AS `myCustomers`
-LEFT JOIN (
+INNER JOIN (
 	SELECT 
+    	`LocationID`,
 		`LocationCode`,
 		`LocationDetails`.`AreaCode`,
 		`AreaName`,
 		`EstateName`
 	FROM 
 		`LocationDetails`
-	LEFT JOIN 
+	INNER JOIN 
 		`AreaDetails` ON `LocationDetails`.`AreaCode` = `AreaDetails`.`AreaCode`
 ) AS `myLocations` ON `myCustomers`.`LocationCode` = `myLocations`.`LocationCode`
 WHERE 
 	`Current_Package` LIKE '%home%'
 ) AS t2 ON t1.`LocationCode` = t2.`LocationCode`
-WHERE 
-t1.`Connected` <> 0
 GROUP BY 
-t1.`LocationCode` ";
+t1.`LocationCode`
+HAVING 
+COUNT(`t2`.`Status`) <> 0) AS t3
+ON t3.`t1LocationCode`=t1.`LocationCode` ";
