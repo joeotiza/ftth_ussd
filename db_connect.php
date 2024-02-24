@@ -6,7 +6,7 @@ $customersquery="SELECT
 *,
 DATEDIFF(`Expiration`, CURDATE()) AS `TED`,
 CASE
-	WHEN `Expiration` < CURDATE() THEN 'Expired'
+	WHEN `Expiration` <= CURDATE() THEN 'Expired'
 	ELSE 'Active'
 END AS `Status`
 FROM (
@@ -93,7 +93,7 @@ SELECT
 	`myCustomers`.`LocationCode` AS `LocationCode`,
 	DATEDIFF(`Expiration`, CURDATE()) AS `TED`,
 	(CASE
-		WHEN `Expiration` < CURDATE() THEN 'Expired'
+		WHEN `Expiration` <= CURDATE() THEN 'Expired'
 		ELSE 'Active'
 	END) AS `Status`
 FROM (
