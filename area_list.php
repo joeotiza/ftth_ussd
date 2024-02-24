@@ -48,7 +48,7 @@
                         ?>
 						<td><?php echo $row2['LocationCode']; ?></td>
 						<td><?php echo $row2['EstateName']; ?></td>
-						<td><b id="<?=$row2['LocationCode']?>" style="color:#273c88;">...</b></td>
+						<td><b id="<?=$row2['LocationCode']?>">...</b></td>
                         <?php if ($first || $_GET['id']){ ?>
 						<td rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
