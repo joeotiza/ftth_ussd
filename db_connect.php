@@ -44,6 +44,7 @@ LEFT JOIN
 WHERE 
 	`User Group` NOT LIKE '%Gratis%' 
 	AND `User Group` NOT LIKE '%Staff%' 
+	AND `Topup End Date` <> ''
 	AND `Correlation ID` NOT IN (
 		SELECT `User name` FROM (
 			SELECT * FROM `pyramite_active`
@@ -131,6 +132,7 @@ FROM (
 	WHERE 
 		`User Group` NOT LIKE '%Gratis%' 
 		AND `User Group` NOT LIKE '%Staff%' 
+		AND `Topup End Date` <> ''
 		AND `Correlation ID` NOT IN (
 			SELECT `User name` FROM (
 				SELECT * FROM `pyramite_active`
