@@ -1,13 +1,13 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <style>
       .bounding-box {
-      background-image: url('./assets/uploads/liquidlogo.png');
+      background-image: url('./assets/uploads/liquid_home2.png');
       background-size: contain;
-  position: absolute;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 8%;
-  width: 100%;
+      position: absolute;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 8%;
+      width: 100%;
     }
     </style>
     <div class="dropdown">
