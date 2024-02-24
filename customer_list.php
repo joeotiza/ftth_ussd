@@ -59,7 +59,7 @@
 					?>
 					<tr class="dataRow <?=$row['Status']?>">
 						<th class="text-center"><?php echo $row['Account_ID'] ?></th>
-						<td><b><?php echo $row['Status'] ?></b></td>
+						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
 						<td><?php echo $row['Current_Package'] ?></td>
 						<td><?php echo $row['AreaName'] ?></td>
 						<td><?php echo $row['EstateName'] ?></td>
