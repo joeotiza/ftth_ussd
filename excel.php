@@ -16,7 +16,7 @@ if(isset($_POST['export_new_customers_btn']))
     $exportquery = "SELECT * FROM `customer_details` order by reg_date desc;";
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "New_Customers_".date('Y-m-d_H-i-s');
+    $fileName = "New_Customers_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -76,7 +76,7 @@ if(isset($_POST['export_areas_btn']))
     $exportquery = $penetrationquery."ORDER BY `AreaCode`";
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Area_Penetration_".date('Y-m-d_H-i-s');
+    $fileName = "Area_Penetration_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -144,7 +144,7 @@ if(isset($_POST['export_customers_btn']))
     $exportquery = $customersquery;
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Customers_List_".date('Y-m-d_H-i-s');
+    $fileName = "Customers_List_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -217,7 +217,7 @@ if(isset($_POST['export_get_internet_btn']))
     TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc";
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Get_Internet_".date('Y-m-d_H-i-s');
+    $fileName = "Get_Internet_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -283,7 +283,7 @@ if(isset($_POST['export_get_internet_new_btn']))
     $exportquery = "SELECT * FROM `get_internet` INNER JOIN `customer_details` ON `get_internet`.`Customer ID`=`customer_details`.`Customer ID` order by `request_date` desc";
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Get_Internet_new_".date('Y-m-d_H-i-s');
+    $fileName = "Get_Internet_new_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -352,7 +352,7 @@ if(isset($_POST['export_cases_reported_btn']))
 
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Reported_Cases_".date('Y-m-d_H-i-s');
+    $fileName = "Reported_Cases_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -421,7 +421,7 @@ if(isset($_POST['export_change_plan_btn']))
 
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Change_Plan_".date('Y-m-d_H-i-s');
+    $fileName = "Change_Plan_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {
@@ -492,7 +492,7 @@ if(isset($_POST['export_chats_btn']))
 
     $myresult = mysqli_query($conn, $exportquery);
 
-    $fileName = "Chat_Requests_".date('Y-m-d_H-i-s');
+    $fileName = "Chat_Requests_".$dt->format('Y-m-d_H-i-s');
 
     if (mysqli_num_rows($myresult) > 0)
     {

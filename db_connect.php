@@ -2,6 +2,12 @@
 
 $conn= new mysqli('localhost','root','','ftth_ussd')or die("Could not connect to mysql".mysqli_error($con));
 
+$tz = 'Africa/Nairobi';
+$timestamp = time();
+$dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
+$dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+//echo $dt->format('d.m.Y, H:i:s');
+
 $customersquery="SELECT 
 *,
 DATEDIFF(`Expiration`, CURDATE()) AS `TED`,
