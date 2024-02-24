@@ -122,7 +122,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2024 <a href="https://www.github.com/joeotiza">github.com/joeotiza</a>.</strong>
+    <strong>Copyright &copy; 2024 <a href="https://liquid.tech">Liquid Intelligent Technologies</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b><?php echo $_SESSION['system']['name'] ?></b>

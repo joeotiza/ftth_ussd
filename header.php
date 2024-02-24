@@ -36,8 +36,14 @@
   <!-- Switch Toggle -->
   <link rel="stylesheet" href="assets/plugins/bootstrap4-toggle/css/bootstrap4-toggle.min.css">
   <!-- Theme style -->
+  <style>
+    th {color:#273c88;}
+  </style>
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="assets/dist/css/styles.css">
+  <link rel="icon" href="https://liquid.tech/wp-content/uploads/2022/12/favicon-150x150.png" sizes="32x32">
+  <link rel="icon" href="https://liquid.tech/wp-content/uploads/2022/12/favicon-300x300.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="https://liquid.tech/wp-content/uploads/2022/12/favicon-300x300.png">
 	<script src="assets/plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
