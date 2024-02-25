@@ -28,7 +28,7 @@
 					<td class="text-center"><div class="btn btn-success">Active: <b id="ActiveCount"></b></div></td>
 					<td class="text-center"><div class="btn btn-danger">Expired: <b id="ExpiredCount"></b></div></td>
 				</tr>
-			</table><br>
+			</table>
 			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;">
 				<colgroup>
 					<col style="width: 11%;" />

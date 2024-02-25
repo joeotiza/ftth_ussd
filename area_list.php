@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div class="card-body">
-			<table class="table table-hover table-bordered" id="list">
+			<table class="table table-bordered" id="list">
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
