@@ -3,10 +3,10 @@
 <div class="col-lg-12">
 	<div class="card">
 		<div class="card-body">
-        <?php
+            <?php
             if (isset($_SESSION['message']))
             {
-                echo "<h4>".$_SESSION['message']."</h4>";
+                echo "<h4 style='color:red; font-weight:bold;'>".$_SESSION['message']."</h4>";
                 unset ($_SESSION['message']);
             }
             ?>

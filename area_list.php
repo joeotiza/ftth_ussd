@@ -2,7 +2,7 @@
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
-			<form action="excel.php" method="POST">
+			<form action="excel.php" method="POST" style="display:inline;">
                 <select name="export_file_type" class="form_control">
                 	<option value="xlsx">.xlsx</option>
                     <option value="xls">.xls</option>
@@ -10,7 +10,7 @@
                 </select>
                 <button type="submit" name="export_areas_btn" class="btn btn-primary">Export</button>
             </form>
-			<div class="card-tools">
+			<div class="card-tools" style="display:inline;">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href=<?= (!$_GET['id']) ? "./index.php?page=new_area" : "./index.php?page=new_location"?>><i class="fa fa-plus"></i> Add New <?= (!$_GET['id']) ? "Area" : "Location"?></a>
 			</div>
 		</div>

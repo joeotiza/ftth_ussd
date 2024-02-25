@@ -5,11 +5,11 @@
             <?php
             if (isset($_SESSION['message']))
             {
-                echo "<h4>".$_SESSION['message']."</h4>";
+                echo "<h4 style='color:green; font-weight:bold;'>".$_SESSION['message']."</h4>";
                 unset ($_SESSION['message']);
             }
             ?>
-			<form action="excel.php" method="POST">
+			<form action="excel.php" method="POST" style="display:inline;">
                 <select name="export_file_type" class="form_control">
                 	<option value="xlsx">.xlsx</option>
                     <option value="xls">.xls</option>
@@ -17,7 +17,7 @@
                 </select>
                 <button type="submit" name="export_customers_btn" class="btn btn-primary">Export</button>
             </form>
-			<div class="card-tools">
+			<div class="card-tools" style="display:inline;">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_customer"><i class="fa fa-plus"></i> Upload Customers File</a>
 			</div>
 		</div>
