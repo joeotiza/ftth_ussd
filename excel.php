@@ -563,6 +563,10 @@ if(isset($_POST['save_excel_data']))
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         //print_r ($data[0]);
+        $ignorecolumn = 'J';//empty column without column header
+        $alphabet = range('A', 'Z');
+        $skip = array_search($ignorecolumn, $alphabet);
+
         $count = 0;
         $columns = "";
         foreach($data as $row)
@@ -573,15 +577,20 @@ if(isset($_POST['save_excel_data']))
             {
                 if ($count > 0)
                 {
-                    if ($count == 1)
+                    if ($index != $skip)
                     {
-                        $columns .= "`". $row[$index++]."`, ";
+                        if ($count == 1)
+                        {
+                            $columns .= "`". $row[$index++]."`, ";
+                        }
+                        else
+                        {
+                            $$field = $row[$index++];
+                            $values .= "'".$$field."', ";
+                        }
                     }
                     else
-                    {
-                        $$field = $row[$index++];
-                        $values .= "'".$$field."', ";
-                    }
+                        $index++;
                 }
             }
             
