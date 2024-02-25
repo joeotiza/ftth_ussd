@@ -16,7 +16,7 @@
           </div>
           <div class="card-body p-0">
             <div class="table-responsive" id="printable">
-              <table class="table m-0 table-bordered" id="list">
+              <table class="table m-0 table-bordered table-hover" id="list">
                <!--  <colgroup>
                   <col width="5%">
                   <col width="30%">

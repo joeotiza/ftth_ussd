@@ -22,14 +22,14 @@
 			</div>
 		</div>
 		<div class="card-body">
-			<table class="table tabe-hover table-bordered">
+			<table class="table">
 				<tr>
 					<td class="text-center"><div class="btn btn-warning" style="color:#fff;">Connected: <b id="ConnectedCount"></b></div></td>
 					<td class="text-center"><div class="btn btn-success">Active: <b id="ActiveCount"></b></div></td>
 					<td class="text-center"><div class="btn btn-danger">Expired: <b id="ExpiredCount"></b></div></td>
 				</tr>
 			</table><br>
-			<table class="table tabe-hover table-bordered" id="list" style="table-layout: fixed;">
+			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;">
 				<colgroup>
 					<col style="width: 11%;" />
 					<col style="width: 10%;" />
