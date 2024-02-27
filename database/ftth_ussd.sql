@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 27, 2024 at 01:07 PM
+-- Generation Time: Feb 27, 2024 at 01:30 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -7949,7 +7949,7 @@ CREATE TABLE `system_settings` (
 --
 
 INSERT INTO `system_settings` (`id`, `name`, `email`, `contact`, `address`, `cover_img`) VALUES
-(1, 'FTTH USSD System', 'joseph.otieno@liquid.tech', '+254205000094', 'Sameer Business Park, Mombasa Road', '');
+(1, 'Liquid Home DMU', 'joseph.otieno@liquid.tech', '+254205000094', 'Sameer Business Park, Mombasa Road', '');
 
 -- --------------------------------------------------------
 
