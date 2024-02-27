@@ -30,6 +30,13 @@ FROM
 		SELECT * FROM `pyramite_active`
 		UNION
 		SELECT * FROM `pyramite_expired`
+			WHERE `pyramite_expired`.`User name` NOT IN (
+				SELECT `Correlation ID` FROM `customers`
+					WHERE `User Group` NOT LIKE '%Gratis%' 
+						AND `User Group` NOT LIKE '%Staff%'
+						AND `Service Status` LIKE 'Active'
+						AND `Topup End Date` <> ''
+				)
 	) AS `pyramite`
 LEFT JOIN 
 	`location_codes` ON `pyramite`.`User name` = `location_codes`.`ONT_Username`
@@ -57,6 +64,13 @@ WHERE
 			SELECT * FROM `pyramite_active`
 			UNION
 			SELECT * FROM `pyramite_expired`
+			WHERE `pyramite_expired`.`User name` NOT IN (
+				SELECT `Correlation ID` FROM `customers`
+					WHERE `User Group` NOT LIKE '%Gratis%' 
+						AND `User Group` NOT LIKE '%Staff%'
+						AND `Service Status` LIKE 'Active'
+						AND `Topup End Date` <> ''
+				)
 		) AS `pyramite`
 	)
 ) AS `myCustomers`
@@ -125,6 +139,13 @@ FROM (
 			SELECT * FROM `pyramite_active`
 			UNION
 			SELECT * FROM `pyramite_expired`
+			WHERE `pyramite_expired`.`User name` NOT IN (
+				SELECT `Correlation ID` FROM `customers`
+					WHERE `User Group` NOT LIKE '%Gratis%' 
+						AND `User Group` NOT LIKE '%Staff%'
+						AND `Service Status` LIKE 'Active'
+						AND `Topup End Date` <> ''
+				)
 		) AS `pyramite`
 	INNER JOIN 
 		`location_codes` ON `pyramite`.`User name` = `location_codes`.`ONT_Username`
@@ -152,6 +173,13 @@ FROM (
 				SELECT * FROM `pyramite_active`
 				UNION
 				SELECT * FROM `pyramite_expired`
+					WHERE `pyramite_expired`.`User name` NOT IN (
+						SELECT `Correlation ID` FROM `customers`
+							WHERE `User Group` NOT LIKE '%Gratis%' 
+								AND `User Group` NOT LIKE '%Staff%'
+								AND `Service Status` LIKE 'Active'
+								AND `Topup End Date` <> ''
+						)
 			) AS `pyramite`
 		)
 ) AS `myCustomers`
