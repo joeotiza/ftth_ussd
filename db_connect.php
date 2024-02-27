@@ -49,7 +49,8 @@ LEFT JOIN
 	`location_codes` ON `customers`.`Correlation ID` = `location_codes`.`ONT_Username`
 WHERE 
 	`User Group` NOT LIKE '%Gratis%' 
-	AND `User Group` NOT LIKE '%Staff%' 
+	AND `User Group` NOT LIKE '%Staff%'
+	AND `Service Status` LIKE 'Active'
 	AND `Topup End Date` <> ''
 	AND `Correlation ID` NOT IN (
 		SELECT `User name` FROM (
@@ -143,7 +144,8 @@ FROM (
 		`location_codes` ON `customers`.`Correlation ID` = `location_codes`.`ONT_Username`
 	WHERE 
 		`User Group` NOT LIKE '%Gratis%' 
-		AND `User Group` NOT LIKE '%Staff%' 
+		AND `User Group` NOT LIKE '%Staff%'
+		AND `Service Status` LIKE 'Active' 
 		AND `Topup End Date` <> ''
 		AND `Correlation ID` NOT IN (
 			SELECT `User name` FROM (
