@@ -48,12 +48,14 @@
                   <p>Existing Customers</p>
                 </a>
               </li>
+              <?php if($_SESSION['login_type'] != 3): ?>
               <li class="nav-item">
                 <a href="./index.php?page=new_customer" class="nav-link nav-new_customer tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>Upload File</p>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -128,7 +130,7 @@
               </p>
             </a>
           </li>
-          <?php if($_SESSION['login_type'] == 1): ?>
+          <?php if($_SESSION['login_type'] != 3): ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_area">
               <i class="nav-icon fas fa-map"></i>

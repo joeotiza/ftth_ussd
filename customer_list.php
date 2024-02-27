@@ -17,9 +17,11 @@
                 </select>
                 <button type="submit" name="export_customers_btn" class="btn btn-primary">Export</button>
             </form>
+			<?php if($_SESSION['login_type'] != 3): ?>
 			<div class="card-tools" style="display:inline;">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_customer"><i class="fa fa-plus"></i> Upload Customers File</a>
 			</div>
+			<?php endif; ?>
 		</div>
 		<div class="card-body">
 			<table class="table">
