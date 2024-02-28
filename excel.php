@@ -141,7 +141,7 @@ if(isset($_POST['export_areas_btn']))
 if(isset($_POST['export_customers_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
-    $exportquery = $customersquery;
+    $exportquery = $customersquery." ORDER BY `TED`";
     $myresult = mysqli_query($conn, $exportquery);
 
     $fileName = "Customers_List_".$dt->format('Y-m-d_H-i-s');
