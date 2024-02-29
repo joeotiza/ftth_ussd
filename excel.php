@@ -216,7 +216,8 @@ if(isset($_POST['export_get_internet_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
     $exportquery = "SELECT *, `get_internet`.`Address` as `myAddress`, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `get_internet` INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID` order by `request_date` desc";
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `get_internet` INNER JOIN `customers` 
+    ON `get_internet`.`Customer ID`=`customers`.`Customer ID` WHERE `Service Status` LIKE 'Active' order by `request_date` desc";
     $myresult = mysqli_query($conn, $exportquery);
 
     $fileName = "Get_Internet_".$dt->format('Y-m-d_H-i-s');
@@ -354,7 +355,7 @@ if(isset($_POST['export_cases_reported_btn']))
     $file_ext_name = $_POST['export_file_type'];
     $exportquery = "SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
     TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` RIGHT JOIN `cases_reported`
-        ON `customers`.`Correlation ID`=`cases_reported`.`Correlation ID` order by `time` desc";
+        ON `customers`.`Correlation ID`=`cases_reported`.`Correlation ID` WHERE `Service Status` LIKE 'Active' order by `time` desc";
 
     $myresult = mysqli_query($conn, $exportquery);
 
@@ -425,7 +426,7 @@ if(isset($_POST['export_change_plan_btn']))
     $file_ext_name = $_POST['export_file_type'];
     $exportquery = "SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
     TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` RIGHT JOIN `plan_change`
-    ON `customers`.`Correlation ID`=`plan_change`.`Correlation ID` order by `request_time` desc";
+    ON `customers`.`Correlation ID`=`plan_change`.`Correlation ID` WHERE `Service Status` LIKE 'Active' order by `request_time` desc";
 
     $myresult = mysqli_query($conn, $exportquery);
 
