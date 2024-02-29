@@ -55,7 +55,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
 
     //Check if the user is in the db
     $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `customers` WHERE `Service Status` LIKE 'Active' AND
+     `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
     $stmt->execute();
     
     $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -385,8 +386,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                         {
                                             //Record Customer Details
                                             $fullName = explode(" ", $textArray[$continue+5], 2);
-                                            $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`)
-                                            VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."');");
+                                            $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`,`source`)
+                                            VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."','USSD');");
                                             //$stmt->execute();
 
                                             $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
@@ -396,8 +397,9 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                         }
                                         
                                         //Record Get Internet Details
-                                        $stmt = $db->query("INSERT INTO `get_internet` (`Customer ID`,`Area`,`Address`,`Capacity`)
-                                        VALUES ('".$userAvailable['Customer ID']."', '".$area[$textArray[$continue+1]]['name']."', '".$area[$textArray[$continue+1]]['estate'][$textArray[$continue+2]].", ".$textArray[$continue+3]."', '" .$capacity."');");
+                                        $stmt = $db->query("INSERT INTO `get_internet` (`Customer ID`,`Area`,`Address`,`Capacity`,`source`)
+                                        VALUES ('".$userAvailable['Customer ID']."', '".$area[$textArray[$continue+1]]['name']."', 
+                                        '".$area[$textArray[$continue+1]]['estate'][$textArray[$continue+2]].", ".$textArray[$continue+3]."', '" .$capacity."','USSD');");
                                         //$stmt->execute();
                                         //$textArray[$continue+1]['estate'][$textArray[$continue+2]].
 
@@ -447,7 +449,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                             if (!$textArray[3])
                             {
                                 $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM customers WHERE `Correlation ID` LIKE '%".$textArray[2]."%' LIMIT 1");
+                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM customers WHERE 
+                                `Service Status` LIKE 'Active' AND `Correlation ID` LIKE '%".$textArray[2]."%' LIMIT 1");
                                 $stmt->execute();
                                 
                                 $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -561,7 +564,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 else
                                 {
                                     $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM customers WHERE `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
+                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM customers WHERE 
+                                    `Service Status` LIKE 'Active' AND `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
                                     $stmt->execute();
                                         
                                     $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -587,8 +591,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                     {
                                         if ($textArray[4] == "1")
                                         {
-                                            $stmt = $db->query("INSERT INTO `cases_reported` (`Correlation ID`,`reported_case`)
-                                                VALUES ('".$accountAvailable['Correlation ID']."', '".$cases[$textArray[1]]."');");
+                                            $stmt = $db->query("INSERT INTO `cases_reported` (`Correlation ID`,`reported_case`,`source`)
+                                                VALUES ('".$accountAvailable['Correlation ID']."', '".$cases[$textArray[1]]."','USSD');");
 
                                             $response = "END Your response has been captured.\n";
                                             $response .= "Kindly be patient as our Engineers restore the service.\n";
@@ -619,8 +623,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 {
                                     if ($textArray[3] == "1")
                                     {
-                                        $stmt = $db->query("INSERT INTO `cases_reported` (`Correlation ID`,`reported_case`)
-                                        VALUES ('".$userAvailable['Correlation ID']."', '".$cases[$textArray[1]]."');");
+                                        $stmt = $db->query("INSERT INTO `cases_reported` (`Correlation ID`,`reported_case`,`source`)
+                                        VALUES ('".$userAvailable['Correlation ID']."', '".$cases[$textArray[1]]."','USSD');");
 
                                         $response = "END Your response has been captured.\n";
                                         $response .= "Kindly be patient as our Engineers restore the service.\n";
@@ -699,7 +703,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 else
                                 {
                                     $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
+                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity 
+                                    FROM customers WHERE `Service Status` LIKE 'Active' AND `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
                                     $stmt->execute();
                                         
                                     $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -717,13 +722,11 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                     {
                                         if ($accountAvailable)
                                         {
-                                            $response = "CON Change plan of the account no.".$accountAvailable['Correlation ID']." belonging to ";
-                                            $response .= $accountAvailable['FirstName']." ".$accountAvailable['LastName']." from ".$accountAvailable['capacity']." to:\n";
-                                            foreach($notmypackage as $key=>$value)
-                                            {
-                                                $response .=  " " . $key . ". " . $value . "\n";
-                                            }
-                                            $response .= "\n 0. Back to Main Menu\n";
+                                            $response = "END Account no.".$accountAvailable['Correlation ID']."\n";
+                                            $response .= "Registered under: ".$accountAvailable['FirstName']."\n";
+                                            $response .= "Service: ".$accountAvailable['GPONPlan']."\n";
+                                            $response .= "Expiry: ".$accountAvailable['Topup End Date']."\n";
+                                            
                                             echo $response;
                                         }
                                         else
@@ -732,43 +735,14 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                             echo $response;
                                         }                                
                                     }
-                                    else
-                                    {
-                                        if (!$textArray[5])
-                                        {
-                                            $response = "CON Change Plan for account no.".$accountAvailable['Correlation ID']." from ";
-                                            $response .= $accountAvailable['capacity']." to ".$notmypackage[$textArray[4]].":\n";
-                                            $response .= " 1. Yes\n";
-                                            $response .= " 2. No\n";
-                                            $response .= "\n 0. Back to Main Menu\n";
-
-                                            echo $response;
-                                        }
-                                        else
-                                        {
-                                            if ($textArray[5] == "1")
-                                            {
-                                                $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
-                                                    VALUES ('".$accountAvailable['Correlation ID']."', '".$accountAvailable['capacity']."', '".$notmypackage[$textArray[4]]."');");
-                                                
-                                                $response = "END Your details have been captured and you will get a call from us soon.";
-                                                echo $response;
-                                            }
-                                            else
-                                            {
-                                                $response = "END Thank you for accessing our services.";
-                                                echo $response;
-                                            }
-                                            
-                                        }
-                                    }
                                 }
                                 
                             }
                             elseif ($textArray[2] == "1")
                             {
                                 $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$userAvailable['Correlation ID']."%' LIMIT 1");
+                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity 
+                                FROM customers WHERE `Service Status` LIKE 'Active' AND `Correlation ID` LIKE '%".$userAvailable['Correlation ID']."%' LIMIT 1");
                                 $stmt->execute();
                                         
                                 $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -784,44 +758,20 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
 
                                 if (!$textArray[3])
                                 {
-                                    $response = "CON Change Plan of the account no.".$userAvailable['Correlation ID']." belonging to ";
-                                    $response .= $userAvailable['FirstName']." ".$userAvailable['LastName']." from ".$userAvailable['capacity']." to:\n";
-                                    foreach($notmypackage as $key=>$value)
+                                    if ($accountAvailable)
                                     {
-                                        $response .=  " " . $key . ". " . $value . "\n";
-                                    }
-                                    $response .= "\n 0. Back to Main Menu\n";
-                                    echo $response;
-                                }
-                                else
-                                {
-                                    if (!$textArray[4])
-                                    {
-                                        $response = "CON Change Plan for account no.".$userAvailable['Correlation ID']." from ";
-                                        $response .= $userAvailable['capacity']." to ".$notmypackage[$textArray[3]].":\n";
-                                        $response .= " 1. Yes\n";
-                                        $response .= " 2. No\n";
-                                        $response .= "\n 0. Back to Main Menu\n";
-
+                                        $response = "END Account no.".$accountAvailable['Correlation ID']."\n";
+                                        $response .= "Registered under: ".$accountAvailable['FirstName']."\n";
+                                        $response .= "Service: ".$accountAvailable['GPONPlan']."\n";
+                                        $response .= "Expiry: ".$accountAvailable['Topup End Date']."\n";
+                                        
                                         echo $response;
                                     }
                                     else
                                     {
-                                        if ($textArray[4] == "1")
-                                        {
-                                            $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
-                                                VALUES ('".$userAvailable['Correlation ID']."', '".$userAvailable['capacity']."', '".$notmypackage[$textArray[3]]."');");
-                                        
-                                            $response = "END Your details have been captured and you will get a call from us soon.";
-                                            echo $response;
-                                        }
-                                        else
-                                        {
-                                            $response = "END Thank you for accessing our services.";
-                                            echo $response;
-                                        }
-                                        
-                                    }
+                                        $response = "END The specified account could not be found in our records.";
+                                        echo $response;
+                                    }   
                                 }
                             }
                         }
@@ -856,7 +806,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                 else
                                 {
                                     $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
+                                    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity 
+                                    FROM customers WHERE `Service Status` LIKE 'Active' AND `Correlation ID` LIKE '%".$textArray[3]."%' LIMIT 1");
                                     $stmt->execute();
                                         
                                     $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -905,8 +856,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                         {
                                             if ($textArray[5] == "1")
                                             {
-                                                $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
-                                                    VALUES ('".$accountAvailable['Correlation ID']."', '".$accountAvailable['capacity']."', '".$notmypackage[$textArray[4]]."');");
+                                                $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`,`source`)
+                                                    VALUES ('".$accountAvailable['Correlation ID']."', '".$accountAvailable['capacity']."', '".$notmypackage[$textArray[4]]."','USSD');");
                                                 
                                                 $response = "END Your details have been captured and you will get a call from us soon.";
                                                 echo $response;
@@ -925,7 +876,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                             elseif ($textArray[2] == "1")
                             {
                                 $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity FROM customers WHERE `Correlation ID` LIKE '%".$userAvailable['Correlation ID']."%' LIMIT 1");
+                                TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName,".$readCapacity." as capacity 
+                                FROM customers WHERE `Service Status` LIKE 'Active' AND `Correlation ID` LIKE '%".$userAvailable['Correlation ID']."%' LIMIT 1");
                                 $stmt->execute();
                                         
                                 $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -966,8 +918,8 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                     {
                                         if ($textArray[4] == "1")
                                         {
-                                            $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`)
-                                                VALUES ('".$userAvailable['Correlation ID']."', '".$userAvailable['capacity']."', '".$notmypackage[$textArray[3]]."');");
+                                            $stmt = $db->query("INSERT INTO `plan_change` (`Correlation ID`,`from_mbps`,`to_mbps`,`source`)
+                                                VALUES ('".$userAvailable['Correlation ID']."', '".$userAvailable['capacity']."', '".$notmypackage[$textArray[3]]."','USSD');");
                                         
                                             $response = "END Your details have been captured and you will get a call from us soon.";
                                             echo $response;

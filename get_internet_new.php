@@ -32,6 +32,7 @@
                   <th>Address</th>
                   <th>Requested Capacity</th>
                   <th>Request Time</th>
+                  <th>Platform</th>
                 </thead>
                 <tbody>
                 <?php
@@ -61,6 +62,7 @@
                       <td class="text-center">
                       	<?php echo $row['request_date'] ?>
                       </td>
+                      <td class="text-center"><b><?= ($row['source'] == "WhatsApp") ? "WhatsApp" : $myussdcode?></b></td>
                   </tr>
                 <?php endwhile; ?>
                 </tbody>  

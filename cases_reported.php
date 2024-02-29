@@ -31,6 +31,7 @@
                         <th>Account No.</th>
                         <th>Case Reported</th>
 						<th>Report Time</th>
+						<th>Platform</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -51,6 +52,7 @@
                         <td><?php echo $row['Correlation ID'] ?></td>
                         <td><?php echo $row['reported_case'] ?></td>
 						<td><?php echo $row['time'] ?></td>
+						<td class="text-center"><b><?= ($row['source'] == "WhatsApp") ? "WhatsApp" : $myussdcode?></b></td>
 						<td class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action

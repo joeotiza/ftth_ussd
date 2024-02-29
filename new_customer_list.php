@@ -21,6 +21,7 @@
 						<th>Name</th>
 						<th>Mobile Number</th>
 						<th>Request Time</th>
+						<th>Platform</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -36,6 +37,7 @@
 						<td><?php echo ucwords($row['name']) ?></td>
 						<td><?php echo $row['Contact Number'] ?></td>
 						<td><?php echo $row['reg_date'] ?></td>
+						<td class="text-center"><b><?= ($row['source'] == "WhatsApp") ? "WhatsApp" : $myussdcode?></b></td>
 						<td class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action

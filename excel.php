@@ -28,6 +28,7 @@ if(isset($_POST['export_new_customers_btn']))
         $sheet->setCellValue('C1', 'LastName');
         $sheet->setCellValue('D1', 'Contact Number');
         $sheet->setCellValue('E1', 'RegistrationDate');
+        $sheet->setCellValue('F1', 'Platform');
 
         $rowCount = 2;
         foreach($myresult as $data)
@@ -37,6 +38,7 @@ if(isset($_POST['export_new_customers_btn']))
             $sheet->setCellValue('C'.$rowCount, $data['LastName']);
             $sheet->setCellValue('D'.$rowCount, $data['Contact Number']);
             $sheet->setCellValue('E'.$rowCount, $data['reg_date']);
+            $sheet->setCellValue('F'.$rowCount, $data['source']);
             $rowCount++;
         }
 
@@ -232,6 +234,7 @@ if(isset($_POST['export_get_internet_btn']))
         $sheet->setCellValue('F1', 'Address');
         $sheet->setCellValue('G1', 'Capacity');
         $sheet->setCellValue('H1', 'RequestTime');
+        $sheet->setCellValue('I1', 'Platform');
 
         $rowCount = 2;
         foreach($myresult as $data)
@@ -244,6 +247,7 @@ if(isset($_POST['export_get_internet_btn']))
             $sheet->setCellValue('F'.$rowCount, $data['myAddress']);
             $sheet->setCellValue('G'.$rowCount, $data['Capacity']);
             $sheet->setCellValue('H'.$rowCount, $data['request_date']);
+            $sheet->setCellValue('I'.$rowCount, $data['source']);
             $rowCount++;
         }
 
@@ -298,6 +302,7 @@ if(isset($_POST['export_get_internet_new_btn']))
         $sheet->setCellValue('F1', 'Address');
         $sheet->setCellValue('G1', 'Capacity');
         $sheet->setCellValue('H1', 'RequestTime');
+        $sheet->setCellValue('I1', 'Platform');
 
         $rowCount = 2;
         foreach($myresult as $data)
@@ -310,6 +315,7 @@ if(isset($_POST['export_get_internet_new_btn']))
             $sheet->setCellValue('F'.$rowCount, $data['Address']);
             $sheet->setCellValue('G'.$rowCount, $data['Capacity']);
             $sheet->setCellValue('H'.$rowCount, $data['request_date']);
+            $sheet->setCellValue('I'.$rowCount, $data['source']);
             $rowCount++;
         }
 
@@ -367,6 +373,7 @@ if(isset($_POST['export_cases_reported_btn']))
         $sheet->setCellValue('F1', 'Correlation ID');
         $sheet->setCellValue('G1', 'ReportedCase');
         $sheet->setCellValue('H1', 'ReportTime');
+        $sheet->setCellValue('I1', 'Platform');
 
         $rowCount = 2;
         foreach($myresult as $data)
@@ -379,6 +386,7 @@ if(isset($_POST['export_cases_reported_btn']))
             $sheet->setCellValue('F'.$rowCount, $data['Correlation ID']);
             $sheet->setCellValue('G'.$rowCount, $data['reported_case']);
             $sheet->setCellValue('H'.$rowCount, $data['time']);
+            $sheet->setCellValue('I'.$rowCount, $data['source']);
             $rowCount++;
         }
 
@@ -437,6 +445,7 @@ if(isset($_POST['export_change_plan_btn']))
         $sheet->setCellValue('G1', 'from_mbps');
         $sheet->setCellValue('H1', 'to_mbps');
         $sheet->setCellValue('I1', 'RequestTime');
+        $sheet->setCellValue('J1', 'Platform');
 
         $rowCount = 2;
         foreach($myresult as $data)
@@ -450,6 +459,7 @@ if(isset($_POST['export_change_plan_btn']))
             $sheet->setCellValue('G'.$rowCount, $data['from_mbps']);
             $sheet->setCellValue('H'.$rowCount, $data['to_mbps']);
             $sheet->setCellValue('I'.$rowCount, $data['request_time']);
+            $sheet->setCellValue('J'.$rowCount, $data['source']);
             $rowCount++;
         }
 

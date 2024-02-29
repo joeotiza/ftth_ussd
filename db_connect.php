@@ -2,6 +2,8 @@
 
 $conn= new mysqli('localhost','root','','ftth_ussd')or die("Could not connect to mysql".mysqli_error($con));
 
+$myussdcode = "*1234#";
+
 $tz = 'Africa/Nairobi';
 $timestamp = time();
 $dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
