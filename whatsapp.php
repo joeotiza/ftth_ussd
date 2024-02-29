@@ -242,6 +242,10 @@ if (isset($_GET['rootchoice']))
 
         case 5:
             echo $questionsArray;
+            break;
+
+        default:
+            echo json_encode("Sorry. Seems like something went wrong.");
 
     }
 }
