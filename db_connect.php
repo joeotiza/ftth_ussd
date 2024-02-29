@@ -205,3 +205,84 @@ t1.`LocationCode`
 HAVING 
 COUNT(`t2`.`Status`) <> 0) AS t3
 ON t3.`t1LocationCode`=t1.`LocationCode` ";
+
+
+$summaryquery = "SELECT 
+IFNULL(`AreaName`,'(Blanks)') AS `AreaName`,
+COUNT(*) AS `Connected`,
+SUM(CASE WHEN `Expiration` > CURDATE() THEN 1 ELSE 0 END) AS `Active`,
+SUM(CASE WHEN `Expiration` <= CURDATE() THEN 1 ELSE 0 END) AS `Expired`
+FROM (
+SELECT 
+	`User name` AS `Account_ID`,
+	`Expiration`,
+	`Service` AS `Current_Package`,
+	`First name` AS `FirstName`,
+	`Last name` AS `LastName`,
+	`Mobile` AS `MobileNumber`,
+	`Email`,
+	`ONT_Location_Code` AS `LocationCode`
+FROM 
+	(
+		SELECT * FROM `pyramite_active`
+		UNION
+		SELECT * FROM `pyramite_expired`
+			WHERE `pyramite_expired`.`User name` NOT IN (
+				SELECT `Correlation ID` FROM `customers`
+					WHERE `User Group` NOT LIKE '%Gratis%' 
+						AND `User Group` NOT LIKE '%Staff%'
+						AND `Service Status` LIKE 'Active'
+						AND `Topup End Date` <> ''
+				)
+	) AS `pyramite`
+LEFT JOIN 
+	`location_codes` ON `pyramite`.`User name` = `location_codes`.`ONT_Username`
+UNION
+SELECT 
+	`Correlation ID` AS `Account_ID`,
+	STR_TO_DATE(`Topup End Date`, '%c/%d/%Y') as `Expiration`,
+	`GPONPlan` AS `Current_Package`,
+	SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS `FirstName`,
+	TRIM(SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`))) AS `LastName`,
+	`Contact Number` AS `MobileNumber`,
+	`EMail Address` AS `Email`,
+	`ONT_Location_Code` AS `LocationCode`
+FROM 
+	`customers`
+LEFT JOIN 
+	`location_codes` ON `customers`.`Correlation ID` = `location_codes`.`ONT_Username`
+WHERE 
+	`User Group` NOT LIKE '%Gratis%' 
+	AND `User Group` NOT LIKE '%Staff%'
+	AND `Service Status` LIKE 'Active'
+	AND `Topup End Date` <> ''
+	AND `Correlation ID` NOT IN (
+		SELECT `User name` FROM (
+			SELECT * FROM `pyramite_active`
+			UNION
+			SELECT * FROM `pyramite_expired`
+			WHERE `pyramite_expired`.`User name` NOT IN (
+				SELECT `Correlation ID` FROM `customers`
+					WHERE `User Group` NOT LIKE '%Gratis%' 
+						AND `User Group` NOT LIKE '%Staff%'
+						AND `Service Status` LIKE 'Active'
+						AND `Topup End Date` <> ''
+				)
+		) AS `pyramite`
+	)
+) AS `myCustomers`
+LEFT JOIN 
+(
+	SELECT 
+		`LocationCode`,
+		`LocationDetails`.`AreaCode`,
+		`AreaName`,
+		`EstateName`
+	FROM 
+		`LocationDetails`
+	LEFT JOIN 
+		`AreaDetails` ON `LocationDetails`.`AreaCode` = `AreaDetails`.`AreaCode`
+) AS `myLocations` ON `myCustomers`.`LocationCode` = `myLocations`.`LocationCode`
+WHERE 
+`Current_Package` LIKE '%home%'
+GROUP BY `AreaName` ";
