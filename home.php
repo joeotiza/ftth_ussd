@@ -51,6 +51,9 @@ if($_SESSION['login_type'] != 1)
                   <td class="text-center"><div class="btn btn-danger">Expired: <b id="ExpiredCount"></b></div></td>
                 </tr>
               </table>
+              <div class="icon">
+                <i class="fa fa-wifi"></i>
+              </div>
             </div>
         </div>
         <div class="col-md-6" style="flex:1;">
@@ -69,11 +72,11 @@ if($_SESSION['login_type'] != 1)
           <div class="col-md-6">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3><?php echo $conn->query("SELECT * FROM `cases_reported`;")->num_rows; ?></h3>
-                <p>Pending Reported Cases</p>
+                <h3><?php echo $conn->query("SELECT * FROM `get_internet` WHERE `request_date` > DATE_SUB(CURDATE(), INTERVAL 1 MONTH);")->num_rows; ?></h3>
+                <p>Get Home Interenet requests in the past month</p>
               </div>
               <div class="icon">
-                <i class="fa fa-wrench"></i>
+                <i class="fa fa-network-wired"></i>
               </div>
             </div>
           </div>
