@@ -36,7 +36,7 @@
 				<tbody>
 					<?php
 					//$i = 1;
-					$type = array('',"Admin","Project Manager","Employee");
+					$type = array('',"Admin","Manager","Agent");
 					$qry = $conn->query("SELECT *,concat(chat.FirstName,' ',chat.LastName) as name FROM `customers` RIGHT JOIN `chat`
                      ON `customers`.`Customer ID`=`chat`.`Customer ID` order by `time` desc");
 

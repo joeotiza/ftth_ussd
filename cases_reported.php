@@ -38,7 +38,7 @@
 				<tbody>
 					<?php
 					//$i = 1;
-					$type = array('',"Admin","Project Manager","Employee");
+					$type = array('',"Admin","Manager","Agent");
 					$qry = $conn->query("SELECT * FROM `customers` RIGHT JOIN `cases_reported`
                      ON `customers`.`Correlation ID`=`cases_reported`.`Correlation ID` order by `time` desc");
 

@@ -1,7 +1,7 @@
 <?php include 'db_connect.php' ?>
 <?php
 if(isset($_GET['id'])){
-	$type_arr = array('',"Admin","Project Manager","Employee");
+	$type_arr = array('',"Admin","Manager","Agent");
 	$qry = $conn->query("SELECT *,concat(FirstName,' ',LastName) as name FROM `customer_details` where `Customer ID` = ".$_GET['id'])->fetch_array();
 	foreach($qry as $k => $v){
 		$k = str_replace(' ', '_', $k);

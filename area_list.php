@@ -1,4 +1,9 @@
 <?php include 'db_connect.php' ?>
+<style>
+table tr:hover td:not(.no-hover) {
+    background-color: rgba(248,158,60,.2); /* Change to desired background color */
+}
+</style>
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
@@ -15,7 +20,19 @@
 			</div>
 		</div>
 		<div class="card-body">
-			<table class="table table-bordered" id="list">
+			<table class="table table-bordered" id="list" style="table-layout: fixed;">
+				<colgroup>
+					<col style="width: 5%;" />
+					<col style="width: 10%;" />
+					<col style="width: 11%;" />
+					<col style="width: 12%;" />
+					<col style="width: 17%;" />
+					<col style="width: 7%;" />
+					<col style="width: 7%;" />
+					<col style="width: 7%;" />
+					<col style="width: 10%;" />
+					<col style="width: 10%;" />
+				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
@@ -23,7 +40,10 @@
 						<th>Name</th>
 						<th>Location Code</th>
                         <th>Estate/Court/Road</th>
-						<th>Penetration</th>
+						<th style="writing-mode: vertical-rl;">Active</th>
+						<th style="writing-mode: vertical-rl;">Expired</th>
+						<th style="writing-mode: vertical-rl;">Connected</th>
+						<th style="writing-mode: vertical-rl;">Penetration</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -37,9 +57,9 @@
                         $first = true;
 					?>
 					<tr>
-						<th class="text-center" rowspan=<?=($countestate!=0) ? $countestate : 1?>><?php echo $i++ ?></th>
-						<td rowspan=<?=($countestate!=0) ? $countestate : 1?>><b><?php echo $row['AreaCode'] ?></b></td>
-                        <td rowspan=<?=($countestate!=0) ? $countestate : 1?>><b><?php echo ucwords($row['AreaName']) ?></b></td>
+						<th class="text-center" rowspan=<?=($countestate!=0) ? $countestate : 1?> class="no-hover" style="vertical-align:middle;"><?php echo $i++ ?></th>
+						<td rowspan=<?=($countestate!=0) ? $countestate : 1?> class="no-hover" style="vertical-align:middle;"><b><?php echo $row['AreaCode'] ?></b></td>
+                        <td rowspan=<?=($countestate!=0) ? $countestate : 1?> class="no-hover" style="vertical-align:middle;"><b><?php echo ucwords($row['AreaName']) ?></b></td>
                         <?php
                         if ($countestate != 0){
                         	$qry2 = $conn->query("SELECT * FROM `LocationDetails` WHERE `AreaCode`='".$row['AreaCode']."';");
@@ -47,10 +67,13 @@
                             	if (!$first) echo "<tr>";
                         ?>
 						<td><?php echo $row2['LocationCode']; ?></td>
-						<td><?php echo $row2['EstateName']; ?></td>
+						<td ><?php echo $row2['EstateName']; ?></td>
+						<td style="color:green;" id="<?=$row2['LocationCode']."Active"?>">...</td>
+						<td style="color:red;" id="<?=$row2['LocationCode']."Expired"?>">...</td>
+						<td id="<?=$row2['LocationCode']."Connected"?>">...</td>
 						<td><b id="<?=$row2['LocationCode']?>">...</b></td>
                         <?php if ($first || $_GET['id']){ ?>
-						<td rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center">
+						<td rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center no-hover" style="vertical-align:middle;">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action
 		                    </button>
@@ -71,7 +94,7 @@
                 {
                     ?>
                     <td></td><td></td>
-                    <td rowspan=<?=(!$_GET['id'] || $countestate!=0) ? $countestate : 1?> class="text-center">
+                    <td rowspan=<?=(!$_GET['id'] || $countestate!=0) ? $countestate : 1?> class="text-center no-hover" style="vertical-align:middle;">
 						<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                    Action
 		                </button>
@@ -101,6 +124,9 @@
 	while($row= $qry->fetch_assoc()):
 	?>
 	document.getElementById('<?= $row['LocationCode'] ?>').innerHTML="<?= $row['Penetration'] ? round((float)$row['Penetration']*100).'%' : 'No Homes Passed';  ?>";
+	document.getElementById('<?= $row['LocationCode']."Active" ?>').innerHTML="<?= $row['Active'] ? $row['Active'] : '0';  ?>";
+	document.getElementById('<?= $row['LocationCode']."Expired" ?>').innerHTML="<?= $row['Expired'] ? $row['Expired'] : '0';  ?>";
+	document.getElementById('<?= $row['LocationCode']."Connected" ?>').innerHTML="<?= $row['Connected'] ? $row['Connected'] : '0';  ?>";
 	<?php endwhile;?>
 	$('.delete_area').click(function(){
 	_conf("Are you sure to delete this area?","delete_area",[$(this).attr('data-id')])

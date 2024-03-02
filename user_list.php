@@ -20,7 +20,7 @@
 				<tbody>
 					<?php
 					$i = 1;
-					$type = array('',"Admin","Project Manager","Employee");
+					$type = array('',"Admin","Manager","Agent");
 					$qry = $conn->query("SELECT *,concat(firstname,' ',lastname) as name FROM users order by concat(firstname,' ',lastname) asc");
 					while($row= $qry->fetch_assoc()):
 					?>

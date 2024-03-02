@@ -28,7 +28,7 @@
 				<tbody>
 					<?php
 					$i = 1;
-					$type = array('',"Admin","Project Manager","Employee");
+					$type = array('',"Admin","Manager","Agent");
 					$qry = $conn->query("SELECT *,concat(FirstName,' ',LastName) as name FROM `customer_details` order by reg_date desc");
 					while($row= $qry->fetch_assoc()):
 					?>
