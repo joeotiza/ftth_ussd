@@ -40,10 +40,10 @@ table tr:hover td:not(.no-hover) {
 						<th>Name</th>
 						<th>Location Code</th>
                         <th>Estate/Court/Road</th>
-						<th style="writing-mode: vertical-rl;">Active</th>
-						<th style="writing-mode: vertical-rl;">Expired</th>
-						<th style="writing-mode: vertical-rl;">Connected</th>
-						<th style="writing-mode: vertical-rl;">Penetration</th>
+						<th class="text-center" style="writing-mode: vertical-rl;">Active</th>
+						<th class="text-center" style="writing-mode: vertical-rl;">Expired</th>
+						<th class="text-center" style="writing-mode: vertical-rl;">Connected</th>
+						<th class="text-center" style="writing-mode: vertical-rl;">Penetration</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -68,10 +68,10 @@ table tr:hover td:not(.no-hover) {
                         ?>
 						<td><?php echo $row2['LocationCode']; ?></td>
 						<td ><?php echo $row2['EstateName']; ?></td>
-						<td style="color:green;" id="<?=$row2['LocationCode']."Active"?>">...</td>
-						<td style="color:red;" id="<?=$row2['LocationCode']."Expired"?>">...</td>
-						<td id="<?=$row2['LocationCode']."Connected"?>">...</td>
-						<td><b id="<?=$row2['LocationCode']?>">...</b></td>
+						<td class="text-center" style="color:green;" id="<?=$row2['LocationCode']."Active"?>">...</td>
+						<td class="text-center" style="color:red;" id="<?=$row2['LocationCode']."Expired"?>">...</td>
+						<td class="text-center" id="<?=$row2['LocationCode']."Connected"?>">...</td>
+						<td class="text-center"><b id="<?=$row2['LocationCode']?>">...</b></td>
                         <?php if ($first || $_GET['id']){ ?>
 						<td rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center no-hover" style="vertical-align:middle;">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
