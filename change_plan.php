@@ -72,10 +72,10 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('#list').dataTable()
-	$('.delete_change').click(function(){
-	_conf("Are you sure this plan change was resolved?","delete_change",[$(this).attr('data-id')])
-	})
+		$('#list').dataTable({order: [[7, 'desc']]})
+		$('.delete_change').click(function(){
+		_conf("Are you sure this plan change was resolved?","delete_change",[$(this).attr('data-id')])
+		})
 	})
 	function delete_change($id){
 		start_load()

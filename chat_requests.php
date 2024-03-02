@@ -66,10 +66,10 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('#list').dataTable()
-	$('.delete_chat').click(function(){
-	_conf("Are you sure you want to delete this chat request?","delete_chat",[$(this).attr('data-id')])
-	})
+		$('#list').dataTable({order: [[5, 'desc']]})
+		$('.delete_chat').click(function(){
+		_conf("Are you sure you want to delete this chat request?","delete_chat",[$(this).attr('data-id')])
+		})
 	})
 	function delete_chat($id){
 		start_load()

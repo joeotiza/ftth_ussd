@@ -7,7 +7,14 @@
 			</div>
 		</div>
 		<div class="card-body">
-			<table class="table table-hover table-bordered" id="list">
+			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;">
+				<colgroup>
+					<col style="width: 10%;" />
+					<col style="width: 15%;" />
+					<col style="width: 15%;" />
+					<col style="width: 30%;" />
+					<col style="width: 30%;" />
+				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">#</th>

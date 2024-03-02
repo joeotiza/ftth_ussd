@@ -22,20 +22,18 @@ table tr:hover td:not(.no-hover) {
 		<div class="card-body">
 			<table class="table table-bordered" id="list" style="table-layout: fixed;">
 				<colgroup>
-					<col style="width: 5%;" />
-					<col style="width: 10%;" />
+					<col style="width: 9%;" />
 					<col style="width: 11%;" />
 					<col style="width: 12%;" />
 					<col style="width: 17%;" />
-					<col style="width: 7%;" />
-					<col style="width: 7%;" />
-					<col style="width: 7%;" />
+					<col style="width: 8%;" />
+					<col style="width: 9%;" />
 					<col style="width: 10%;" />
-					<col style="width: 10%;" />
+					<col style="width: 12%;" />
+					<col style="width: 8%;" />
 				</colgroup>
 				<thead>
 					<tr>
-						<th class="text-center">#</th>
 						<th>Area Code</th>
 						<th>Name</th>
 						<th>Location Code</th>
@@ -50,14 +48,13 @@ table tr:hover td:not(.no-hover) {
 				<tbody>
 					<?php
                     $where = ($_GET['id']) ? "WHERE `AreaID`=".$_GET['id'] : '';
-					$i = 1;
+					// $i = 1;
 					$qry = $conn->query("SELECT * FROM `AreaDetails` ".$where);
 					while($row= $qry->fetch_assoc()):
                         $countestate = $conn->query("SELECT * FROM `LocationDetails` WHERE `LocationDetails`.`AreaCode`='".$row['AreaCode']."';")->num_rows;
                         $first = true;
 					?>
 					<tr>
-						<th class="text-center" rowspan=<?=($countestate!=0) ? $countestate : 1?> class="no-hover" style="vertical-align:middle;"><?php echo $i++ ?></th>
 						<td rowspan=<?=($countestate!=0) ? $countestate : 1?> class="no-hover" style="vertical-align:middle;"><b><?php echo $row['AreaCode'] ?></b></td>
                         <td rowspan=<?=($countestate!=0) ? $countestate : 1?> class="no-hover" style="vertical-align:middle;"><b><?php echo ucwords($row['AreaName']) ?></b></td>
                         <?php
@@ -89,29 +86,29 @@ table tr:hover td:not(.no-hover) {
 						</td>
                         <?php } $first=false; ?>
 						
-				<?php endwhile;}
-                else
-                {
-                    ?>
-                    <td></td><td></td>
-                    <td rowspan=<?=(!$_GET['id'] || $countestate!=0) ? $countestate : 1?> class="text-center no-hover" style="vertical-align:middle;">
-						<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-		                    Action
-		                </button>
-		                <div class="dropdown-menu" style="">
-                        <?php if (!$_GET['id']){?>
-		                    <a class="dropdown-item" href="./index.php?page=area_list&id=<?php echo $row['AreaID'] ?>">Locations</a>
-		                    <div class="dropdown-divider"></div>
-                            <?php } else $_SESSION['AreaCode'] = $row['AreaCode']; ?>
-		                    <a class="dropdown-item" href=<?=(!$_GET['id'])? "./index.php?page=edit_area&id=".$row['AreaID'] : "./index.php?page=edit_location&id=".$row2['LocationID']?>>Edit</a>
-		                    <div class="dropdown-divider"></div>
-		                    <a class="dropdown-item <?=(!$_GET['id'])? "delete_area" : "delete_location"?>" href="javascript:void(0)" data-id="<?=(!$_GET['id']) ?  $row['AreaID'] : $row2['LocationID'] ?>">Delete</a>
-		                </div>
-					</td>
-                    <?php
-                }
-                // echo "</tr>";
-             endwhile; ?>
+						<?php endwhile;}
+						else
+						{
+							?>
+							<td></td><td></td>
+							<td rowspan=<?=(!$_GET['id'] || $countestate!=0) ? $countestate : 1?> class="text-center no-hover" style="vertical-align:middle;">
+								<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									Action
+								</button>
+								<div class="dropdown-menu" style="">
+								<?php if (!$_GET['id']){?>
+									<a class="dropdown-item" href="./index.php?page=area_list&id=<?php echo $row['AreaID'] ?>">Locations</a>
+									<div class="dropdown-divider"></div>
+									<?php } else $_SESSION['AreaCode'] = $row['AreaCode']; ?>
+									<a class="dropdown-item" href=<?=(!$_GET['id'])? "./index.php?page=edit_area&id=".$row['AreaID'] : "./index.php?page=edit_location&id=".$row2['LocationID']?>>Edit</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item <?=(!$_GET['id'])? "delete_area" : "delete_location"?>" href="javascript:void(0)" data-id="<?=(!$_GET['id']) ?  $row['AreaID'] : $row2['LocationID'] ?>">Delete</a>
+								</div>
+							</td>
+							<?php
+						}
+						// echo "</tr>";
+					endwhile; ?>
 				</tbody>
 			</table>
 		</div>

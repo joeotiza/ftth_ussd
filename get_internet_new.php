@@ -73,7 +73,7 @@
         </div>
 <script>
   $(document).ready(function(){
-    $('#list').dataTable()
+    $('#list').dataTable({order: [[6, 'desc']]})
   })
 	$('#print').click(function(){
 		start_load()

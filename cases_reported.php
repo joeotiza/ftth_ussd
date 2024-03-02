@@ -70,10 +70,10 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('#list').dataTable()
-	$('.delete_case').click(function(){
-	_conf("Are you sure this case was resolved?","delete_case",[$(this).attr('data-id')])
-	})
+		$('#list').dataTable({order: [[6, 'desc']]})
+		$('.delete_case').click(function(){
+		_conf("Are you sure this case was resolved?","delete_case",[$(this).attr('data-id')])
+		})
 	})
 	function delete_case($id){
 		start_load()
