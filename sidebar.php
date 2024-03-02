@@ -27,6 +27,7 @@
               </p>
             </a>
           </li>
+          <?php if($_SESSION['login_type'] != 4): ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_customer">
               <i class="nav-icon fas fa-wifi"></i>
@@ -48,7 +49,7 @@
                   <p>Existing Customers</p>
                 </a>
               </li>
-              <?php if($_SESSION['login_type'] != 3): ?>
+              <?php if($_SESSION['login_type'] <= 2): ?>
               <li class="nav-item">
                 <a href="./index.php?page=new_customer" class="nav-link nav-new_customer tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
@@ -130,7 +131,7 @@
               </p>
             </a>
           </li>
-          <?php if($_SESSION['login_type'] != 3): ?>
+          <?php endif; ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_area">
               <i class="nav-icon fas fa-map"></i>
@@ -140,6 +141,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <?php if($_SESSION['login_type'] <= 2): ?>
               <li class="nav-item">
                 <a href="./index.php?page=new_area" class="nav-link nav-new_area tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
@@ -152,6 +154,7 @@
                   <p>Add New Location</p>
                 </a>
               </li>
+              <?php endif;?>
               <li class="nav-item">
                 <a href="./index.php?page=area_list" class="nav-link nav-area_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
@@ -176,7 +179,6 @@
               </p>
             </a>
           </li>
-          <?php endif; ?>
         </ul>
       </nav>
     </div>

@@ -1,4 +1,11 @@
-<?php include 'db_connect.php' ?>
+<?php include 'db_connect.php';
+if($_SESSION['login_type'] == 4): 
+{
+  // header('Location: index.php?page=home');
+  echo "<script type='text/javascript'>location.href = 'index.php';</script>";
+  exit(0);
+}
+endif; ?>
  <div class="col-md-12">
         <div class="card card-outline card-success">
           <div class="card-header">

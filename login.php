@@ -29,7 +29,7 @@ header("location:index.php?page=home");
     <div class="card-body login-card-body">
       <form action="" id="login-form">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" required placeholder="Email">
+          <input id="textfield1" type="email" class="form-control" name="email" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -37,7 +37,7 @@ header("location:index.php?page=home");
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" required placeholder="Password">
+          <input id="textfield2" type="password" class="form-control" name="password" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -46,11 +46,8 @@ header("location:index.php?page=home");
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
+            <div class="col-6">
+              <button id="guest-btn" type="submit" class="btn btn-warning btn-block" style="color:#fff;" name="guest">Guest</button>
             </div>
           </div>
           <!-- /.col -->
@@ -67,6 +64,11 @@ header("location:index.php?page=home");
 <!-- /.login-box -->
 <script>
   $(document).ready(function(){
+    $('#guest-btn').click(function(){
+        $('#textfield1').val('guest@admin.com');
+        $('#textfield2').val('liquid.tech');
+        // $('#total').text('Product price: $1000');
+    });
     $('#login-form').submit(function(e){
     e.preventDefault()
     start_load()

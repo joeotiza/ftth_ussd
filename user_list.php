@@ -1,4 +1,11 @@
-<?php include'db_connect.php' ?>
+<?php include'db_connect.php';
+if($_SESSION['login_type'] != 1): 
+{
+	// header('Location: index.php?page=home');
+	echo "<script type='text/javascript'>location.href = 'index.php';</script>";
+	exit(0);
+}
+endif; ?>
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
@@ -21,7 +28,7 @@
 					<?php
 					$i = 1;
 					$type = array('',"Admin","Manager","Agent");
-					$qry = $conn->query("SELECT *,concat(firstname,' ',lastname) as name FROM users order by concat(firstname,' ',lastname) asc");
+					$qry = $conn->query("SELECT *,concat(firstname,' ',lastname) as name FROM users WHERE `type` <> 4 order by concat(firstname,' ',lastname) asc");
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>

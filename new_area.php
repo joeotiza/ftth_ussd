@@ -1,4 +1,11 @@
 <?php
+if($_SESSION['login_type'] > 2): 
+{
+	// header('Location: index.php?page=home');
+	echo "<script type='text/javascript'>location.href = 'index.php';</script>";
+	exit(0);
+}
+endif;
 ?>
 <div class="col-lg-12">
 	<div class="card">

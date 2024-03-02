@@ -15,9 +15,11 @@ table tr:hover td:not(.no-hover) {
                 </select>
                 <button type="submit" name="export_areas_btn" class="btn btn-primary">Export</button>
             </form>
+			<?php if($_SESSION['login_type'] <= 2): ?>
 			<div class="card-tools" style="display:inline;">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href=<?= (!$_GET['id']) ? "./index.php?page=new_area" : "./index.php?page=new_location"?>><i class="fa fa-plus"></i> Add New <?= (!$_GET['id']) ? "Area" : "Location"?></a>
 			</div>
+			<?php endif;?>
 		</div>
 		<div class="card-body">
 			<table class="table table-bordered" id="list" style="table-layout: fixed;">
@@ -30,7 +32,7 @@ table tr:hover td:not(.no-hover) {
 					<col style="width: 9%;" />
 					<col style="width: 10%;" />
 					<col style="width: 12%;" />
-					<col style="width: 8%;" />
+					<?= ($_SESSION['login_type'] <= 2) ? "<col style='width: 8%;' />" : ''?>
 				</colgroup>
 				<thead>
 					<tr>
@@ -42,7 +44,7 @@ table tr:hover td:not(.no-hover) {
 						<th class="text-center" style="writing-mode: vertical-rl;">Expired</th>
 						<th class="text-center" style="writing-mode: vertical-rl;">Connected</th>
 						<th class="text-center" style="writing-mode: vertical-rl;">Penetration</th>
-						<th>Action</th>
+						<th <?= ($_SESSION['login_type'] > 2) ? "style='display:none;'" : "style=''"; ?>>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -70,7 +72,7 @@ table tr:hover td:not(.no-hover) {
 						<td class="text-center" id="<?=$row2['LocationCode']."Connected"?>">...</td>
 						<td class="text-center"><b id="<?=$row2['LocationCode']?>">...</b></td>
                         <?php if ($first || $_GET['id']){ ?>
-						<td rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center no-hover" style="vertical-align:middle;">
+						<td <?= ($_SESSION['login_type'] > 2) ? "style='display:none;'" : "style=''"?>rowspan=<?=(!$_GET['id']) ? $countestate : 1?> class="text-center no-hover" style="vertical-align:middle;">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action
 		                    </button>

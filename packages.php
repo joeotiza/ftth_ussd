@@ -2,9 +2,11 @@
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
+			<?php if ($_SESSION['login_type'] <= 2):?>
 			<div class="card-tools">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_package"><i class="fa fa-plus"></i> Add New Package</a>
 			</div>
+			<?php endif;?>
 		</div>
 		<div class="card-body">
 			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;">
@@ -13,7 +15,7 @@
 					<col style="width: 15%;" />
 					<col style="width: 15%;" />
 					<col style="width: 30%;" />
-					<col style="width: 30%;" />
+					<?= ($_SESSION['login_type'] <= 2) ? "<col style='width: 30%;' />" : ''?>
 				</colgroup>
 				<thead>
 					<tr>
@@ -21,7 +23,7 @@
 						<th>Capacity</th>
 						<th>Price (KES)</th>
                         <th>Description</th>
-						<th>Action</th>
+						<th <?= ($_SESSION['login_type'] > 2) ? "style='display:none;'" : "style=''"; ?>>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,7 +37,7 @@
 						<td><b><?php echo $row['Capacity']." Mbps" ?></b></td>
 						<td><b><?php echo number_format($row['Price']) ?></b></td>
                         <td><?php echo $row['Description'] ?></td>
-						<td class="text-center">
+						<td <?= ($_SESSION['login_type'] > 2) ? "style='display:none;'" : "style=''"; ?> class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action
 		                    </button>
