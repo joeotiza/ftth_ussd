@@ -119,22 +119,22 @@ table tr:hover td:not(.no-hover) {
 </div>
 <script>
 	$(document).ready(function(){
-	<?php
-	$qry = $conn->query($penetrationquery.$where);
-	while($row= $qry->fetch_assoc()):
-	?>
-	document.getElementById('<?= $row['LocationCode'] ?>').innerHTML="<?= $row['Penetration'] ? round((float)$row['Penetration']*100).'%' : 'No Homes Passed';  ?>";
-	document.getElementById('<?= $row['LocationCode']."Active" ?>').innerHTML="<?= $row['Active'] ? $row['Active'] : '0';  ?>";
-	document.getElementById('<?= $row['LocationCode']."Expired" ?>').innerHTML="<?= $row['Expired'] ? $row['Expired'] : '0';  ?>";
-	document.getElementById('<?= $row['LocationCode']."Connected" ?>').innerHTML="<?= $row['Connected'] ? $row['Connected'] : '0';  ?>";
-	<?php endwhile;?>
-	$('.delete_area').click(function(){
-	_conf("Are you sure to delete this area?","delete_area",[$(this).attr('data-id')])
-	})
-    $('.delete_location').click(function(){
-	_conf("Are you sure to delete this?","delete_location",[$(this).attr('data-id')])
-	})
-    $('#list').dataTable()
+		<?php
+		$qry = $conn->query($penetrationquery.$where);
+		while($row= $qry->fetch_assoc()):
+		?>
+			document.getElementById('<?= $row['LocationCode'] ?>').innerHTML="<?= $row['Penetration'] ? round((float)$row['Penetration']*100).'%' : 'No Homes Passed';  ?>";
+			document.getElementById('<?= $row['LocationCode']."Active" ?>').innerHTML="<?= $row['Active'] ? $row['Active'] : '0';  ?>";
+			document.getElementById('<?= $row['LocationCode']."Expired" ?>').innerHTML="<?= $row['Expired'] ? $row['Expired'] : '0';  ?>";
+			document.getElementById('<?= $row['LocationCode']."Connected" ?>').innerHTML="<?= $row['Connected'] ? $row['Connected'] : '0';  ?>";
+		<?php endwhile;?>
+		$('.delete_area').click(function(){
+			_conf("Are you sure to delete this area?","delete_area",[$(this).attr('data-id')])
+		})
+		$('.delete_location').click(function(){
+			_conf("Are you sure to delete this?","delete_location",[$(this).attr('data-id')])
+		})
+		// $('#list').dataTable()
 	})
 	function delete_area($id){
 		start_load()
