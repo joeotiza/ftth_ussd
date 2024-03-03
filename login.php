@@ -65,9 +65,10 @@ header("location:index.php?page=home");
 <script>
   $(document).ready(function(){
     $('#guest-btn').click(function(){
-        $('#textfield1').val('guest@admin.com');
-        $('#textfield2').val('liquid.tech');
-        // $('#total').text('Product price: $1000');
+        document.getElementById("textfield1").style.display = "none";
+        document.getElementById("textfield2").style.display = "none";
+        $('#textfield1').val('guest@liquid');
+        $('#textfield2').val('guest');
     });
     $('#login-form').submit(function(e){
     e.preventDefault()
