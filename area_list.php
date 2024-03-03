@@ -40,10 +40,10 @@ table tr:hover td:not(.no-hover) {
 						<th>Name</th>
 						<th>Location Code</th>
                         <th>Estate/Court/Road</th>
-						<th class="text-center" style="writing-mode: vertical-rl;">Active</th>
-						<th class="text-center" style="writing-mode: vertical-rl;">Expired</th>
-						<th class="text-center" style="writing-mode: vertical-rl;">Connected</th>
-						<th class="text-center" style="writing-mode: vertical-rl;">Penetration</th>
+						<th class="text-center">Active</th>
+						<th class="text-center">Expired</th>
+						<th class="text-center">Connected</th>
+						<th class="text-center">Penetration</th>
 						<th <?= ($_SESSION['login_type'] > 2) ? "style='display:none;'" : "style=''"; ?>>Action</th>
 					</tr>
 				</thead>
