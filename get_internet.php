@@ -45,7 +45,7 @@ endif; ?>
                 <?php
                 $qry = $conn->query("SELECT *, `get_internet`.`Address` as `myAddress` FROM `get_internet` 
                 INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID`
-                WHERE `Service Status` LIKE 'Active' order by `request_date` desc");
+                WHERE `Service Status` LIKE 'Active' ");
                 while($row= $qry->fetch_assoc()):
                   ?>
                   <tr>

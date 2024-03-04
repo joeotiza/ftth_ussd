@@ -48,7 +48,7 @@ endif; ?>
 					//$i = 1;
 					$type = array('',"Admin","Manager","Agent");
 					$qry = $conn->query("SELECT * FROM `customers` RIGHT JOIN `plan_change`
-                     ON `customers`.`Correlation ID`=`plan_change`.`Correlation ID` WHERE `Service Status` LIKE 'Active' order by `request_time` desc");
+                     ON `customers`.`Correlation ID`=`plan_change`.`Correlation ID` WHERE `Service Status` LIKE 'Active' ");
 
 					while($row= $qry->fetch_assoc()):
 					?>

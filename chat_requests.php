@@ -45,7 +45,7 @@ endif; ?>
 					//$i = 1;
 					$type = array('',"Admin","Manager","Agent");
 					$qry = $conn->query("SELECT *,concat(chat.FirstName,' ',chat.LastName) as name FROM `customers` RIGHT JOIN `chat`
-                     ON `customers`.`Customer ID`=`chat`.`Customer ID` order by `time` desc");
+                     ON `customers`.`Customer ID`=`chat`.`Customer ID` WHERE `Service Status` LIKE 'Active' ");
 
 					while($row= $qry->fetch_assoc()):
 					?>
