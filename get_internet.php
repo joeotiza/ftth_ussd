@@ -9,7 +9,7 @@ endif; ?>
  <div class="col-md-12">
         <div class="card card-outline card-success">
           <div class="card-header">
-            <b>Existing Customers</b>
+            <h2 style="display:inline;">From Existing Customers</h2>
             <div class="card-tools">
                 <form action="excel.php" method="POST">
                     <select name="export_file_type" class="form_control">
@@ -21,7 +21,7 @@ endif; ?>
                 </form>
             </div>
           </div>
-          <div class="card-body p-0">
+          <div class="card-body">
             <div class="table-responsive" id="printable">
               <table class="table m-0 table-bordered table-hover" id="list">
                <!--  <colgroup>
