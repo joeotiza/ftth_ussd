@@ -387,7 +387,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                             //Record Customer Details
                                             $fullName = explode(" ", $textArray[$continue+5], 2);
                                             $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`,`source`)
-                                            VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$phoneNumber."','USSD');");
+                                            VALUES ('".addslashes($fullName[0])."', '".addslashes($fullName[1])."', '" .$phoneNumber."','USSD');");
                                             //$stmt->execute();
 
                                             $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$phoneNumber."', -9)) LIMIT 1");
@@ -399,7 +399,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                         //Record Get Internet Details
                                         $stmt = $db->query("INSERT INTO `get_internet` (`Customer ID`,`Area`,`Address`,`Capacity`,`source`)
                                         VALUES ('".$userAvailable['Customer ID']."', '".$area[$textArray[$continue+1]]['name']."', 
-                                        '".$area[$textArray[$continue+1]]['estate'][$textArray[$continue+2]].", ".$textArray[$continue+3]."', '" .$capacity."','USSD');");
+                                        '".$area[$textArray[$continue+1]]['estate'][$textArray[$continue+2]].", ".addslashes($textArray[$continue+3])."', '" .$capacity."','USSD');");
                                         //$stmt->execute();
                                         //$textArray[$continue+1]['estate'][$textArray[$continue+2]].
 
@@ -994,7 +994,7 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                                     {
                                         $fullName = explode(" ", $textArray[3], 2);
                                         $stmt = $db->query("INSERT INTO `chat` (`FirstName`,`LastName`,`Contact Number`)
-                                            VALUES ('".$fullName[0]."','".$fullName[1]."', '".$phoneNumber."');");
+                                            VALUES ('".addslashes($fullName[0])."','".addslashes($fullName[1])."', '".$phoneNumber."');");
 
                                         $response = "END Our representative will reach out to you shortly.";
                                         echo $response;

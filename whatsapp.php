@@ -119,7 +119,7 @@ if (isset($_GET['rootchoice']))
                 if (!$userAvailable)
                 {
                     $stmt = $db->query("INSERT INTO `customer_details` (`FirstName`,`LastName`,`Contact Number`,`Email`,`source`)
-                        VALUES ('".$fullName[0]."', '".$fullName[1]."', '" .$_GET['Phone']."', '".$email."', 'WhatsApp');");
+                        VALUES ('".addslashes($fullName[0])."', '".addslashes($fullName[1])."', '" .$_GET['Phone']."', '".addslashes($email)."', 'WhatsApp');");
 
                     $stmt = $db->query("SELECT * FROM customer_details WHERE `Contact Number` LIKE CONCAT('%',substring('".$_GET['Phone']."', -9)) LIMIT 1");
                     $stmt->execute();

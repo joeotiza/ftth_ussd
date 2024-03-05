@@ -596,7 +596,7 @@ if(isset($_POST['save_excel_data']))
                         }
                         else
                         {
-                            $$field = $row[$index++];
+                            $$field = addslashes($row[$index++]);
                             $values .= "'".$$field."', ";
                         }
                     }
@@ -685,7 +685,7 @@ if(isset($_POST['save_pyramite_active']))
                     }
                     else
                     {
-                        $$field = $row[$index++];
+                        $$field = addslashes($row[$index++]);
                         $values .= "'".$$field."', ";
                     }
                 }
@@ -771,7 +771,7 @@ if(isset($_POST['save_pyramite_expired']))
                     }
                     else
                     {
-                        $$field = $row[$index++];
+                        $$field = addslashes($row[$index++]);
                         $values .= "'".$$field."', ";
                     }
                 }
