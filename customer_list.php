@@ -128,7 +128,7 @@ endif; ?>
 		table.api().columns([3,4]).every( function () {
 			var column = this;
 			//console.log("processing col idx " + column.index());
-			var select = $('<select style="width: 100%;"><option value=""></option></select>')
+			var select = $('<select style="width: 100%;"><option value="">All</option></select>')
 				.appendTo( $(column.footer()).empty() )
 				.on( 'change', function () {
 					var dropdown = this;
@@ -176,7 +176,7 @@ endif; ?>
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 		var uniques = [...new Set(raw)].sort();
 
-		var filteredSelect = $('<select style="width: 100%;"><option value=""></option></select>')
+		var filteredSelect = $('<select style="width: 100%;"><option value="">All</option></select>')
 			.appendTo( $(secondaryCol.footer()).empty() )
 			.on( 'change', function () {
 				var dropdown = this;
