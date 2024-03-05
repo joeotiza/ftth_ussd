@@ -70,8 +70,8 @@ endif; ?>
 						<th class="text-center"><?php echo $row['Account_ID'] ?></th>
 						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
 						<td><?php echo $row['Current_Package'] ?></td>
-						<td><?php echo $row['AreaName'] ?></td>
-						<td><?php echo $row['EstateName'] ?></td>
+						<td><?= $row['AreaName'] ? $row['AreaName'] : "_" ?></td>
+						<td><?= $row['EstateName'] ? $row['EstateName'] : "_" ?></td>
 						<td><?php echo ucwords($row['FirstName']. " ".$row['LastName']) ?></td>
 						<td><?php echo $row['MobileNumber'] ?></td>
 						<td><?php echo $row['Email'] ?></td>

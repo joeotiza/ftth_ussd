@@ -12,7 +12,6 @@ $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
 
 $customersquery="SELECT 
 *,
-IFNULL(`AreaName`,'_') AS `AreaName`,
 DATEDIFF(`Expiration`, CURDATE()) AS `TED`,
 CASE
 	WHEN `Expiration` <= CURDATE() THEN 'Expired'
