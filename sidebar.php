@@ -21,7 +21,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item dropdown">
             <a href="./" class="nav-link nav-home">
-              <i class="nav-icon fas fa-list"></i>
+              <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
                 Summary
               </p>
@@ -61,7 +61,7 @@
           </li>
           <li class="nav-item dropdown">
             <a href="./index.php?page=change_plan" class="nav-link nav-change_plan tree-item">
-              <i class="nav-icon fas fa-bolt"></i>
+              <i class="nav-icon fas fa-shuffle"></i>
               <p>
                 Plan Change
               </p>
@@ -70,7 +70,7 @@
           <?php if($_SESSION['login_type'] == 1): ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_user">
-              <i class="nav-icon fas fa-user-tie"></i>
+              <i class="nav-icon fas fa-id-badge"></i>
               <p>
                 Web Portal Users
                 <i class="right fas fa-angle-left"></i>
@@ -94,7 +94,7 @@
           <?php endif; ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_requests">
-              <i class="fas fa-network-wired nav-icon"></i>
+              <i class="fas fa-house-signal nav-icon"></i>
               <p>
                 Get Home Wi-Fi
                 <i class="right fas fa-angle-left"></i>
@@ -117,7 +117,7 @@
           </li>
           <li class="nav-item dropdown">
             <a href="./index.php?page=cases_reported" class="nav-link nav-cases_reported tree-item">
-              <i class="nav-icon fas fa-wrench"></i>
+              <i class="nav-icon fas fa-triangle-exclamation"></i>
               <p>
                 Cases Reported
               </p>
@@ -134,7 +134,7 @@
           <?php endif; ?>
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_area">
-              <i class="nav-icon fas fa-map"></i>
+              <i class="nav-icon fas fa-location-dot"></i>
               <p>
                 Areas
                 <i class="right fas fa-angle-left"></i>

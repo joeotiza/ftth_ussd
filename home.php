@@ -76,7 +76,7 @@ if($_SESSION['login_type'] != 1)
                 <p>Get Home Interenet requests in the past month</p>
               </div>
               <div class="icon">
-                <i class="fa fa-network-wired"></i>
+                <i class="fa fa-house-signal"></i>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@ if($_SESSION['login_type'] != 1)
                 <p>Change Plan Requests</p>
               </div>
               <div class="icon">
-                <i class="fa fa-bolt"></i>
+                <i class="fa fa-shuffle"></i>
               </div>
             </div>
           </div>
