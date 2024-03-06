@@ -27,6 +27,7 @@ endif;?>
 						<th class="text-center">#</th>
 						<th>Name</th>
 						<th>Mobile Number</th>
+						<th>E-Mail</th>
 						<th>Request Time</th>
 						<th>Platform</th>
 						<th>Action</th>
@@ -41,9 +42,10 @@ endif;?>
 					?>
 					<tr>
 						<th class="text-center"><?php echo $i++ ?></th>
-						<td><?php echo ucwords($row['name']) ?></td>
-						<td><?php echo $row['Contact Number'] ?></td>
-						<td><?php echo $row['reg_date'] ?></td>
+						<td><?= ucwords($row['name']) ?></td>
+						<td><?= $row['Contact Number'] ?></td>
+						<td><?= $row['Email'] ? $row['Email'] : "_" ?></td>
+						<td><?= $row['reg_date'] ?></td>
 						<td class="text-center"><b><?= ($row['source'] == "WhatsApp") ? "WhatsApp" : $myussdcode?></b></td>
 						<td class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

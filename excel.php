@@ -27,8 +27,9 @@ if(isset($_POST['export_new_customers_btn']))
         $sheet->setCellValue('B1', 'FirstName');
         $sheet->setCellValue('C1', 'LastName');
         $sheet->setCellValue('D1', 'Contact Number');
-        $sheet->setCellValue('E1', 'RegistrationDate');
-        $sheet->setCellValue('F1', 'Platform');
+        $sheet->setCellValue('E1', 'E-Mail Address');
+        $sheet->setCellValue('F1', 'RegistrationDate');
+        $sheet->setCellValue('G1', 'Platform');
 
         $rowCount = 2;
         foreach($myresult as $data)
@@ -37,8 +38,9 @@ if(isset($_POST['export_new_customers_btn']))
             $sheet->setCellValue('B'.$rowCount, $data['FirstName']);
             $sheet->setCellValue('C'.$rowCount, $data['LastName']);
             $sheet->setCellValue('D'.$rowCount, $data['Contact Number']);
-            $sheet->setCellValue('E'.$rowCount, $data['reg_date']);
-            $sheet->setCellValue('F'.$rowCount, $data['source']);
+            $sheet->setCellValue('E'.$rowCount, $data['Email']);
+            $sheet->setCellValue('F'.$rowCount, $data['reg_date']);
+            $sheet->setCellValue('G'.$rowCount, $data['source']);
             $rowCount++;
         }
 
