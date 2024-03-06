@@ -446,15 +446,15 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         }
                         else
                         {
-                            if (!$textArray[3])
-                            {
-                                $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+                            $stmt = $db->query("SELECT *, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
                                 TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM customers WHERE 
                                 `Service Status` LIKE 'Active' AND `Correlation ID` LIKE '%".$textArray[2]."%' LIMIT 1");
-                                $stmt->execute();
-                                
-                                $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
-
+                            $stmt->execute();
+                            
+                            $accountAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
+                            
+                            if (!$textArray[3])
+                            {
                                 if ($accountAvailable)
                                 {
                                     $response = "CON Confirm payment of the account no.".$accountAvailable['Correlation ID']."\n belonging to ";
@@ -474,7 +474,10 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                             {
                                 if ($textArray[3] == "1")
                                 {
-                                    $response = "END You can pay to me via the MPESA means and...";
+                                    $response = "END Pass to M-Pesa\n";
+                                    $response .= "CustomerID: ".$accountAvailable['Customer ID']."\n";
+                                    $response .= "GPONPlan: ".$accountAvailable['GPONPlan']."\n";
+                                    $response .= "ServiceID: ".$accountAvailable['Service ID']."\n";
                                     echo $response;
                                 }
                                 else
@@ -501,7 +504,10 @@ if(!empty($_POST) && !empty($_POST['phoneNumber'])){
                         {
                             if ($textArray[2] == "1")
                             {
-                                $response = "END You can pay to me via the MPESA means and...";
+                                $response = "END Pass to M-Pesa\n";
+                                $response .= "CustomerID: ".$userAvailable['Customer ID']."\n";
+                                $response .= "GPONPlan: ".$userAvailable['GPONPlan']."\n";
+                                $response .= "ServiceID: ".$userAvailable['Service ID']."\n";
                                 echo $response;
                             }
                             else

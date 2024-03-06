@@ -149,7 +149,7 @@ if (isset($_GET['rootchoice']))
                 $stmt->execute();
                 $userAvailable = $stmt->fetch(PDO::FETCH_ASSOC);
                 // echo json_encode("Hello");
-                echo json_encode(array($userAvailable['Correlation ID'], $userAvailable['FirstName'], $userAvailable['LastName']));
+                echo json_encode(array($userAvailable['Correlation ID'], $userAvailable['FirstName'], $userAvailable['LastName'], $userAvailable['Customer ID'], $userAvailable['GPONPlan'], $userAvailable['Service ID']));
             }
             break;
 
