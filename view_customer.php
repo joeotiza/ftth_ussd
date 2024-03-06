@@ -12,8 +12,9 @@ if(isset($_GET['id'])){
 <div class="container-fluid">
 	<div class="card card-widget widget-user shadow">
       <div class="widget-user-header bg-dark">
-        <h3 class="widget-user-username"><?php echo ucwords($name) ?></h3>
-        <h5 class="widget-user-desc"><?php echo $Contact_Number ?></h5>
+        <h3 class="widget-user-username"><?= ucwords($name) ?></h3>
+        <h5 class="widget-user-desc"><?= $Contact_Number ?></h5>
+		<h5 class="widget-user-desc"><?= $Email ?></h5>
       </div>
       <div class="card-footer">
         <div class="container-fluid">

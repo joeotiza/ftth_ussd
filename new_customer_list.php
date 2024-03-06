@@ -68,7 +68,7 @@ endif;?>
 	$(document).ready(function(){
 		$('#list').dataTable({order: [[3, 'desc']]})
 		$('.view_customer').click(function(){
-			uni_modal("<i class='fa fa-id-card'></i> User Details","view_customer.php?id="+$(this).attr('data-id'))
+			uni_modal("<i class='fa fa-id-card'></i> Customer Details","view_customer.php?id="+$(this).attr('data-id'))
 		})
 		$('.delete_customer').click(function(){
 		_conf("Are you sure to delete this record?","delete_customer",[$(this).attr('data-id')])
