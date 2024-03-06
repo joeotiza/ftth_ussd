@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 06, 2024 at 07:23 AM
+-- Generation Time: Mar 06, 2024 at 10:15 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -6128,7 +6128,64 @@ INSERT INTO `location_codes` (`ONT_Username`, `ONT_Location_Code`) VALUES
 ('ltkg100079', 'lhkac-001-0003'),
 ('96991', 'lhklac-003-0001'),
 ('97800', 'lhklac-003-0001'),
-('97801', 'lhklac-003-0005');
+('97801', 'lhklac-003-0005'),
+('haik111989', 'lhkac-015-0001'),
+('haik112056', 'lhkac-015-0001'),
+('haik118075', 'lhkac-015-0001'),
+('haik119472', 'lhkac-015-0001'),
+('haik115972', 'lhkac-015-0001'),
+('haik115628', 'lhkac-015-0001'),
+('haik119389', 'lhkac-015-0001'),
+('haik114902', 'lhkac-015-0001'),
+('haik115372', 'lhkac-015-0001'),
+('haik116759', 'lhkac-015-0001'),
+('haik102004', 'lhkac-015-0001'),
+('haik116693', 'lhkac-015-0001'),
+('haik106394', 'lhkac-015-0001'),
+('haik117869', 'lhkac-015-0001'),
+('haik108720', 'lhkac-015-0001'),
+('haik111807', 'lhkac-017-0001'),
+('haik120129', 'lhkac-017-0001'),
+('haik119210', 'lhkac-017-0001'),
+('haik119700', 'lhkac-017-0001'),
+('haik117609', 'lhkac-017-0001'),
+('haik113194', 'lhkac-017-0001'),
+('haik107987', 'lhkac-017-0001'),
+('haik119506', 'lhkac-017-0001'),
+('haik117288', 'lhkac-017-0001'),
+('haik119615', 'lhkac-017-0001'),
+('haik119145', 'lhkac-017-0001'),
+('haik120099', 'lhkac-017-0001'),
+('haik120074', 'lhkac-017-0001'),
+('haik103021', 'lhkac-017-0001'),
+('haik111576', 'lhkac-017-0001'),
+('haik120347', 'lhkac-017-0001'),
+('haik118740', 'lhkac-017-0001'),
+('haik106426', 'lhkac-017-0001'),
+('haik106248', 'lhkac-017-0001'),
+('haik107768', 'lhkac-017-0001'),
+('haik103774', 'lhkac-017-0001'),
+('haik106165', 'lhkac-017-0001'),
+('haik105586', 'lhkac-017-0001'),
+('haik116497', 'lhkac-017-0001'),
+('haik113800', 'lhkac-017-0001'),
+('haik103684', 'lhkac-017-0001'),
+('haik110826', 'lhkac-017-0001'),
+('haik106203', 'lhkac-017-0001'),
+('haik113552', 'lhkac-017-0001'),
+('haik107653', 'lhkac-017-0001'),
+('haik111881', 'lhkac-017-0001'),
+('haik115756', 'lhkac-017-0001'),
+('haik115757', 'lhkac-017-0001'),
+('haik114502', 'lhkac-017-0001'),
+('C7671', 'lhkac-017-0001'),
+('haik120466', 'lhkac-017-0001'),
+('97279', 'lhkac-017-0001'),
+('97400', 'lhkac-017-0001'),
+('97442', 'lhkac-017-0001'),
+('haik114006', 'lhkac-017-0001'),
+('haik121024', 'lhkac-017-0001'),
+('97697', 'lhkac-017-0001');
 
 -- --------------------------------------------------------
 
@@ -6232,7 +6289,7 @@ CREATE TABLE `pyramite_active` (
   `Phone` text DEFAULT NULL,
   `Mobile` text DEFAULT NULL,
   `Email` text DEFAULT NULL,
-  `Registered` varchar(15) DEFAULT NULL,
+  `Registered` date DEFAULT NULL,
   `Last logoff` varchar(15) DEFAULT NULL,
   `Comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -7517,7 +7574,7 @@ CREATE TABLE `pyramite_expired` (
   `Phone` text DEFAULT NULL,
   `Mobile` text DEFAULT NULL,
   `Email` text DEFAULT NULL,
-  `Registered` varchar(15) DEFAULT NULL,
+  `Registered` date DEFAULT NULL,
   `Last logoff` varchar(15) DEFAULT NULL,
   `Comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

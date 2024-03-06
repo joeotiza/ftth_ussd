@@ -26,6 +26,8 @@ SELECT
 	`Last name` AS `LastName`,
 	`Mobile` AS `MobileNumber`,
 	`Email`,
+    `Address`,
+    `Registered` AS `create_date`,
 	`ONT_Location_Code` AS `LocationCode`
 FROM 
 	(
@@ -45,12 +47,14 @@ LEFT JOIN
 UNION
 SELECT 
 	`Correlation ID` AS `Account_ID`,
-	STR_TO_DATE(`Topup End Date`, '%c/%d/%Y') as `Expiration`,
+	STR_TO_DATE(`Topup End Date`, '%c/%d/%Y') AS `Expiration`,
 	`GPONPlan` AS `Current_Package`,
 	SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS `FirstName`,
 	TRIM(SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`))) AS `LastName`,
 	`Contact Number` AS `MobileNumber`,
 	`EMail Address` AS `Email`,
+    `Address`,
+    STR_TO_DATE(`Service Start Date`, '%c/%d/%Y') AS `create_date`,
 	`ONT_Location_Code` AS `LocationCode`
 FROM 
 	`customers`
