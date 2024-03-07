@@ -54,7 +54,7 @@ SELECT
 	`Contact Number` AS `MobileNumber`,
 	`EMail Address` AS `Email`,
     `Address`,
-    STR_TO_DATE(`Service Start Date`, '%c/%d/%Y') AS `create_date`,
+    STR_TO_DATE(`Customer Create Date`, '%c/%d/%Y') AS `create_date`,
 	`ONT_Location_Code` AS `LocationCode`
 FROM 
 	`customers`
