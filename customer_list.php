@@ -38,16 +38,16 @@ endif; ?>
 					<td class="text-center"><div class="btn btn-danger">Expired: <b id="ExpiredCount"></b></div></td>
 				</tr>
 			</table>
-			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;">
+			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.8vw;">
 				<colgroup>
-					<col style="width: 11%;" />
-					<col style="width: 10%;" />
-					<col style="width: 10%;" />
+					<col style="width: 7%;" />
+					<col style="width: 7%;" />
+					<col style="width: 15%;" />
 					<col style="width: 10%;" />
 					<col style="width: 19%;" />
 					<col style="width: 15%;" />
 					<col style="width: 11%;" />
-					<col style="width: 14%;" />
+					<col style="width: 16%;" />
 				</colgroup>
 				<thead>
 					<tr>

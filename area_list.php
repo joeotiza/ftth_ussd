@@ -22,7 +22,7 @@ table tr:hover td:not(.no-hover) {
 			<?php endif;?>
 		</div>
 		<div class="card-body">
-			<table class="table table-bordered" id="list" style="table-layout: fixed;">
+			<table class="table table-bordered" id="list" style="table-layout: fixed;font-size:0.9vw;">
 				<colgroup>
 					<col style="width: 9%;" />
 					<col style="width: 11%;" />
