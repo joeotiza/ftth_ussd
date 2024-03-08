@@ -6,15 +6,12 @@
       position: absolute;
       background-position: center;
       background-repeat: no-repeat;
-      height: 8%;
-      width: 100%;
+      /* height: 8%; */
+      /* width: 100%; */
     }
     </style>
-    <div class="dropdown">
-   	<a href="./" class="brand-link bounding-box">
-        
-    </a>
-      
+    <div >
+   	  <a href="./" class="brand-link bounding-box"></a>
     </div>
     <div class="sidebar pb-4 mb-4">
       <nav class="mt-2">
