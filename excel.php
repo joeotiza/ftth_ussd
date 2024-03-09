@@ -588,6 +588,7 @@ if(isset($_POST['save_excel_data']))
 
         $count = 0;
         $columns = "";
+        $excelquery = "TRUNCATE `customers`;";
         foreach($data as $row)
         {
             $values = "";
@@ -604,7 +605,7 @@ if(isset($_POST['save_excel_data']))
                         }
                         else
                         {
-                            $$field = addslashes($row[$index++]);
+                            $$field = addslashes(str_replace(';', '', $row[$index++]));
                             $values .= "'".$$field."', ";
                         }
                     }
@@ -617,31 +618,61 @@ if(isset($_POST['save_excel_data']))
             $values = substr($values, 0, -2);
             if ($count > 1)
             {
-                $excelquery = "INSERT INTO `customers` (".$columns.") VALUES (".$values.");";             
+                $excelquery .= "INSERT INTO `customers` (".$columns.") VALUES (".$values.");";             
             }
             else
             {
-                $excelquery = "TRUNCATE `customers`;";
-                echo $excelquery;
-                $result = mysqli_query($conn, $excelquery);
-                $success = true;
+                // $excelquery .= "TRUNCATE `customers`;";
+                // echo $excelquery;
+                // $result = mysqli_query($conn, $excelquery);
+                // $success = true;
                 $columns = substr($columns, 0, -2);
             }
             $count++;
-            try {
-                $result = mysqli_query($conn, $excelquery);
-                $success = true;
+            if (fmod($count, 1500) == 0)
+            {
+                try {
+                    if (mysqli_multi_query($conn, $excelquery)) {
+                        // Iterate through all the result sets and free them without fetching
+                        while (mysqli_more_results($conn)) {
+                            mysqli_next_result($conn);
+                            mysqli_use_result($conn);
+                        }
+                        $success = true;
+                    }
+                }
+            
+                catch(PDOException $e) {
+                //var_dump($e);
+                    echo("PDO error occurred");
+                }
+            
+                catch(Exception $e) {
+                //var_dump($e);
+                echo("Error occurred");
+                } 
+                $excelquery = "";
+
             }
-        
-            catch(PDOException $e) {
-            //var_dump($e);
-                echo("PDO error occurred");
-            }
-        
-            catch(Exception $e) {
-            //var_dump($e);
-            echo("Error occurred");
-            }  
+             
+        } 
+        $queries = explode(';', $excelquery);
+        array_pop($queries);
+        array_pop($queries);
+        $excelquery = implode(';', $queries);
+        try {
+            $result = mysqli_multi_query($conn, $excelquery);
+            $success = true;
+        }
+    
+        catch(PDOException $e) {
+        //var_dump($e);
+            echo("PDO error occurred");
+        }
+    
+        catch(Exception $e) {
+        //var_dump($e);
+        echo($e);
         } 
         if (isset($success))
         {
