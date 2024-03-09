@@ -47,7 +47,8 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 						<th>Expired</th>
 						<th>Connected</th>
 						<th>Penetration</th>
-						<th>Action</th>
+						<?= ($_SESSION['login_type'] <= 2) ? "<th>Action</th>" : ''?>
+						
 					</tr>
 				</thead>
 				<tbody></tbody>
@@ -383,6 +384,7 @@ Use saved order direction for grouped columns
 						}
 					}
 				},
+				<?php if ($_SESSION['login_type'] <= 2): ?>
 				{
 					"data": "AreaCode",
 					"render": function(data, type, row, meta) {
@@ -398,7 +400,7 @@ Use saved order direction for grouped columns
 
 						// Add options to the dropdown menu
 						<?php if (!$_GET['id']) { ?>
-						var locationsOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=area_list&id='+row['AreaID']).text('Locations');
+						var locationsOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=area_list&id='+row['AreaID']).text('Edit Estates');
 						var editOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=edit_area&id='+row['AreaID']).text('Edit Area');
 						var deleteOption = $('<a>').attr('class', 'dropdown-item text-center delete_area').attr('data-id', row['AreaID']).attr('href', 'javascript:void(0)').text('Delete Area');
 						<?php } else { ?>
@@ -418,6 +420,7 @@ Use saved order direction for grouped columns
 					}
 
 				}
+				<?php endif; ?>
 			],
 			"columnDefs": [
 				{ 
@@ -446,7 +449,7 @@ Use saved order direction for grouped columns
     		rowsGroup: [
 				0,
 				1,
-				<?= ($_GET['id']) ? "" : "8" ?>
+				<?= (!$_GET['id'] && $_SESSION['login_type'] <= 2) ? "8" : "" ?>
 				// "dataSrc": [0, 1] // Group by the first and second columns (Area Code and Area Name)
 			],
 		});
