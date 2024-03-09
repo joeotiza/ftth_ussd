@@ -95,7 +95,7 @@ LEFT JOIN
 WHERE 
 `Current_Package` LIKE '%home%' ";
 
-$penetrationquery="SELECT * FROM (SELECT `LocationDetails`.`LocationID`, `LocationDetails`.`LocationCode`, `LocationDetails`.`EstateName`,
+$penetrationquery="SELECT *, IFNULL(`Active`,'0') AS `Active`, IFNULL(`Expired`,'0') AS `Expired`, IFNULL(`Connected`,'0') AS `Connected` FROM (SELECT `LocationDetails`.`LocationID`, `LocationDetails`.`LocationCode`, `LocationDetails`.`EstateName`,
 `LocationDetails`.`homes`, `AreaDetails`.`AreaID`, `AreaDetails`.`AreaCode`, `AreaDetails`.`AreaName`
 FROM `LocationDetails`
 LEFT JOIN `AreaDetails`
