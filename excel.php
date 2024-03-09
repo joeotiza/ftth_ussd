@@ -617,32 +617,32 @@ if(isset($_POST['save_excel_data']))
             $values = substr($values, 0, -2);
             if ($count > 1)
             {
-                $excelquery = "INSERT INTO `customers` (".$columns.") VALUES (".$values.");";
-                try {
-                    $result = mysqli_query($conn, $excelquery);
-                    $success = true;
-                }
-            
-                catch(PDOException $e) {
-                //var_dump($e);
-                    echo("PDO error occurred");
-                }
-            
-                catch(Exception $e) {
-                //var_dump($e);
-                echo("Error occurred");
-                }                
+                $excelquery = "INSERT INTO `customers` (".$columns.") VALUES (".$values.");";             
             }
             else
             {
                 $excelquery = "TRUNCATE `customers`;";
-                //echo $excelquery;
+                echo $excelquery;
                 $result = mysqli_query($conn, $excelquery);
                 $success = true;
                 $columns = substr($columns, 0, -2);
             }
             $count++;
-        }
+            try {
+                $result = mysqli_query($conn, $excelquery);
+                $success = true;
+            }
+        
+            catch(PDOException $e) {
+            //var_dump($e);
+                echo("PDO error occurred");
+            }
+        
+            catch(Exception $e) {
+            //var_dump($e);
+            echo("Error occurred");
+            }  
+        } 
         if (isset($success))
         {
             $_SESSION['message'] = "Successfully Imported";
@@ -679,6 +679,7 @@ if(isset($_POST['save_pyramite_active']))
         //print_r ($data[0]);
         $count = 0;
         $columns = "";
+        $excelquery = "";
         foreach($data as $row)
         {
             $values = "";
@@ -703,25 +704,11 @@ if(isset($_POST['save_pyramite_active']))
             $values = substr($values, 0, -2);
             if ($count > 0)
             {
-                $excelquery = "INSERT INTO `pyramite_active` (".$columns.") VALUES (".$values.");";
-                try {
-                    $result = mysqli_query($conn, $excelquery);
-                    $success = true;
-                }
-            
-                catch(PDOException $e) {
-                //var_dump($e);
-                    echo("PDO error occurred");
-                }
-            
-                catch(Exception $e) {
-                //var_dump($e);
-                echo("Error occurred");
-                }                
+                $excelquery .= "INSERT INTO `pyramite_active` (".$columns.") VALUES (".$values.");";             
             }
             else
             {
-                $excelquery = "TRUNCATE `pyramite_active`;";
+                $excelquery .= "TRUNCATE `pyramite_active`;";
                 //echo $excelquery;
                 $result = mysqli_query($conn, $excelquery);
                 $success = true;
@@ -729,6 +716,21 @@ if(isset($_POST['save_pyramite_active']))
             }
             $count++;
         }
+        try {
+            $result = mysqli_multi_query($conn, $excelquery);
+            $success = true;
+        }
+    
+        catch(PDOException $e) {
+        //var_dump($e);
+            echo("PDO error occurred");
+        }
+    
+        catch(Exception $e) {
+        //var_dump($e);
+        echo("Error occurred");
+        }
+
         if (isset($success))
         {
             $_SESSION['message'] = "Successfully Imported";
@@ -765,6 +767,7 @@ if(isset($_POST['save_pyramite_expired']))
         //print_r ($data[0]);
         $count = 0;
         $columns = "";
+        $excelquery = "";
         foreach($data as $row)
         {
             $values = "";
@@ -789,25 +792,11 @@ if(isset($_POST['save_pyramite_expired']))
             $values = substr($values, 0, -2);
             if ($count > 0)
             {
-                $excelquery = "INSERT INTO `pyramite_expired` (".$columns.") VALUES (".$values.");";
-                try {
-                    $result = mysqli_query($conn, $excelquery);
-                    $success = true;
-                }
-            
-                catch(PDOException $e) {
-                //var_dump($e);
-                    echo("PDO error occurred");
-                }
-            
-                catch(Exception $e) {
-                //var_dump($e);
-                echo("Error occurred");
-                }                
+                $excelquery .= "INSERT INTO `pyramite_expired` (".$columns.") VALUES (".$values.");";               
             }
             else
             {
-                $excelquery = "TRUNCATE `pyramite_expired`;";
+                $excelquery .= "TRUNCATE `pyramite_expired`;";
                 //echo $excelquery;
                 $result = mysqli_query($conn, $excelquery);
                 $success = true;
@@ -815,6 +804,20 @@ if(isset($_POST['save_pyramite_expired']))
             }
             $count++;
         }
+        try {
+            $result = mysqli_multi_query($conn, $excelquery);
+            $success = true;
+        }
+    
+        catch(PDOException $e) {
+        //var_dump($e);
+            echo("PDO error occurred");
+        }
+    
+        catch(Exception $e) {
+        //var_dump($e);
+        echo("Error occurred");
+        } 
         if (isset($success))
         {
             $_SESSION['message'] = "Successfully Imported";
@@ -851,6 +854,7 @@ if(isset($_POST['save_location_codes']))
         //print_r ($data[0]);
         $count = 0;
         $columns = "";
+        $excelquery = "";
         foreach($data as $row)
         {
             $values = "";
@@ -875,25 +879,11 @@ if(isset($_POST['save_location_codes']))
             $values = substr($values, 0, -2);
             if ($count > 0)
             {
-                $excelquery = "INSERT INTO `location_codes` (".$columns.") VALUES (".$values.");";
-                try {
-                    $result = mysqli_query($conn, $excelquery);
-                    $success = true;
-                }
-            
-                catch(PDOException $e) {
-                //var_dump($e);
-                    echo("PDO error occurred");
-                }
-            
-                catch(Exception $e) {
-                //var_dump($e);
-                echo("Error occurred");
-                }                
+                $excelquery .= "INSERT INTO `location_codes` (".$columns.") VALUES (".$values.");";              
             }
             else
             {
-                $excelquery = "TRUNCATE `location_codes`;";
+                $excelquery .= "TRUNCATE `location_codes`;";
                 //echo $excelquery;
                 $result = mysqli_query($conn, $excelquery);
                 $success = true;
@@ -901,6 +891,20 @@ if(isset($_POST['save_location_codes']))
             }
             $count++;
         }
+        try {
+            $result = mysqli_multi_query($conn, $excelquery);
+            $success = true;
+        }
+    
+        catch(PDOException $e) {
+        //var_dump($e);
+            echo("PDO error occurred");
+        }
+    
+        catch(Exception $e) {
+        //var_dump($e);
+        echo("Error occurred");
+        }  
         if (isset($success))
         {
             $_SESSION['message'] = "Successfully Imported";
