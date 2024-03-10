@@ -629,7 +629,7 @@ if(isset($_POST['save_excel_data']))
                 $columns = substr($columns, 0, -2);
             }
             $count++;
-            if (fmod($count, 1500) == 0)
+            if (fmod($count, 6000) == 0)
             {
                 try {
                     if (mysqli_multi_query($conn, $excelquery)) {
@@ -682,7 +682,7 @@ if(isset($_POST['save_excel_data']))
         }
         else
         {
-            $_SESSION['message'] = "Not Imported";
+            $_SESSION['message'] = "Not Imported. Error:".$e;
             header('Location: index.php?page=customer_list');
             exit(0);
         }
