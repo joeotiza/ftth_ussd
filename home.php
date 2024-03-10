@@ -68,8 +68,8 @@ if($_SESSION['login_type'] != 1)
           </div>
         </div>
       </div>
-      <div class="row">
-          <div class="col-md-6">
+        <div class="row" style="display:flex;">
+          <div class="col-md-6" style="flex:1;">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `get_internet` WHERE `request_date` > DATE_SUB(CURDATE(), INTERVAL 1 MONTH);")->num_rows; ?></h3>
@@ -80,7 +80,7 @@ if($_SESSION['login_type'] != 1)
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" style="flex:1;">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `customer_details`;")->num_rows; ?></h3>
@@ -91,7 +91,9 @@ if($_SESSION['login_type'] != 1)
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+        </div>
+        <div class="row" style="display:flex;">
+          <div class="col-md-6" style="flex:1;">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `plan_change`;")->num_rows; ?></h3>
@@ -102,7 +104,7 @@ if($_SESSION['login_type'] != 1)
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" style="flex:1;">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM `chat`;")->num_rows; ?></h3>
@@ -113,7 +115,7 @@ if($_SESSION['login_type'] != 1)
               </div>
             </div>
           </div>
-      </div>
+        </div>
       <script>
         var selectArea = document.getElementById("AreaName");
         var activecount = document.getElementById("ActiveCount");
