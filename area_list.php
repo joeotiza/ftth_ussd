@@ -10,6 +10,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
+			<?php if($_SESSION['login_type'] != 4): ?>
 			<form action="excel.php" method="POST" style="display:inline;">
                 <select name="export_file_type" class="form_control">
                 	<option value="xlsx">.xlsx</option>
@@ -18,6 +19,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
                 </select>
                 <button type="submit" name="export_areas_btn" class="btn btn-primary">Export</button>
             </form>
+			<?php endif;?>
 			<?php if($_SESSION['login_type'] <= 2): ?>
 			<div class="card-tools" style="display:inline;">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href=<?= (!$_GET['id']) ? "./index.php?page=new_area" : "./index.php?page=new_location"?>><i class="fa fa-plus"></i> Add New <?= (!$_GET['id']) ? "Area" : "Location"?></a>
@@ -383,9 +385,9 @@ Use saved order direction for grouped columns
 							return "<b>No Homes Passed</b>";
 						}
 					}
-				},
+				}
 				<?php if ($_SESSION['login_type'] <= 2): ?>
-				{
+				,{
 					"data": "AreaCode",
 					"render": function(data, type, row, meta) {
 						// Create a dropdown button element
