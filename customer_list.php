@@ -38,16 +38,16 @@ endif; ?>
 					<td class="text-center"><div class="btn btn-danger">Expired: <b id="ExpiredCount"></b></div></td>
 				</tr>
 			</table>
-			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.8vw;">
+			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.95vw;">
 				<colgroup>
-					<col style="width: 7%;" />
+					<col style="width: 8%;" />
 					<col style="width: 7%;" />
 					<col style="width: 15%;" />
-					<col style="width: 10%;" />
-					<col style="width: 19%;" />
-					<col style="width: 15%;" />
-					<col style="width: 11%;" />
-					<col style="width: 16%;" />
+					<col style="width: 9%;" />
+					<col style="width: 20%;" />
+					<col style="width: 14%;" />
+					<col style="width: 9%;" />
+					<col style="width: 18%;" />
 				</colgroup>
 				<thead>
 					<tr>
@@ -63,7 +63,10 @@ endif; ?>
 				</thead>
 				<tbody>
 					<?php
-					$qry = $conn->query($customersquery);
+					if ($_GET['LocationCode'])
+						$where = " AND `myCustomers`.`LocationCode` LIKE '".$_GET['LocationCode']."'";
+					else $where = "";
+					$qry = $conn->query($customersquery.$where);
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr class="dataRow <?=$row['Status']?>">
