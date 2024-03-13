@@ -9,7 +9,6 @@ endif; ?>
  <div class="col-md-12">
         <div class="card card-outline card-success">
           <div class="card-header">
-            <h2 style="display:inline;">From Existing Customers</h2>
             <div class="card-tools">
                 <form action="excel.php" method="POST">
                     <select name="export_file_type" class="form_control">
@@ -23,29 +22,36 @@ endif; ?>
           </div>
           <div class="card-body">
             <div class="table-responsive" id="printable">
-              <table class="table m-0 table-bordered table-hover" id="list">
-               <!--  <colgroup>
-                  <col width="5%">
-                  <col width="30%">
-                  <col width="35%">
-                  <col width="15%">
-                  <col width="15%">
-                </colgroup> -->
+              <table class="table m-0 table-bordered table-hover" id="list" style="table-layout:fixed;font-size:1.1vw;">
+                <colgroup>
+                  <col width="9%">
+                  <col width="16%">
+                  <col width="11%">
+                  <col width="10%">
+                  <col width="22%">
+                  <col width="8%">
+                  <col width="14%">
+                  <col width="10%">
+                </colgroup>
                 <thead>
                   <th>Customer ID</th>
                   <th>Customer Name</th>
                   <th>Mobile Number</th>
                   <th>Area</th>
                   <th>Address</th>
-                  <th>Requested Capacity</th>
+                  <th>Capacity</th>
                   <th>Request Time</th>
                   <th>Platform</th>
                 </thead>
                 <tbody>
                 <?php
-                $qry = $conn->query("SELECT *, `get_internet`.`Address` as `myAddress` FROM `get_internet` 
+                $qry = $conn->query("SELECT `get_internet`.`Customer ID`, `Customer Name`, `Contact Number`, `EMail Address` AS `Email`, `Area`, `Capacity`, `request_date`, `source`, `get_internet`.`Address` as `myAddress`
+                FROM `get_internet` 
                 INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID`
-                WHERE `Service Status` LIKE 'Active' ");
+                WHERE `Service Status` LIKE 'Active'
+                UNION
+                SELECT `get_internet`.`Customer ID`, CONCAT(`FirstName`,' ',`LastName`) AS `Customer Name`, `Contact Number`, `Email`, `Area`, `Capacity`, `reg_date` AS `request_date`, `get_internet`.`source`, `Address` AS `myAddress`
+                FROM `get_internet` INNER JOIN `customer_details` ON `get_internet`.`Customer ID`=`customer_details`.`Customer ID` ");
                 while($row= $qry->fetch_assoc()):
                   ?>
                   <tr>

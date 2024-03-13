@@ -28,7 +28,19 @@ endif; ?>
 			</div>
 		</div>
 		<div class="card-body">
-			<table class="table table-hover table-bordered" id="list">
+			<table class="table table-hover table-bordered" id="list" style="table-layout:fixed;font-size:1.1vw;">
+				<colgroup>
+                  <col width="9%">
+                  <col width="10%">
+                  <col width="19%">
+                  <col width="9%">
+                  <col width="9%">
+                  <col width="7%">
+                  <col width="7%">
+                  <col width="14%">
+				  <col width="9%">
+				  <col width="9%">
+                </colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">Customer ID</th>

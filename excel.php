@@ -223,9 +223,17 @@ if(isset($_POST['export_customers_btn']))
 if(isset($_POST['export_get_internet_btn']))
 {
     $file_ext_name = $_POST['export_file_type'];
-    $exportquery = "SELECT *, `get_internet`.`Address` as `myAddress`, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
-    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `get_internet` INNER JOIN `customers` 
-    ON `get_internet`.`Customer ID`=`customers`.`Customer ID` WHERE `Service Status` LIKE 'Active' order by `request_date` desc";
+    $exportquery = "SELECT `get_internet`.`Customer ID`, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+    TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName, `Contact Number`, `EMail Address` AS `Email`, `Area`, `Capacity`, `request_date`, `source`, `get_internet`.`Address` as `myAddress`
+    FROM `get_internet` 
+    INNER JOIN `customers` ON `get_internet`.`Customer ID`=`customers`.`Customer ID`
+    WHERE `Service Status` LIKE 'Active'
+    UNION
+    SELECT `get_internet`.`Customer ID`, `FirstName`, `LastName`, `Contact Number`, `Email`, `Area`, `Capacity`, `reg_date` AS `request_date`, `get_internet`.`source`, `Address` AS `myAddress`
+    FROM `get_internet` INNER JOIN `customer_details` ON `get_internet`.`Customer ID`=`customer_details`.`Customer ID` order by `request_date` desc ";
+    // $exportquery = "SELECT *, `get_internet`.`Address` as `myAddress`, SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS FirstName,
+    // TRIM( SUBSTR(`Customer Name`, LOCATE(' ', `Customer Name`)) ) AS LastName FROM `get_internet` INNER JOIN `customers` 
+    // ON `get_internet`.`Customer ID`=`customers`.`Customer ID` WHERE `Service Status` LIKE 'Active' order by `request_date` desc";
     $myresult = mysqli_query($conn, $exportquery);
 
     $fileName = "Get_Internet_".$dt->format('Y-m-d_H-i-s');
@@ -239,11 +247,12 @@ if(isset($_POST['export_get_internet_btn']))
         $sheet->setCellValue('B1', 'FirstName');
         $sheet->setCellValue('C1', 'LastName');
         $sheet->setCellValue('D1', 'Contact Number');
-        $sheet->setCellValue('E1', 'Area');
-        $sheet->setCellValue('F1', 'Address');
-        $sheet->setCellValue('G1', 'Capacity');
-        $sheet->setCellValue('H1', 'RequestTime');
-        $sheet->setCellValue('I1', 'Platform');
+        $sheet->setCellValue('E1', 'EMail');
+        $sheet->setCellValue('F1', 'Area');
+        $sheet->setCellValue('G1', 'Address');
+        $sheet->setCellValue('H1', 'Capacity');
+        $sheet->setCellValue('I1', 'RequestTime');
+        $sheet->setCellValue('J1', 'Platform');
 
         $rowCount = 2;
         foreach($myresult as $data)
@@ -252,11 +261,12 @@ if(isset($_POST['export_get_internet_btn']))
             $sheet->setCellValue('B'.$rowCount, $data['FirstName']);
             $sheet->setCellValue('C'.$rowCount, $data['LastName']);
             $sheet->setCellValue('D'.$rowCount, $data['Contact Number']);
-            $sheet->setCellValue('E'.$rowCount, $data['Area']);
-            $sheet->setCellValue('F'.$rowCount, $data['myAddress']);
-            $sheet->setCellValue('G'.$rowCount, $data['Capacity']);
-            $sheet->setCellValue('H'.$rowCount, $data['request_date']);
-            $sheet->setCellValue('I'.$rowCount, $data['source']);
+            $sheet->setCellValue('E'.$rowCount, $data['Email']);
+            $sheet->setCellValue('F'.$rowCount, $data['Area']);
+            $sheet->setCellValue('G'.$rowCount, $data['myAddress']);
+            $sheet->setCellValue('H'.$rowCount, $data['Capacity']);
+            $sheet->setCellValue('I'.$rowCount, $data['request_date']);
+            $sheet->setCellValue('J'.$rowCount, $data['source']);
             $rowCount++;
         }
 
