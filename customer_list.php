@@ -9,6 +9,15 @@ endif; ?>
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
+			<table class="table table-borderless">
+				<tr>
+					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat" style="color:#fff;">Connected: <b id="ConnectedCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-success btn-sm btn-flat">Active: <b id="ActiveCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-danger btn-sm btn-flat">Expired: <b id="ExpiredCount"></b></div></td>
+				</tr>
+			</table>
+		</div>
+		<div class="card-header">
             <?php
             if (isset($_SESSION['message']))
             {
@@ -22,7 +31,7 @@ endif; ?>
                     <option value="xls">.xls</option>
                     <option value="csv">.csv</option>
                 </select>
-                <button type="submit" name="export_customers_btn" class="btn btn-primary">Export</button>
+                <button type="submit" name="export_customers_btn" class="btn btn-primary btn-sm">Export</button>
             </form>
 			<?php if($_SESSION['login_type'] != 3): ?>
 			<div class="card-tools" style="display:inline;">
@@ -31,13 +40,6 @@ endif; ?>
 			<?php endif; ?>
 		</div>
 		<div class="card-body">
-			<table class="table table-borderless">
-				<tr>
-					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat" style="color:#fff;">Connected: <b id="ConnectedCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-success btn-sm btn-flat">Active: <b id="ActiveCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-danger btn-sm btn-flat">Expired: <b id="ExpiredCount"></b></div></td>
-				</tr>
-			</table>
 			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.9vw;">
 				<colgroup>
 					<col style="width: 8%;" />

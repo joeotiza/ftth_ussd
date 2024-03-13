@@ -28,7 +28,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
                     <option value="xls">.xls</option>
                     <option value="csv">.csv</option>
                 </select>
-                <button type="submit" name="export_areas_btn" class="btn btn-primary">Export</button>
+                <button type="submit" name="export_areas_btn" class="btn btn-primary btn-sm">Export</button>
             </form>
 			<?php endif;?>
 			<?php if($_SESSION['login_type'] <= 2): ?>
