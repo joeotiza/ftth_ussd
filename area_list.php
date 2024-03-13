@@ -42,7 +42,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 			<?php endif;?>
 		</div>
 		<div class="card-body">
-			<table class="table table-bordered table-hover text-center" id="list" style="table-layout:fixed;font-size:1.1vw;">
+			<table class="table table-bordered table-hover text-center" id="list" style="table-layout:fixed;font-size:0.9vw;">
 				<colgroup>
 					<?= ($_SESSION['login_type'] <= 2) ? "<col style='width: 7%;' />" : ''?>
 					<col style="width: 11%;" />
@@ -55,13 +55,14 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 				</colgroup>
 				<thead>
 					<tr>
-						<?= ($_SESSION['login_type'] <= 2) ? "<th>Select to Edit</th>" : ''?>
+						<?= ($_SESSION['login_type'] <= 2) ? "<th><i class='fa fa-square-check'></i></th>" : ''?>
 						<th>Location Code</th>
 						<th>Area Name</th>
 						<th>Estate/Court/Road</th>
 						<th>Active</th>
 						<th>Expired</th>
 						<th>Connected</th>
+						<th>Homes</th>
 						<th>Penetration</th>
 					</tr>
 				</thead>
@@ -103,6 +104,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 				{ "data": "Active" },
 				{ "data": "Expired" },
 				{ "data": "Connected" },
+				{ "data": "homes" },
 				// { "data": "Penetration" },
 				{
 					"data": "Penetration",
@@ -112,6 +114,10 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 						if (row['Penetration'] != null)
 						{
 							return '<b>'+(row['Penetration']*100).toFixed(0) + '%</b>';
+						}
+						else if (row['Connected'] == 0)
+						{
+							return "<b>0%</b>";
 						}
 						else
 						{
@@ -211,6 +217,13 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 					"render": function(data, type, row, meta) {
 						// Add bold attribute and vertically align middle to the content
 						return '<div style="font-weight:bold;">' + data + '</div>';
+					}
+				},
+				{ 
+					"targets": [1,2,3], // Apply to column indeces
+					"render": function(data, type, row, meta) {
+						// Add bold attribute and vertically align middle to the content
+						return '<div style="text-align:left;">' + data + '</div>';
 					}
 				}
 			],

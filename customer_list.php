@@ -38,7 +38,7 @@ endif; ?>
 					<td class="text-center"><div class="btn btn-danger">Expired: <b id="ExpiredCount"></b></div></td>
 				</tr>
 			</table>
-			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.95vw;">
+			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.9vw;">
 				<colgroup>
 					<col style="width: 8%;" />
 					<col style="width: 7%;" />

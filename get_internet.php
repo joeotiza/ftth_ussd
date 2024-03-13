@@ -22,7 +22,7 @@ endif; ?>
           </div>
           <div class="card-body">
             <div class="table-responsive" id="printable">
-              <table class="table m-0 table-bordered table-hover" id="list" style="table-layout:fixed;font-size:1.1vw;">
+              <table class="table m-0 table-bordered table-hover" id="list" style="table-layout:fixed;font-size:0.9vw;">
                 <colgroup>
                   <col width="9%">
                   <col width="16%">
