@@ -3,9 +3,6 @@
 tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
     vertical-align: middle; /* Change to desired background color */
 }
-.card-tools{
-	padding: 7px;
-}
 </style>
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
