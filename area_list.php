@@ -219,6 +219,14 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 					$('#deleteArea').attr('data-id', areaID).attr('href', 'javascript:void(0)');
 					$('#deleteLocation').attr('data-id', locationID).attr('href', 'javascript:void(0)');
 				});
+				// Check if no checkboxes are selected
+				$('#list tbody').on('change', 'input[type="checkbox"]', function() {
+					if ($('#list tbody input[type="checkbox"]:checked').length === 0) {
+						// Actions to perform when no checkbox is selected
+						$('.before-check').attr('style', 'display:block;');
+						$('.after-check').attr('style', 'display:none;');
+					}
+				});
 			},
 			<?php endif; ?>
 			<?php if ($_SESSION['login_type'] != 4): ?>
