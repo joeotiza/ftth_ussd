@@ -1,11 +1,10 @@
 <?php include 'db_connect.php' ?>
 <style>
-table tr:hover {
-	color: #fff;
-    background-color: rgba(248,158,60,1); /* Change to desired background color */
-}
 tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
     vertical-align: middle; /* Change to desired background color */
+}
+.card-tools{
+	padding: 7px;
 }
 </style>
 <div class="col-lg-12">
@@ -23,24 +22,40 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 			<?php endif;?>
 			<?php if($_SESSION['login_type'] <= 2): ?>
 			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href=<?= (!$_GET['id']) ? "./index.php?page=new_area" : "./index.php?page=new_location"?>><i class="fa fa-plus"></i> Add New <?= (!$_GET['id']) ? "Area" : "Location"?></a>
+				<a class="btn btn-primary before-check" href="./index.php?page=new_area"><i class="fa fa-plus"></i> Add New Area</a>
+			</div>
+			<div class="card-tools" style="display:inline;">
+				<a class="btn btn-danger after-check delete-area" id="deleteArea"><i class="fa fa-trash-can"></i> Delete Area</a>
+			</div>
+			<div class="card-tools" style="display:inline;">
+				<a class="btn btn-warning after-check" id="editArea"><i class="fa fa-pen-to-square"></i> Edit Area</a>
+			</div>
+			<div class="card-tools" style="display:inline;">
+				<a class="btn btn-primary after-check" id="newLocation"><i class="fa fa-plus"></i> Add New Location</a>
+			</div>
+			<div class="card-tools" style="display:inline;">
+				<a class="btn btn-warning after-check" id="editLocation"><i class="fa fa-pen-to-square"></i> Edit Location</a>
+			</div>
+			<div class="card-tools" style="display:inline;">
+				<a class="btn btn-danger after-check delete-location" id="deleteLocation"><i class="fa fa-trash-can"></i> Delete Location</a>
 			</div>
 			<?php endif;?>
 		</div>
 		<div class="card-body">
-			<table class="table table-bordered text-center" id="list" style="table-layout:fixed;font-size:1.1vw;">
+			<table class="table table-bordered table-hover text-center" id="list" style="table-layout:fixed;font-size:1.1vw;">
 				<colgroup>
-					<col style="width: 12%;" />
+					<?= ($_SESSION['login_type'] <= 2) ? "<col style='width: 7%;' />" : ''?>
 					<col style="width: 11%;" />
-					<col style="width: 17%;" />
+					<col style="width: 9%;" />
+					<col style="width: 25%;" />
+					<col style="width: 7%;" />
 					<col style="width: 8%;" />
 					<col style="width: 9%;" />
-					<col style="width: 10%;" />
-					<col style="width: 12%;" />
-					<?= ($_SESSION['login_type'] <= 2) ? "<col style='width: 8%;' />" : ''?>
+					<col style="width: 11%;" />
 				</colgroup>
 				<thead>
 					<tr>
+						<?= ($_SESSION['login_type'] <= 2) ? "<th>Select to Edit</th>" : ''?>
 						<th>Location Code</th>
 						<th>Area Name</th>
 						<th>Estate/Court/Road</th>
@@ -48,8 +63,6 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 						<th>Expired</th>
 						<th>Connected</th>
 						<th>Penetration</th>
-						<?= ($_SESSION['login_type'] <= 2) ? "<th>Action</th>" : ''?>
-						
 					</tr>
 				</thead>
 				<tbody></tbody>
@@ -72,9 +85,18 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 	?>
 	<?= json_encode($data)?>;
 	$(document).ready(function(){
+		$('.before-check').attr('style', 'display:block;');
+		$('.after-check').attr('style', 'display:none;');
 		$('#list').DataTable({
 			"data": <?= json_encode($data)?>,
 			"columns": [
+				<?php if($_SESSION['login_type'] <= 2): ?>
+				{ "data": "AreaCode",
+					"render": function(data, type, row) {
+						return "<input type='checkbox' name='selectLocation'><div style='display:none;'>"+row['AreaID']+" "+row['LocationID']+" "+row['AreaCode']+"</div>";
+					}
+				},
+				<?php endif; ?>
 				{ "data": "LocationCode" },
 				{ "data": "AreaName" },
 				{ "data": "EstateName" },
@@ -98,51 +120,77 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 					}
 				}
 				<?php if ($_SESSION['login_type'] <= 2): ?>
-				,{
-					"data": "AreaCode",
-					"render": function(data, type, row, meta) {
-						// Create a dropdown button element
-						var dropdownButton = $('<button>')
-							.attr('class', 'btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle')
-							.attr('type', 'button')
-							.attr('data-toggle', 'dropdown')
-							.text('Action');
+				// ,{
+				// 	"data": "AreaCode",
+				// 	"render": function(data, type, row, meta) {
+				// 		// Create a dropdown button element
+				// 		var dropdownButton = $('<button>')
+				// 			.attr('class', 'btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle')
+				// 			.attr('type', 'button')
+				// 			.attr('data-toggle', 'dropdown')
+				// 			.text('Action');
 
-						// Create a dropdown menu
-						var dropdownMenu = $('<div>').attr('class', 'dropdown-menu');
+				// 		// Create a dropdown menu
+				// 		var dropdownMenu = $('<div>').attr('class', 'dropdown-menu');
 
-						// Add options to the dropdown menu
-						<?php if (!$_GET['id']) { ?>
-						var locationsOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=area_list&id='+row['AreaID']).text('Edit Estates');
-						var editOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=edit_area&id='+row['AreaID']).text('Edit Area');
-						var deleteOption = $('<a>').attr('class', 'dropdown-item text-center delete_area').attr('data-id', row['AreaID']).attr('href', 'javascript:void(0)').text('Delete Area');
-						<?php } else { ?>
-						var locationsOption = '';
-						var editOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=edit_location&id='+row['LocationID']).text('Edit');
-						var deleteOption = $('<a>').attr('class', 'dropdown-item text-center delete_location').attr('data-id', row['LocationID']).attr('href', 'javascript:void(0)').text('Delete');
-						<?php } ?>
+				// 		// Add options to the dropdown menu
+				// 		<?php if (!$_GET['id']) { ?>
+				// 		var locationsOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=area_list&id='+row['AreaID']).text('Edit Estates');
+				// 		var editOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=edit_area&id='+row['AreaID']).text('Edit Area');
+				// 		var deleteOption = $('<a>').attr('class', 'dropdown-item text-center delete_area').attr('data-id', row['AreaID']).attr('href', 'javascript:void(0)').text('Delete Area');
+				// 		<?php } else { ?>
+				// 		var locationsOption = '';
+				// 		var editOption = $('<a>').attr('class', 'dropdown-item text-center').attr('href', './index.php?page=edit_location&id='+row['LocationID']).text('Edit');
+				// 		var deleteOption = $('<a>').attr('class', 'dropdown-item text-center delete_location').attr('data-id', row['LocationID']).attr('href', 'javascript:void(0)').text('Delete');
+				// 		<?php } ?>
 
-						// Append options to the dropdown menu
-						dropdownMenu.append(locationsOption, editOption, deleteOption);
+				// 		// Append options to the dropdown menu
+				// 		dropdownMenu.append(locationsOption, editOption, deleteOption);
 
-						// Wrap dropdown menu with the dropdown button
-						dropdownButton.wrap('<div class="dropdown"></div>').parent().append(dropdownMenu);
+				// 		// Wrap dropdown menu with the dropdown button
+				// 		dropdownButton.wrap('<div class="dropdown"></div>').parent().append(dropdownMenu);
 
-						// Return the HTML content of the dropdown button
-						return dropdownButton.parent().html();
-					}
+				// 		// Return the HTML content of the dropdown button
+				// 		return dropdownButton.parent().html();
+				// 	}
 
-				}
+				// }
 				<?php endif; ?>
 			],
+			<?php if ($_SESSION['login_type'] <= 2): ?>
+			"initComplete": function() {
+				// Handle radio button selection
+				$('#list tbody').on('change', 'input[type="checkbox"]', function() {
+					var $row = $(this).closest('tr');
+					// var locationCode = $row.find('td:eq(1)').text(); // Get LocationCode value from the second column
+					var areaLocation = $row.find('td:eq(0)').text().split(/[ ,]+/);
+					var areaID = areaLocation[0];
+					var locationID = areaLocation[1];
+					var areaCode = areaLocation[2];
+					// console.log(areaCode);
+					$('#list tbody tr').not($row).find('input[type="checkbox"]').prop('checked', false);
+					$('.before-check').attr('style', 'display:none;');
+					$('.after-check').attr('style', 'display:block;');
+					$('#newLocation').attr('href', './index.php?page=new_location&AreaCode='+areaCode);
+					$('#editLocation').attr('href', './index.php?page=edit_location&id='+locationID);
+					$('#editArea').attr('href', './index.php?page=edit_area&id='+areaID);
+					$('#deleteArea').attr('data-id', areaID).attr('href', 'javascript:void(0)');
+					$('#deleteLocation').attr('data-id', locationID).attr('href', 'javascript:void(0)');
+				});
+			},
+			<?php endif; ?>
+			<?php if ($_SESSION['login_type'] != 4): ?>
 			"createdRow": function(row, data, dataIndex) {
 				var locationCode = data.LocationCode; // Get the value of LocationCode for this row
 				$(row).css("cursor", "pointer"); // Change cursor to pointer to indicate clickability
-				$(row).on("click", function() {
-					// Redirect or perform action when the row is clicked
-					window.location.href = './index.php?page=customer_list&LocationCode='+locationCode;
+				$(row).on("click", function(e) {
+					if ($(e.target).index() > 0) {//exclude first column
+						// Redirect or perform action when the row is clicked
+						window.location.href = './index.php?page=customer_list&LocationCode='+locationCode;
+					}
 				});
 			},
+			<?php endif; ?>
 			"columnDefs": [
 				{ 
 					"targets": [4], // Apply to column indeces
@@ -174,10 +222,10 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 				// "dataSrc": [0, 1] // Group by the first and second columns (Area Code and Area Name)
 			],
 		});
-		$('.delete_area').click(function(){
+		$('#deleteArea').click(function(){
 			_conf("Are you sure to delete this area?","delete_area",[$(this).attr('data-id')])
 		})
-		$('.delete_location').click(function(){
+		$('#deleteLocation').click(function(){
 			_conf("Are you sure to delete this?","delete_location",[$(this).attr('data-id')])
 		})
 		// $('#list').dataTable()

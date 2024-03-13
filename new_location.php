@@ -12,7 +12,7 @@ endif;
 		<div class="card-body">
 			<form action="" id="manage_location" enctype="multipart/form-data">
 				<input type="hidden" name="LocationID" value="<?php echo isset($LocationID) ? $LocationID : '' ?>">
-                <?php if(isset($_SESSION['AreaCode'])) $AreaCode=$_SESSION['AreaCode']; unset($_SESSION['AreaCode'])?>
+                <?php if(isset($_GET['AreaCode'])) $AreaCode=$_GET['AreaCode']; unset($_GET['AreaCode'])?>
 				<div class="row">
 					<div class="col-md-6 border-right">
 						<div class="form-group">
