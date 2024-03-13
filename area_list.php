@@ -10,6 +10,17 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
+			<table class="table">
+				<tr>
+					<td class="text-center"><div class="btn btn-warning" style="color:#fff;">Areas: <b id="AreasCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-primary">Locations: <b id="LocationsCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-warning" style="color:#fff;">Homes Passed: <b id="HomesCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-primary">Connected: <b id="ConnectedCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-warning" style="color:#fff;">Penetration: <b id="PenetrationCount"></b></div></td>
+				</tr>
+			</table>
+		</div>
+		<div class="card-header">
 			<?php if($_SESSION['login_type'] != 4): ?>
 			<form action="excel.php" method="POST" style="display:inline;">
                 <select name="export_file_type" class="form_control">
@@ -84,12 +95,37 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 		}
 		// echo json_encode($data);
 	?>
-	<?= json_encode($data)?>;
+	var jsonData = <?= json_encode($data) ?>;
+	var sumActive = 0;
+	var sumExpired = 0;
+	var sumConnected = 0;
+	var sumHomes = 0;
+	var uniqueAreas = {};
+	var uniqueLocations = {};
+
+	for (var i = 0; i < jsonData.length; i++) {
+		sumActive += parseInt(jsonData[i].Active) || 0;
+		sumExpired += parseInt(jsonData[i].Expired) || 0;
+		sumConnected += parseInt(jsonData[i].Connected) || 0;
+		sumHomes += parseInt(jsonData[i].homes) || 0;
+		uniqueAreas[jsonData[i].AreaCode] = true;
+		uniqueLocations[jsonData[i].LocationCode] = true;
+	}
+	var countAreas = Object.keys(uniqueAreas).length;
+	var countLocations = Object.keys(uniqueLocations).length;
+	var totalPenetration =((sumConnected/sumHomes)*100).toFixed(0);
+	// console.log(countLocations);
+
 	$(document).ready(function(){
+		document.getElementById('AreasCount').innerHTML = countAreas;
+		document.getElementById('LocationsCount').innerHTML = countLocations;
+		document.getElementById('HomesCount').innerHTML = sumHomes;
+		document.getElementById('ConnectedCount').innerHTML = sumConnected;
+		document.getElementById('PenetrationCount').innerHTML = totalPenetration+'%';
 		$('.before-check').attr('style', 'display:block;');
 		$('.after-check').attr('style', 'display:none;');
 		$('#list').DataTable({
-			"data": <?= json_encode($data)?>,
+			"data": jsonData,
 			"columns": [
 				<?php if($_SESSION['login_type'] <= 2): ?>
 				{ "data": "AreaCode",
