@@ -24,102 +24,57 @@
               </p>
             </a>
           </li>
-          <?php if($_SESSION['login_type'] != 4): ?>
           <li class="nav-item">
-            <a href="#" class="nav-link nav-edit_customer">
-              <i class="nav-icon fas fa-wifi"></i>
+            <a href="./index.php?page=area_list" class="nav-link nav-area_list">
+              <i class="nav-icon fas fa-location-dot"></i>
               <p>
-                Liquid Home Internet
-                <i class="right fas fa-angle-left"></i>
+                Serviceable Areas
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.php?page=new_customer_list" class="nav-link nav-new_customer_list tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Interested Customers</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index.php?page=customer_list" class="nav-link nav-customer_list tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Existing Customers</p>
-                </a>
-              </li>
-              <?php if($_SESSION['login_type'] <= 2): ?>
-              <li class="nav-item">
-                <a href="./index.php?page=new_customer" class="nav-link nav-new_customer tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Upload File</p>
-                </a>
-              </li>
-              <?php endif; ?>
-            </ul>
+          </li>
+          <?php if($_SESSION['login_type'] != 4): ?>
+          <li class="nav-item">
+            <a href="./index.php?page=customer_list" class="nav-link nav-customer_list">
+              <i class="nav-icon fas fa-wifi"></i>
+              <p>
+                Connected Customers
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="./index.php?page=get_internet" class="nav-link nav-get_internet">
+              <i class="fas fa-house-signal nav-icon"></i>
+              <p>
+                Subscription Requests
+              </p>
+            </a>
           </li>
           <li class="nav-item dropdown">
             <a href="./index.php?page=change_plan" class="nav-link nav-change_plan tree-item">
               <i class="nav-icon fas fa-shuffle"></i>
               <p>
-                Plan Change
+                Plan Change Requests
               </p>
             </a>
-          </li>
-          <?php if($_SESSION['login_type'] == 1): ?>
-          <li class="nav-item">
-            <a href="#" class="nav-link nav-edit_user">
-              <i class="nav-icon fas fa-id-badge"></i>
-              <p>
-                Web Portal Users
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.php?page=new_user" class="nav-link nav-new_user tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Add New</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index.php?page=user_list" class="nav-link nav-user_list tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <?php endif; ?>
-          <li class="nav-item">
-            <a href="#" class="nav-link nav-edit_requests">
-              <i class="fas fa-house-signal nav-icon"></i>
-              <p>
-                Get Home Wi-Fi
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.php?page=get_internet" class="nav-link nav-get_internet tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>From Existing Customers</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index.php?page=get_internet_new" class="nav-link nav-get_internet_new tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>From New Customers</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item dropdown">
             <a href="./index.php?page=cases_reported" class="nav-link nav-cases_reported tree-item">
               <i class="nav-icon fas fa-triangle-exclamation"></i>
               <p>
-                Cases Reported
+                Reported Cases
               </p>
             </a>
           </li>
+          <?php if($_SESSION['login_type'] == 1): ?>
+          <li class="nav-item">
+            <a href="./index.php?page=user_list" class="nav-link nav-user_list">
+              <i class="nav-icon fas fa-id-badge"></i>
+              <p>
+                Web Portal Users
+              </p>
+            </a>
+          </li>
+          <?php endif; ?>
           <li class="nav-item dropdown">
             <a href="./index.php?page=chat_requests" class="nav-link nav-chat_requests tree-item">
               <i class="nav-icon fas fa-comment"></i>
@@ -129,37 +84,6 @@
             </a>
           </li>
           <?php endif; ?>
-          <li class="nav-item">
-            <a href="#" class="nav-link nav-edit_area">
-              <i class="nav-icon fas fa-location-dot"></i>
-              <p>
-                Areas
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <?php if($_SESSION['login_type'] <= 2): ?>
-              <li class="nav-item">
-                <a href="./index.php?page=new_area" class="nav-link nav-new_area tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Add New Area</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index.php?page=new_location" class="nav-link nav-new_location tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Add New Location</p>
-                </a>
-              </li>
-              <?php endif;?>
-              <li class="nav-item">
-                <a href="./index.php?page=area_list" class="nav-link nav-area_list tree-item">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-item dropdown">
             <a href="./index.php?page=packages" class="nav-link nav-packages tree-item">
               <i class="nav-icon fas fa-tags"></i>
