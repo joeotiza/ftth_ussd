@@ -10,13 +10,13 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
-			<table class="table">
+			<table class="table table-borderless" style="table-layout:fixed;">
 				<tr>
-					<td class="text-center"><div class="btn btn-warning" style="color:#fff;">Areas: <b id="AreasCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-primary">Locations: <b id="LocationsCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-warning" style="color:#fff;">Homes Passed: <b id="HomesCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-primary">Connected: <b id="ConnectedCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-warning" style="color:#fff;">Penetration: <b id="PenetrationCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Areas: <b id="AreasCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Locations: <b id="LocationsCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Homes Passed: <b id="HomesCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Connected: <b id="ConnectedCount"></b></div></td>
+					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Penetration: <b id="PenetrationCount"></b></div></td>
 				</tr>
 			</table>
 		</div>
@@ -33,22 +33,22 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 			<?php endif;?>
 			<?php if($_SESSION['login_type'] <= 2): ?>
 			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-primary before-check" href="./index.php?page=new_area"><i class="fa fa-plus"></i> Add New Area</a>
+				<a class="btn btn-primary btn-sm btn-flat wave-effect before-check" href="./index.php?page=new_area"><i class="fa fa-plus"></i> Add New Area</a>
 			</div>
-			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-danger after-check delete-area" id="deleteArea"><i class="fa fa-trash-can"></i> Delete Area</a>
-			</div>
-			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-warning after-check" id="editArea"><i class="fa fa-pen-to-square"></i> Edit Area</a>
-			</div>
-			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-primary after-check" id="newLocation"><i class="fa fa-plus"></i> Add New Location</a>
-			</div>
-			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-warning after-check" id="editLocation"><i class="fa fa-pen-to-square"></i> Edit Location</a>
-			</div>
-			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-danger after-check delete-location" id="deleteLocation"><i class="fa fa-trash-can"></i> Delete Location</a>
+			<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle after-check card-tools" data-toggle="dropdown" aria-expanded="true" style="display:inline;">
+				<i class="fa fa-pen-to-square"></i> Edit Options
+			</button>
+			<div class="dropdown-menu" style="">
+				<a class="dropdown-item"  id="editArea"><i class="fa fa-pen-to-square"></i> Edit Area</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" id="deleteArea"><i class="fa fa-trash-can"></i> Delete Area</a>
+				<div class="dropdown-divider"></div>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" id="newLocation"><i class="fa fa-plus"></i> Add New Location</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" id="editLocation"><i class="fa fa-pen-to-square"></i> Edit Location</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" id="deleteLocation"><i class="fa fa-trash-can"></i> Delete Location</a>
 			</div>
 			<?php endif;?>
 		</div>
