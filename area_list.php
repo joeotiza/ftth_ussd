@@ -93,7 +93,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 				<?php if($_SESSION['login_type'] <= 2): ?>
 				{ "data": "AreaCode",
 					"render": function(data, type, row) {
-						return "<input type='checkbox' name='selectLocation'><div style='display:none;'>"+row['AreaID']+" "+row['LocationID']+" "+row['AreaCode']+"</div>";
+						return "<input type='checkbox' name='selectLocation'><div style='display:none;'>"+row['AreaCode']+" "+row['AreaID']+" "+row['LocationID']+"</div>";
 					}
 				},
 				<?php endif; ?>
@@ -164,9 +164,9 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 					var $row = $(this).closest('tr');
 					// var locationCode = $row.find('td:eq(1)').text(); // Get LocationCode value from the second column
 					var areaLocation = $row.find('td:eq(0)').text().split(/[ ,]+/);
-					var areaID = areaLocation[0];
-					var locationID = areaLocation[1];
-					var areaCode = areaLocation[2];
+					var areaID = areaLocation[1];
+					var locationID = areaLocation[2];
+					var areaCode = areaLocation[0];
 					// console.log(areaCode);
 					$('#list tbody tr').not($row).find('input[type="checkbox"]').prop('checked', false);
 					$('.before-check').attr('style', 'display:none;');
