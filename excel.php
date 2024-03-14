@@ -639,7 +639,7 @@ if(isset($_POST['save_excel_data']))
                 $columns = substr($columns, 0, -2);
             }
             $count++;
-            if (fmod($count, 6000) == 0)
+            if (fmod($count, 1500) == 0)
             {
                 try {
                     if (mysqli_multi_query($conn, $excelquery)) {
