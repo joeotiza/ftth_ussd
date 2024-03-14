@@ -1,9 +1,16 @@
 <!-- Navbar -->
+  <style>
+    @media only screen and (min-width: 768px) {
+      .nav-item-phone-only {
+        display: none;
+      }
+    }
+  </style>
   <nav class="main-header navbar navbar-expand navbar-primary navbar-dark ">
     <!-- Left navbar links -->
     <ul class="navbar-nav mx-auto">
       <?php if(isset($_SESSION['login_id'])): ?>
-      <li class="nav-item">
+      <li class="nav-item nav-item-phone-only">
         <a class="nav-link" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
       </li>
     <?php endif; ?>
