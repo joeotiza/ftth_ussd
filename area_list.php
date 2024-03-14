@@ -228,12 +228,13 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 			<?php endif; ?>
 			<?php if ($_SESSION['login_type'] != 4): ?>
 			"createdRow": function(row, data, dataIndex) {
-				var locationCode = data.LocationCode; // Get the value of LocationCode for this row
+				// var locationCode = data.LocationCode; // Get the value of LocationCode for this row
 				$(row).css("cursor", "pointer"); // Change cursor to pointer to indicate clickability
 				$(row).on("click", function(e) {
-					if ($(e.target).index() > 0) {//exclude first column
+					if ($(e.target).closest('td').index() > 0) {//exclude first column
+						var locationCode = $(this).find('td:eq(1)').text();
 						// Redirect or perform action when the row is clicked
-						window.location.href = './index.php?page=customer_list&LocationCode='+locationCode;
+						window.location.href = './index.php?page=customer_list&LocationCode=' + encodeURIComponent(locationCode);
 					}
 				});
 			},
