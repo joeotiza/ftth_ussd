@@ -5,29 +5,17 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 }
 </style>
 <div class="col-lg-12">
+	<table class="table table-borderless" style="table-layout:fixed;">
+		<tr>
+			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Areas: <b id="AreasCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Locations: <b id="LocationsCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Homes Passed: <b id="HomesCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Connected: <b id="ConnectedCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Penetration: <b id="PenetrationCount"></b></div></td>
+		</tr>
+	</table>
 	<div class="card card-outline card-success">
 		<div class="card-header">
-			<table class="table table-borderless" style="table-layout:fixed;">
-				<tr>
-					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Areas: <b id="AreasCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Locations: <b id="LocationsCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Homes Passed: <b id="HomesCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Connected: <b id="ConnectedCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Penetration: <b id="PenetrationCount"></b></div></td>
-				</tr>
-			</table>
-		</div>
-		<div class="card-header">
-			<?php if($_SESSION['login_type'] != 4): ?>
-			<form action="excel.php" method="POST" style="display:inline;">
-                <select name="export_file_type" class="form_control">
-                	<option value="xlsx">.xlsx</option>
-                    <option value="xls">.xls</option>
-                    <option value="csv">.csv</option>
-                </select>
-                <button type="submit" name="export_areas_btn" class="btn btn-primary btn-sm">Export</button>
-            </form>
-			<?php endif;?>
 			<?php if($_SESSION['login_type'] <= 2): ?>
 			<div class="card-tools" style="display:inline;">
 				<a class="btn btn-primary btn-sm btn-flat wave-effect before-check" href="./index.php?page=new_area"><i class="fa fa-plus"></i> Add New Area</a>
@@ -76,6 +64,18 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 				</thead>
 				<tbody></tbody>
 			</table>
+			<div>
+				<?php if($_SESSION['login_type'] != 4): ?>
+				<form action="excel.php" method="POST" style="display:inline;">
+					<select name="export_file_type" class="form_control">
+						<option value="xlsx">.xlsx</option>
+						<option value="xls">.xls</option>
+						<option value="csv">.csv</option>
+					</select>
+					<button type="submit" name="export_areas_btn" class="btn btn-primary btn-sm">Export</button>
+				</form>
+				<?php endif;?>
+			</div>
 		</div>
 	</div>
 </div>

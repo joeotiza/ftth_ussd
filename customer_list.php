@@ -7,16 +7,14 @@ if($_SESSION['login_type'] == 4):
 }
 endif; ?>
 <div class="col-lg-12">
+	<table class="table table-borderless">
+		<tr>
+			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat" style="color:#fff;">Connected: <b id="ConnectedCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-success btn-sm btn-flat">Active: <b id="ActiveCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-danger btn-sm btn-flat">Expired: <b id="ExpiredCount"></b></div></td>
+		</tr>
+	</table>
 	<div class="card card-outline card-success">
-		<div class="card-header">
-			<table class="table table-borderless">
-				<tr>
-					<td class="text-center"><div class="btn btn-warning btn-sm btn-flat" style="color:#fff;">Connected: <b id="ConnectedCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-success btn-sm btn-flat">Active: <b id="ActiveCount"></b></div></td>
-					<td class="text-center"><div class="btn btn-danger btn-sm btn-flat">Expired: <b id="ExpiredCount"></b></div></td>
-				</tr>
-			</table>
-		</div>
 		<div class="card-header">
             <?php
             if (isset($_SESSION['message']))
@@ -25,19 +23,24 @@ endif; ?>
                 unset ($_SESSION['message']);
             }
             ?>
-			<form action="excel.php" method="POST" style="display:inline;">
-                <select name="export_file_type" class="form_control">
-                	<option value="xlsx">.xlsx</option>
-                    <option value="xls">.xls</option>
-                    <option value="csv">.csv</option>
-                </select>
-                <button type="submit" name="export_customers_btn" class="btn btn-primary btn-sm">Export</button>
-            </form>
-			<?php if($_SESSION['login_type'] != 3): ?>
-			<div class="card-tools" style="display:inline;">
-				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_customer"><i class="fa fa-plus"></i> Upload Customers File</a>
-			</div>
-			<?php endif; ?>
+			<table class="table table-borderless" style="table-layout: fixed;">
+				<colgroup>
+					<col style="width: 30%;" />
+					<col style="width: 20%;" />
+					<col style="width: 30%;" />
+					<col style="width: 20%;" />
+				</colgroup>
+				<td>
+					<input type="radio" name="Status"  value="All" checked="checked" />All
+					<input type="radio" name="Status"  value="Active"/>Active
+					<input type="radio" name="Status"  value="Expired"/>Expired
+				</td>
+				<td>Area: <p id="selectArea"></p></td>
+				<td><div id="LocationSelect" style="display:none;">Estate/Court/Road: <p id="selectLocation"></p></div></td>
+				<?php if($_SESSION['login_type'] != 3): ?>
+				<td><div class="card-tools"><a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_customer"><i class="fa fa-plus"></i> Upload Customers File</a></div></td>
+				<?php endif; ?>
+			</table>
 		</div>
 		<div class="card-body">
 			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.9vw;">
@@ -86,9 +89,7 @@ endif; ?>
 				<tfoot>
 					<tr>
 						<th class="text-center">Account ID</th>
-						<th><input type="radio" name="Status"  value="All" checked="checked" />All<br/>
-							<input type="radio" name="Status"  value="Active"/>Active<br/>
-							<input type="radio" name="Status"  value="Expired"/>Expired<br/></th>
+						<th>Status</th>
 						<th>Current Package</th>
 						<th>Area Name</th>
 						<th>Estate/Court/Road</th>
@@ -98,6 +99,14 @@ endif; ?>
 					</tr>
 				</tfoot>
 			</table>
+			<form action="excel.php" method="POST" style="display:inline;">
+                <select name="export_file_type" class="form_control">
+                	<option value="xlsx">.xlsx</option>
+                    <option value="xls">.xls</option>
+                    <option value="csv">.csv</option>
+                </select>
+                <button type="submit" name="export_customers_btn" class="btn btn-primary btn-sm">Export</button>
+            </form>
 		</div>
 	</div>
 </div>
@@ -122,19 +131,19 @@ endif; ?>
 		});
 	});
 
-	$('#list').on('change', function () {
-		//console.log($('#list').DataTable().rows({search:'applied'}).nodes().to$().filter('.Active').length);
+	$('#selectArea, #selectLocation').on('change', function () {
+		// console.log($('#list').DataTable().rows({search:'applied'}).nodes().to$().filter('.Active').length);
     	document.getElementById('ActiveCount').innerHTML = $('#list').DataTable().rows({search:'applied'}).nodes().to$().filter('.Active').length;
 		document.getElementById('ExpiredCount').innerHTML = $('#list').DataTable().rows({search:'applied'}).nodes().to$().filter('.Expired').length;
 		document.getElementById('ConnectedCount').innerHTML = $('#list').DataTable().rows({search:'applied'}).count();
 	})
 	
 	function populateDropdowns(table) {
-		table.api().columns([3,4]).every( function () {
+		table.api().columns([4,3]).every( function () {
 			var column = this;
 			//console.log("processing col idx " + column.index());
-			var select = $('<select style="width: 100%;"><option value="">All</option></select>')
-				.appendTo( $(column.footer()).empty() )
+			var select = $('<select><option value="">All</option></select>')
+				.appendTo( $('#selectArea').empty() )
 				.on( 'change', function () {
 					var dropdown = this;
 					doFilter(table, dropdown, column);
@@ -181,13 +190,14 @@ endif; ?>
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 		var uniques = [...new Set(raw)].sort();
 
-		var filteredSelect = $('<select style="width: 100%;"><option value="">All</option></select>')
-			.appendTo( $(secondaryCol.footer()).empty() )
-			.on( 'change', function () {
-				var dropdown = this;
-				doFilter(table, dropdown, secondaryCol);
-				//rebuildSecondaryDropdown(table, column.index());
-			} );
+		var filteredSelect = $('<select><option value="">All</option></select>')
+		.appendTo( $('#selectLocation').empty() )
+		.on( 'change', function () {
+			var dropdown = this;
+			doFilter(table, dropdown, secondaryCol);
+			//rebuildSecondaryDropdown(table, column.index());
+		} );
+		$('#LocationSelect').attr('style','display:block;');
 
 		uniques.forEach(function (item, index) {
 			filteredSelect.append( '<option value="' + item + '">' + item + '</option>' )
