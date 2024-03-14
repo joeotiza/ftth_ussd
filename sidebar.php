@@ -75,31 +75,31 @@
             </a>
           </li>
           <?php endif; ?>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a href="./index.php?page=chat_requests" class="nav-link nav-chat_requests tree-item">
               <i class="nav-icon fas fa-comment"></i>
               <p>
                 Chat Requests
               </p>
             </a>
-          </li>
+          </li> -->
           <?php endif; ?>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a href="./index.php?page=packages" class="nav-link nav-packages tree-item">
               <i class="nav-icon fas fa-tags"></i>
               <p>
                 Packages
               </p>
             </a>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <!-- <li class="nav-item dropdown">
             <a href="./index.php?page=faqs" class="nav-link nav-faqs tree-item">
               <i class="nav-icon fas fa-question"></i>
               <p>
                 FAQs
               </p>
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
     </div>
