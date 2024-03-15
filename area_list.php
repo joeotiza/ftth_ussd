@@ -232,7 +232,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 				$(row).css("cursor", "pointer"); // Change cursor to pointer to indicate clickability
 				$(row).on("click", function(e) {
 					if ($(e.target).closest('td').index() > 0) {//exclude first column
-						var locationCode = $(this).find('td:eq(1)').text();
+						var locationCode = $(this).find('td:eq(<?= ($_SESSION['login_type'] <= 2) ? "1" : "0" ?>)').text();
 						// Redirect or perform action when the row is clicked
 						window.location.href = './index.php?page=customer_list&LocationCode=' + encodeURIComponent(locationCode);
 					}
@@ -255,7 +255,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 					}
 				},
 				{ 
-					"targets": [0,1], // Apply to column indeces
+					"targets": [<?= ($_SESSION['login_type'] <= 2) ? "0,1" : "0" ?>], // Apply to column indeces
 					"render": function(data, type, row, meta) {
 						// Add bold attribute and vertically align middle to the content
 						return '<div style="font-weight:bold;">' + data + '</div>';
