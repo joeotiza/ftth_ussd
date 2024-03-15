@@ -262,7 +262,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 					}
 				},
 				{ 
-					"targets": [1,2,3], // Apply to column indeces
+					"targets": [1,2,<?= ($_SESSION['login_type'] <= 2) ? "3" : "0" ?>], // Apply to column indeces
 					"render": function(data, type, row, meta) {
 						// Add bold attribute and vertically align middle to the content
 						return '<div style="text-align:left;">' + data + '</div>';
