@@ -46,9 +46,10 @@ endif; ?>
 			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.9vw;">
 				<colgroup>
 					<col style="width: 8%;" />
-					<col style="width: 7%;" />
+					<col style="width: 5%;" />
+					<col style="width: 4%;" />
 					<col style="width: 15%;" />
-					<col style="width: 9%;" />
+					<col style="width: 7%;" />
 					<col style="width: 20%;" />
 					<col style="width: 14%;" />
 					<col style="width: 9%;" />
@@ -58,6 +59,7 @@ endif; ?>
 					<tr>
 						<th class="text-center">Account ID</th>
 						<th>Status</th>
+						<th>TED</th>
 						<th>Current Package</th>
 						<th>Area Name</th>
 						<th>Estate/Court/Road</th>
@@ -77,7 +79,8 @@ endif; ?>
 					<tr class="dataRow <?=$row['Status']?>">
 						<th class="text-center"><?php echo $row['Account_ID'] ?></th>
 						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
-						<td><?php echo $row['Current_Package'] ?></td>
+						<td><?= $row['TED'] ?></td>
+						<td><?= $row['Current_Package'] ?></td>
 						<td><?= $row['AreaName'] ? $row['AreaName'] : "_" ?></td>
 						<td><?= $row['EstateName'] ? $row['EstateName'] : "_" ?></td>
 						<td><?php echo ucwords($row['FirstName']. " ".$row['LastName']) ?></td>
@@ -90,6 +93,7 @@ endif; ?>
 					<tr>
 						<th class="text-center">Account ID</th>
 						<th>Status</th>
+						<th>TED</th>
 						<th>Current Package</th>
 						<th>Area Name</th>
 						<th>Estate/Court/Road</th>
@@ -118,7 +122,8 @@ endif; ?>
 		var mycustomers = $('#list').DataTable({
 			initComplete: function () {
 				populateDropdowns(this);
-			}
+			},
+			// "order": [[2, 'asc']],
 		});
 		document.getElementById('ActiveCount').innerHTML = $('#list').DataTable().rows('.Active').count();
 		document.getElementById('ExpiredCount').innerHTML = $('#list').DataTable().rows('.Expired').count();
@@ -139,7 +144,7 @@ endif; ?>
 	})
 	
 	function populateDropdowns(table) {
-		table.api().columns([4,3]).every( function () {
+		table.api().columns([5,4]).every( function () {
 			var column = this;
 			//console.log("processing col idx " + column.index());
 			var select = $('<select><option value="">All</option></select>')
@@ -162,7 +167,7 @@ endif; ?>
 		// remains the case until the page is refreshed:
 		if (primaryColIdx == null) {
 			primaryColIdx = column.index();
-			secondaryColIdx = (primaryColIdx == 3) ? 4 : 3;
+			secondaryColIdx = (primaryColIdx == 4) ? 5 : 4;
 		}
 
 		if (column.index() === primaryColIdx) {
