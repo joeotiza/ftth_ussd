@@ -59,11 +59,11 @@ if($_SESSION['login_type'] != 1)
         <div class="col-md-6" style="flex:1;">
           <div class="small-box bg-light shadow-sm border">
             <div class="inner">
-              <h3 id="connectedcustomers"></h3>
-              <p>Recorded Customers</p>
-            </div><p></p>
+              <h3 id="Penetration"></h3>
+              <p>Penetration (<b id="AreaHomes"></b> Homes Passed)</p>
+            </div>
             <div class="icon">
-              <i class="fa fa-users"></i>
+              <i class="fa fa-map-location-dot"></i>
             </div>
           </div>
         </div>
@@ -72,22 +72,22 @@ if($_SESSION['login_type'] != 1)
           <div class="col-md-6" style="flex:1;">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3><?php echo $conn->query("SELECT * FROM `get_internet` WHERE `request_date` > DATE_SUB(CURDATE(), INTERVAL 1 MONTH);")->num_rows; ?></h3>
-                <p>Get Home Interenet requests in the past month</p>
-              </div>
+                <h3 id="connectedcustomers"></h3>
+                <p>Recorded Customers</p>
+              </div><p></p>
               <div class="icon">
-                <i class="fa fa-house-signal"></i>
+                <i class="fa fa-users"></i>
               </div>
             </div>
           </div>
           <div class="col-md-6" style="flex:1;">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3><?php echo $conn->query("SELECT * FROM `customer_details`;")->num_rows; ?></h3>
-                <p>New Customer Requests</p>
+                <h3><?php echo $conn->query("SELECT * FROM `get_internet` WHERE `request_date` > DATE_SUB(CURDATE(), INTERVAL 1 MONTH);")->num_rows; ?></h3>
+                <p>Get Home Interenet requests in the past month</p>
               </div>
               <div class="icon">
-                <i class="fa fa-user-plus"></i>
+                <i class="fa fa-house-signal"></i>
               </div>
             </div>
           </div>
@@ -107,11 +107,11 @@ if($_SESSION['login_type'] != 1)
           <div class="col-md-6" style="flex:1;">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3><?php echo $conn->query("SELECT * FROM `chat`;")->num_rows; ?></h3>
-                <p>Chat Requests</p>
+                <h3><?php echo $conn->query("SELECT * FROM `cases_reported`;")->num_rows; ?></h3>
+                <p>Reported Cases</p>
               </div>
               <div class="icon">
-                <i class="fa fa-comment"></i>
+                <i class="fa fa-triangle-exclamation"></i>
               </div>
             </div>
           </div>
@@ -121,22 +121,50 @@ if($_SESSION['login_type'] != 1)
         var activecount = document.getElementById("ActiveCount");
         var expiredcount = document.getElementById("ExpiredCount");
         var connectedcount = document.getElementById("ConnectedCount");
+        var penetration = document.getElementById("Penetration");
+        var homescount = document.getElementById("AreaHomes");
 
         var totalconnected = 0;
         var totalactive = 0;
         var totalexpired = 0;
+        var totalhomes = 0;
         const querydata = [];
+        const homesdata = [];
           <?php $qry = $conn->query($summaryquery);
 					  while($row= $qry->fetch_assoc()): ?>
             querydata.push({name: '<?=$row['AreaName']?>', connected: <?=$row['Connected']?>, active: <?=$row['Active']?>, expired: <?=$row['Expired']?>});
-            totalconnected += <?=$row['Connected']?>;
+            totalconnected += parseInt(<?=$row['Connected']?>);
             totalactive += parseInt(<?=$row['Active']?>);
             totalexpired += parseInt(<?=$row['Expired']?>);
           <?php endwhile;?>
 
+          <?php $qry = $conn->query("SELECT `AreaName`, SUM(`homes`) AS `Homes` FROM `LocationDetails`
+                        LEFT JOIN `AreaDetails`
+                        ON `LocationDetails`.`AreaCode`=`AreaDetails`.`AreaCode`
+                        GROUP BY `AreaName` ");
+					  while($row= $qry->fetch_assoc()): ?>
+              homesdata.push({name: '<?=$row['AreaName']?>', homes: <?=$row['Homes']?>});
+              totalhomes += parseInt(<?=$row['Homes']?>);
+          <?php endwhile;?>
+
+          // Perform left join and store the result in the original querydata array
+          querydata.forEach(queryItem => {
+              // Find matching item in homesdata based on name
+              let matchingHome = homesdata.find(homeItem => homeItem.name === queryItem.name);
+              // If matching home is found, update the queryItem with homes value, otherwise, keep the queryItem as is
+              if (matchingHome) {
+                  queryItem.homes = matchingHome.homes;
+              }
+              if (queryItem.name === "(Blanks)"){
+                queryItem.homes = 0;
+              }
+          });
+
           activecount.innerHTML = totalactive;
           connectedcount.innerHTML = totalconnected;
           expiredcount.innerHTML = totalexpired;
+          homescount.innerHTML = totalhomes;
+          penetration.innerHTML = (totalconnected/totalhomes*100).toFixed(0)+'%';
           document.getElementById("connectedcustomers").innerHTML = totalconnected;
 
           console.log(querydata);
@@ -176,12 +204,21 @@ if($_SESSION['login_type'] != 1)
               activecount.innerHTML = totalactive;
               connectedcount.innerHTML = totalconnected;
               expiredcount.innerHTML = totalexpired;
+              homescount.innerHTML = totalhomes;
+              penetration.innerHTML = (totalconnected/totalhomes*100).toFixed(0)+'%';
             }
             else
             {
               activecount.innerHTML = myarea.active;
               connectedcount.innerHTML = myarea.connected;
               expiredcount.innerHTML = myarea.expired;
+              homescount.innerHTML = myarea.homes;
+              if (myarea.homes != 0){
+                penetration.innerHTML = (myarea.connected/myarea.homes*100).toFixed(0)+'%';
+              }
+              else{
+                penetration.innerHTML = "__";
+              }
             }
           });
       </script>
