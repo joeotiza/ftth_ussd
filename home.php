@@ -160,12 +160,12 @@ if($_SESSION['login_type'] != 1)
               }
           });
 
-          activecount.innerHTML = totalactive;
-          connectedcount.innerHTML = totalconnected;
-          expiredcount.innerHTML = totalexpired;
-          homescount.innerHTML = totalhomes;
+          activecount.innerHTML = totalactive.toLocaleString();
+          connectedcount.innerHTML = totalconnected.toLocaleString();
+          expiredcount.innerHTML = totalexpired.toLocaleString();
+          homescount.innerHTML = totalhomes.toLocaleString();
           penetration.innerHTML = (totalconnected/totalhomes*100).toFixed(0)+'%';
-          document.getElementById("connectedcustomers").innerHTML = totalconnected;
+          document.getElementById("connectedcustomers").innerHTML = totalconnected.toLocaleString();
 
           console.log(querydata);
           var optionsData = [
@@ -201,18 +201,18 @@ if($_SESSION['login_type'] != 1)
             // console.log(myarea.connected);
             if (selectedOption.text === 'All')
             {
-              activecount.innerHTML = totalactive;
-              connectedcount.innerHTML = totalconnected;
-              expiredcount.innerHTML = totalexpired;
-              homescount.innerHTML = totalhomes;
+              activecount.innerHTML = totalactive.toLocaleString();
+              connectedcount.innerHTML = totalconnected.toLocaleString();
+              expiredcount.innerHTML = totalexpired.toLocaleString();
+              homescount.innerHTML = totalhomes.toLocaleString();
               penetration.innerHTML = (totalconnected/totalhomes*100).toFixed(0)+'%';
             }
             else
             {
-              activecount.innerHTML = myarea.active;
-              connectedcount.innerHTML = myarea.connected;
-              expiredcount.innerHTML = myarea.expired;
-              homescount.innerHTML = myarea.homes;
+              activecount.innerHTML = myarea.active.toLocaleString();
+              connectedcount.innerHTML = myarea.connected.toLocaleString();
+              expiredcount.innerHTML = myarea.expired.toLocaleString();
+              homescount.innerHTML = myarea.homes.toLocaleString();
               if (myarea.homes != 0){
                 penetration.innerHTML = (myarea.connected/myarea.homes*100).toFixed(0)+'%';
               }
