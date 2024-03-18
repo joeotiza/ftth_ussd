@@ -74,7 +74,7 @@ if($_SESSION['login_type'] != 1)
               <div class="inner">
                 <h3 id="connectedcustomers"></h3>
                 <p>Recorded Customers</p>
-              </div><p></p>
+              </div>
               <div class="icon">
                 <i class="fa fa-users"></i>
               </div>
