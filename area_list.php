@@ -7,11 +7,11 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 <div class="col-lg-12">
 	<table class="table table-borderless" style="table-layout:fixed;">
 		<tr>
-			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Areas: <b id="AreasCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;background-color:rgba(175, 0, 97, 1);">Areas: <b id="AreasCount"></b></div></td>
 			<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Locations: <b id="LocationsCount"></b></div></td>
 			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Homes Passed: <b id="HomesCount"></b></div></td>
 			<td class="text-center"><div class="btn btn-primary btn-sm btn-flat wave-effect">Connected: <b id="ConnectedCount"></b></div></td>
-			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;">Penetration: <b id="PenetrationCount"></b></div></td>
+			<td class="text-center"><div class="btn btn-warning btn-sm btn-flat wave-effect" style="color:#fff;background-color:rgba(175, 0, 97, 1);">Penetration: <b id="PenetrationCount"></b></div></td>
 		</tr>
 	</table>
 	<div class="card card-outline card-success">
@@ -40,7 +40,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 		<div class="card-body">
 			<table class="table table-bordered table-hover text-center" id="list" style="table-layout:fixed;font-size:0.9vw;">
 				<colgroup>
-					<?= ($_SESSION['login_type'] <= 2) ? "<col style='width: 7%;' />" : ''?>
+					<?= ($_SESSION['login_type'] <= 2) ? "<col style='width: 4%;' />" : ''?>
 					<col style="width: 11%;" />
 					<col style="width: 9%;" />
 					<col style="width: 25%;" />
@@ -59,7 +59,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 						<th>Expired</th>
 						<th>Connected</th>
 						<th>Homes</th>
-						<th>Penetration</th>
+						<th>Pen%</th>
 					</tr>
 				</thead>
 				<tbody></tbody>
@@ -154,7 +154,7 @@ tr td.sorting_1, tr td.sorting_2, tr td.sorting_3 {
 						}
 						else
 						{
-							return "<b>No Homes Passed</b>";
+							return "<b>#N/A</b>";
 						}
 					}
 				}

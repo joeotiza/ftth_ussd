@@ -37,7 +37,10 @@
   <link rel="stylesheet" href="assets/plugins/bootstrap4-toggle/css/bootstrap4-toggle.min.css">
   <!-- Theme style -->
   <style>
-    th {color:#273c88;}
+    th {
+      background-color:#273c88;
+      color:#fff;
+    }
   </style>
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="assets/dist/css/styles.css">
