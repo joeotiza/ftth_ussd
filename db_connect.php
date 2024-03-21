@@ -20,13 +20,14 @@ END AS `Status`
 FROM (
 SELECT 
 	`User name` AS `Account_ID`,
+    `Service ID`,
 	`Expiration`,
 	`Service` AS `Current_Package`,
 	`First name` AS `FirstName`,
 	`Last name` AS `LastName`,
 	`Mobile` AS `MobileNumber`,
 	`Email`,
-    `Address`,
+    `pyramite`.`Address`,
     `Registered` AS `create_date`,
 	`ONT_Location_Code` AS `LocationCode`
 FROM 
@@ -44,9 +45,13 @@ FROM
 	) AS `pyramite`
 LEFT JOIN 
 	`location_codes` ON `pyramite`.`User name` = `location_codes`.`ONT_Username`
+LEFT JOIN
+    `customers` ON `customers`.`Correlation ID` = `User name`
+    AND REGEXP_SUBSTR(`Service`,'[0-9]+') LIKE REGEXP_SUBSTR(`customers`.`GPONPlan`,'[0-9]+')
 UNION
 SELECT 
 	`Correlation ID` AS `Account_ID`,
+    `Service ID`,
 	STR_TO_DATE(`Topup End Date`, '%c/%d/%Y') AS `Expiration`,
 	`GPONPlan` AS `Current_Package`,
 	SUBSTRING_INDEX(SUBSTRING_INDEX(`Customer Name`, ' ', 1), ' ', -1) AS `FirstName`,

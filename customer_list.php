@@ -45,19 +45,20 @@ endif; ?>
 		<div class="card-body">
 			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.9vw;">
 				<colgroup>
-					<col style="width: 8%;" />
-					<col style="width: 5%;" />
-					<col style="width: 4%;" />
+					<col style="width: 9%;" />
+					<col style="width: 10%;" />
+					<col style="width: 7%;" />
+					<col style="width: 6%;" />
 					<col style="width: 15%;" />
 					<col style="width: 8%;" />
 					<col style="width: 19%;" />
 					<col style="width: 14%;" />
-					<col style="width: 9%;" />
-					<col style="width: 18%;" />
+					<col style="width: 11%;" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">Account ID</th>
+						<th>Service ID</th>
 						<th>Status</th>
 						<th>TED</th>
 						<th>Current Package</th>
@@ -65,7 +66,6 @@ endif; ?>
 						<th>Estate/Court/Road</th>
 						<th>Name</th>
 						<th>Mobile No</th>
-						<th>E-Mail</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -78,6 +78,7 @@ endif; ?>
 					?>
 					<tr class="dataRow <?=$row['Status']?>">
 						<td class="text-center"><b><?php echo $row['Account_ID'] ?></b></td>
+						<td><?= $row['Service ID'] ?></td>
 						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
 						<td><?= $row['TED'] ?></td>
 						<td><?= $row['Current_Package'] ?></td>
@@ -85,7 +86,6 @@ endif; ?>
 						<td><?= $row['EstateName'] ? $row['EstateName'] : "_" ?></td>
 						<td><?php echo ucwords($row['FirstName']. " ".$row['LastName']) ?></td>
 						<td><?php echo $row['MobileNumber'] ?></td>
-						<td><?php echo $row['Email'] ?></td>
 					</tr>	
 				<?php endwhile; ?>
 				</tbody>
@@ -118,6 +118,10 @@ endif; ?>
 	var primaryColIdx;
 	var secondaryColIdx;
 
+	const statusIndex = 2;
+	const areaIndex = 5;
+	const locationIndex = 6;
+
 	$(document).ready(function(){
 		var mycustomers = $('#list').DataTable({
 			initComplete: function () {
@@ -131,8 +135,8 @@ endif; ?>
 		$("input[type=radio]").change(function(){
 			var filter = this.value;
 			if (filter == "Active" || filter == "Expired")
-				mycustomers.column(1).search(filter).draw();
-			else mycustomers.column(1).search('').draw();
+				mycustomers.column(statusIndex).search(filter).draw();
+			else mycustomers.column(statusIndex).search('').draw();
 		});
 	});
 
@@ -144,7 +148,7 @@ endif; ?>
 	})
 	
 	function populateDropdowns(table) {
-		table.api().columns([5,4]).every( function () {
+		table.api().columns([locationIndex,areaIndex]).every( function () {
 			var column = this;
 			//console.log("processing col idx " + column.index());
 			var select = $('<select><option value="">All</option></select>')
@@ -167,7 +171,7 @@ endif; ?>
 		// remains the case until the page is refreshed:
 		if (primaryColIdx == null) {
 			primaryColIdx = column.index();
-			secondaryColIdx = (primaryColIdx == 4) ? 5 : 4;
+			secondaryColIdx = (primaryColIdx == areaIndex) ? locationIndex : areaIndex;
 		}
 
 		if (column.index() === primaryColIdx) {

@@ -156,37 +156,39 @@ if(isset($_POST['export_customers_btn']))
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValue('A1', 'Account_ID');
-        $sheet->setCellValue('B1', 'Status');
-        $sheet->setCellValue('C1', 'Expiration');
-        $sheet->setCellValue('D1', 'TED');
-        $sheet->setCellValue('E1', 'Current_Package');
-        $sheet->setCellValue('F1', 'Create Date');
-        $sheet->setCellValue('G1', 'FirstName');
-        $sheet->setCellValue('H1', 'LastName');
-        $sheet->setCellValue('I1', 'MobileNumber');
-        $sheet->setCellValue('J1', 'Email');
-        $sheet->setCellValue('K1', 'Address');
-        $sheet->setCellValue('L1', 'LocationCode');
-        $sheet->setCellValue('M1', 'AreaName');
-        $sheet->setCellValue('N1', 'Estate/Court/Road');
+        $sheet->setCellValue('B1', 'Service_ID');
+        $sheet->setCellValue('C1', 'Status');
+        $sheet->setCellValue('D1', 'Expiration');
+        $sheet->setCellValue('E1', 'TED');
+        $sheet->setCellValue('F1', 'Current_Package');
+        $sheet->setCellValue('G1', 'Create Date');
+        $sheet->setCellValue('H1', 'FirstName');
+        $sheet->setCellValue('I1', 'LastName');
+        $sheet->setCellValue('J1', 'MobileNumber');
+        $sheet->setCellValue('K1', 'Email');
+        $sheet->setCellValue('L1', 'Address');
+        $sheet->setCellValue('M1', 'LocationCode');
+        $sheet->setCellValue('N1', 'AreaName');
+        $sheet->setCellValue('O1', 'Estate/Court/Road');
 
         $rowCount = 2;
         foreach($myresult as $data)
         {
             $sheet->setCellValue('A'.$rowCount, $data['Account_ID']);
-            $sheet->setCellValue('B'.$rowCount, $data['Status']);
-            $sheet->setCellValue('C'.$rowCount, $data['Expiration']);
-            $sheet->setCellValue('D'.$rowCount, $data['TED']);
-            $sheet->setCellValue('E'.$rowCount, $data['Current_Package']);
-            $sheet->setCellValue('F'.$rowCount, $data['create_date']);
-            $sheet->setCellValue('G'.$rowCount, $data['FirstName']);
-            $sheet->setCellValue('H'.$rowCount, $data['LastName']);
-            $sheet->setCellValue('I'.$rowCount, $data['MobileNumber']);
-            $sheet->setCellValue('J'.$rowCount, $data['Email']);
-            $sheet->setCellValue('K'.$rowCount, $data['Address']);
-            $sheet->setCellValue('L'.$rowCount, $data['LocationCode']);
-            $sheet->setCellValue('M'.$rowCount, $data['AreaName']);
-            $sheet->setCellValue('N'.$rowCount, $data['EstateName']);
+            $sheet->setCellValue('B'.$rowCount, $data['Service ID']);
+            $sheet->setCellValue('C'.$rowCount, $data['Status']);
+            $sheet->setCellValue('D'.$rowCount, $data['Expiration']);
+            $sheet->setCellValue('E'.$rowCount, $data['TED']);
+            $sheet->setCellValue('F'.$rowCount, $data['Current_Package']);
+            $sheet->setCellValue('G'.$rowCount, $data['create_date']);
+            $sheet->setCellValue('H'.$rowCount, $data['FirstName']);
+            $sheet->setCellValue('I'.$rowCount, $data['LastName']);
+            $sheet->setCellValue('J'.$rowCount, $data['MobileNumber']);
+            $sheet->setCellValue('K'.$rowCount, $data['Email']);
+            $sheet->setCellValue('L'.$rowCount, $data['Address']);
+            $sheet->setCellValue('M'.$rowCount, $data['LocationCode']);
+            $sheet->setCellValue('N'.$rowCount, $data['AreaName']);
+            $sheet->setCellValue('O'.$rowCount, $data['EstateName']);
             $rowCount++;
         }
 
