@@ -61,10 +61,10 @@ endif; ?>
 						<th>Status</th>
 						<th>TED</th>
 						<th>Current Package</th>
-						<th>Area Name</th>
+						<th>Area</th>
 						<th>Estate/Court/Road</th>
 						<th>Name</th>
-						<th>Mobile Number</th>
+						<th>Mobile No</th>
 						<th>E-Mail</th>
 					</tr>
 				</thead>
