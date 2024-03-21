@@ -77,7 +77,7 @@ endif; ?>
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr class="dataRow <?=$row['Status']?>">
-						<th class="text-center"><?php echo $row['Account_ID'] ?></th>
+						<td class="text-center"><b><?php echo $row['Account_ID'] ?></b></td>
 						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
 						<td><?= $row['TED'] ?></td>
 						<td><?= $row['Current_Package'] ?></td>
@@ -89,7 +89,7 @@ endif; ?>
 					</tr>	
 				<?php endwhile; ?>
 				</tbody>
-				<tfoot>
+				<!-- <tfoot>
 					<tr>
 						<th class="text-center">Account ID</th>
 						<th>Status</th>
@@ -101,7 +101,7 @@ endif; ?>
 						<th>Mobile Number</th>
 						<th>E-Mail</th>
 					</tr>
-				</tfoot>
+				</tfoot> -->
 			</table>
 			<form action="excel.php" method="POST" style="display:inline;">
                 <select name="export_file_type" class="form_control">

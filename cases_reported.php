@@ -63,7 +63,7 @@ endif; ?>
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
-						<th class="text-center"><?php echo $row['Customer ID'] ?></th>
+						<td class="text-center"><b><?php echo $row['Customer ID'] ?></b></td>
 						<td><?php echo ucwords($row['Customer Name']) ?></td>
 						<td><?php echo $row['EMail Address'] ?></td>
                         <td><?php echo $row['Contact Number'] ?></td>
