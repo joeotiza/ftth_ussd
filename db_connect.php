@@ -48,6 +48,7 @@ LEFT JOIN
 LEFT JOIN
     `customers` ON `customers`.`Correlation ID` = `User name`
     AND REGEXP_SUBSTR(`Service`,'[0-9]+') LIKE REGEXP_SUBSTR(`customers`.`GPONPlan`,'[0-9]+')
+	AND `customers`.`Service Status` LIKE 'Active'
 UNION
 SELECT 
 	`Correlation ID` AS `Account_ID`,
