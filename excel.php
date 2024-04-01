@@ -847,20 +847,22 @@ if(isset($_POST['save_pyramite_expired']))
             }
             $count++;
         }
-        try {
-            $result = mysqli_multi_query($conn, $excelquery);
-            $success = true;
-        }
+        $conn->multi_query($excelquery);
+        $success = true;
+        // try {
+        //     $result = $conn->multi_query($excelquery);
+        //     $success = true;
+        // }
     
-        catch(PDOException $e) {
-        //var_dump($e);
-            echo("PDO error occurred");
-        }
+        // catch(PDOException $e) {
+        // //var_dump($e);
+        //     echo("PDO error occurred");
+        // }
     
-        catch(Exception $e) {
-        //var_dump($e);
-        echo("Error occurred");
-        } 
+        // catch(Exception $e) {
+        // //var_dump($e);
+        // echo("Error occurred");
+        // } 
         if (isset($success))
         {
             $_SESSION['message'] = "Successfully Imported";

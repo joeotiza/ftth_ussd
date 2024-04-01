@@ -19,7 +19,7 @@ endif;
             <h3 style="color:#273c88;"><b>Supported formats: <a style="color:#f89e3c;">.xlsx/.xls/.csv</a></b></h3><br>
 			<form action="excel.php" method="POST" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div class="small-box bg-light shadow-sm border">
                             <div class="inner">
                                 <h3>Pyramite Active file</h3>
@@ -27,18 +27,16 @@ endif;
                                 <button type="submit" name="save_pyramite_active" class="btn btn-primary">Import</button>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-md-6">
                         <div class="small-box bg-light shadow-sm border">
                             <div class="inner">
-                                <h3>Pyramite Expired file</h3>
+                                <h3>Pyramite Enabled file</h3>
                                 <input type="file" name="import_pyramite_expired" class="form_control"/>
                                 <button type="submit" name="save_pyramite_expired" class="btn btn-primary">Import</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="small-box bg-light shadow-sm border">
                             <div class="inner">
@@ -48,6 +46,8 @@ endif;
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="small-box bg-light shadow-sm border">
                             <div class="inner">

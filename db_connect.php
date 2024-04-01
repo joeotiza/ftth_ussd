@@ -32,8 +32,6 @@ SELECT
 	`ONT_Location_Code` AS `LocationCode`
 FROM 
 	(
-		SELECT * FROM `pyramite_active`
-		UNION
 		SELECT * FROM `pyramite_expired`
 			WHERE `pyramite_expired`.`User name` NOT IN (
 				SELECT `Correlation ID` FROM `customers`
@@ -73,8 +71,6 @@ WHERE
 	AND `Topup End Date` <> ''
 	AND `Correlation ID` NOT IN (
 		SELECT `User name` FROM (
-			SELECT * FROM `pyramite_active`
-			UNION
 			SELECT * FROM `pyramite_expired`
 			WHERE `pyramite_expired`.`User name` NOT IN (
 				SELECT `Correlation ID` FROM `customers`
@@ -148,8 +144,6 @@ FROM (
 		`ONT_Location_Code` AS `LocationCode`
 	FROM 
 		(
-			SELECT * FROM `pyramite_active`
-			UNION
 			SELECT * FROM `pyramite_expired`
 			WHERE `pyramite_expired`.`User name` NOT IN (
 				SELECT `Correlation ID` FROM `customers`
@@ -182,8 +176,6 @@ FROM (
 		AND `Topup End Date` <> ''
 		AND `Correlation ID` NOT IN (
 			SELECT `User name` FROM (
-				SELECT * FROM `pyramite_active`
-				UNION
 				SELECT * FROM `pyramite_expired`
 					WHERE `pyramite_expired`.`User name` NOT IN (
 						SELECT `Correlation ID` FROM `customers`
@@ -234,8 +226,6 @@ SELECT
 	`ONT_Location_Code` AS `LocationCode`
 FROM 
 	(
-		SELECT * FROM `pyramite_active`
-		UNION
 		SELECT * FROM `pyramite_expired`
 			WHERE `pyramite_expired`.`User name` NOT IN (
 				SELECT `Correlation ID` FROM `customers`
@@ -268,8 +258,6 @@ WHERE
 	AND `Topup End Date` <> ''
 	AND `Correlation ID` NOT IN (
 		SELECT `User name` FROM (
-			SELECT * FROM `pyramite_active`
-			UNION
 			SELECT * FROM `pyramite_expired`
 			WHERE `pyramite_expired`.`User name` NOT IN (
 				SELECT `Correlation ID` FROM `customers`
