@@ -69,18 +69,6 @@ WHERE
 	AND `User Group` NOT LIKE '%Staff%'
 	AND `Service Status` LIKE 'Active'
 	AND `Topup End Date` <> ''
-	AND `Correlation ID` NOT IN (
-		SELECT `User name` FROM (
-			SELECT * FROM `pyramite_expired`
-			WHERE `pyramite_expired`.`User name` NOT IN (
-				SELECT `Correlation ID` FROM `customers`
-					WHERE `User Group` NOT LIKE '%Gratis%' 
-						AND `User Group` NOT LIKE '%Staff%'
-						AND `Service Status` LIKE 'Active'
-						AND `Topup End Date` <> ''
-				)
-		) AS `pyramite`
-	)
 ) AS `myCustomers`
 LEFT JOIN 
 (
@@ -174,18 +162,6 @@ FROM (
 		AND `User Group` NOT LIKE '%Staff%'
 		AND `Service Status` LIKE 'Active' 
 		AND `Topup End Date` <> ''
-		AND `Correlation ID` NOT IN (
-			SELECT `User name` FROM (
-				SELECT * FROM `pyramite_expired`
-					WHERE `pyramite_expired`.`User name` NOT IN (
-						SELECT `Correlation ID` FROM `customers`
-							WHERE `User Group` NOT LIKE '%Gratis%' 
-								AND `User Group` NOT LIKE '%Staff%'
-								AND `Service Status` LIKE 'Active'
-								AND `Topup End Date` <> ''
-						)
-			) AS `pyramite`
-		)
 ) AS `myCustomers`
 INNER JOIN (
 	SELECT 
@@ -256,18 +232,6 @@ WHERE
 	AND `User Group` NOT LIKE '%Staff%'
 	AND `Service Status` LIKE 'Active'
 	AND `Topup End Date` <> ''
-	AND `Correlation ID` NOT IN (
-		SELECT `User name` FROM (
-			SELECT * FROM `pyramite_expired`
-			WHERE `pyramite_expired`.`User name` NOT IN (
-				SELECT `Correlation ID` FROM `customers`
-					WHERE `User Group` NOT LIKE '%Gratis%' 
-						AND `User Group` NOT LIKE '%Staff%'
-						AND `Service Status` LIKE 'Active'
-						AND `Topup End Date` <> ''
-				)
-		) AS `pyramite`
-	)
 ) AS `myCustomers`
 LEFT JOIN 
 (
