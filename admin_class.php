@@ -125,6 +125,11 @@ Class Action {
 			}
 		}
 		if(empty($AreaID)){
+			$check = $this->db->query("SELECT * FROM `AreaDetails` where `AreaCode` ='$AreaCode' ")->num_rows;
+			if($check > 0){
+				return 2;
+				exit;
+			}
 			$save = $this->db->query("INSERT INTO `AreaDetails` set $data");
 		}else{
 			$save = $this->db->query("UPDATE `AreaDetails` set $data where `AreaID` = $AreaID");

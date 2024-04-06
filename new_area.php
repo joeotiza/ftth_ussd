@@ -17,6 +17,7 @@ endif;
 						<div class="form-group">
 							<label for="" class="control-label">Area Code</label>
 							<input type="text" name="AreaCode" class="form-control form-control-sm" required value="<?php echo isset($AreaCode) ? $AreaCode : 'lhkac-' ?>">
+							<small id="msg"></small>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -24,7 +25,6 @@ endif;
 						<div class="form-group">
 							<label class="control-label">Name</label>
 							<input type="text" class="form-control form-control-sm" name="AreaName" required value="<?php echo isset($AreaName) ? $AreaName : '' ?>">
-							<small id="msg"></small>
 						</div>
 
 					</div>
@@ -60,7 +60,7 @@ endif;
 						location.replace('./index.php?page=area_list')
 					},750)
 				}else if(resp == 2){
-					$('#msg').html("<div class='alert alert-danger'>Unexpected error.</div>");
+					$('#msg').html("<div class='alert alert-danger'>An Area with this code already exists.</div>");
 					end_load();
 				}
 			}
