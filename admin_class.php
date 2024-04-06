@@ -152,6 +152,11 @@ Class Action {
 			}
 		}
 		if(empty($LocationID)){
+			$check = $this->db->query("SELECT * FROM `LocationDetails` where `LocationCode` ='$LocationCode' ")->num_rows;
+			if($check > 0){
+				return 2;
+				exit;
+			}
 			$save = $this->db->query("INSERT INTO `LocationDetails` set $data");
 		}else{
 			$save = $this->db->query("UPDATE `LocationDetails` set $data where `LocationID` = $LocationID");
