@@ -50,8 +50,8 @@ endif; ?>
 					<col style="width: 7%;" />
 					<col style="width: 6%;" />
 					<col style="width: 15%;" />
-					<col style="width: 8%;" />
-					<col style="width: 19%;" />
+					<!-- <col style="width: 8%;" /> -->
+					<col style="width: 27%;" />
 					<col style="width: 14%;" />
 					<col style="width: 11%;" />
 				</colgroup>
@@ -62,8 +62,9 @@ endif; ?>
 						<th>Status</th>
 						<th>TED</th>
 						<th>Current Package</th>
-						<th>Area</th>
-						<th>Estate/Court/Road</th>
+						<th class="hidethis">Area</th>
+						<th class="hidethis">Estate/Court/Road</th>
+						<th>Address</th>
 						<th>Name</th>
 						<th>Mobile No</th>
 					</tr>
@@ -75,6 +76,7 @@ endif; ?>
 					else $where = "";
 					$qry = $conn->query($customersquery.$where);
 					while($row= $qry->fetch_assoc()):
+						$pageTitle = $row['EstateName'].", ".$row['AreaName'];
 					?>
 					<tr class="dataRow <?=$row['Status']?>">
 						<td class="text-center"><b><?php echo $row['Account_ID'] ?></b></td>
@@ -82,8 +84,9 @@ endif; ?>
 						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
 						<td><?= $row['TED'] ?></td>
 						<td><?= $row['Current_Package'] ?></td>
-						<td><?= $row['AreaName'] ? $row['AreaName'] : "_" ?></td>
-						<td><?= $row['EstateName'] ? $row['EstateName'] : "_" ?></td>
+						<td class="hidethis"><?= $row['AreaName'] ? $row['AreaName'] : "_" ?></td>
+						<td class="hidethis"><?= $row['EstateName'] ? $row['EstateName'] : "_" ?></td>
+						<td><?= $row['Address']?></td>
 						<td><?php echo ucwords($row['FirstName']. " ".$row['LastName']) ?></td>
 						<td><?php echo $row['MobileNumber'] ?></td>
 					</tr>	
@@ -122,6 +125,8 @@ endif; ?>
 	const areaIndex = 5;
 	const locationIndex = 6;
 
+	$(".hidethis").hide()
+
 	$(document).ready(function(){
 		var mycustomers = $('#list').DataTable({
 			initComplete: function () {
@@ -129,6 +134,9 @@ endif; ?>
 			},
 			// "order": [[2, 'asc']],
 		});
+		<?php if ($_GET['LocationCode']): ?>
+		document.getElementById('page-title').innerHTML = '<?= $pageTitle?>';
+		<?php endif;?>
 		document.getElementById('ActiveCount').innerHTML = $('#list').DataTable().rows('.Active').count();
 		document.getElementById('ExpiredCount').innerHTML = $('#list').DataTable().rows('.Expired').count();
 		document.getElementById('ConnectedCount').innerHTML = $('#list').DataTable().rows().count();
