@@ -27,16 +27,16 @@ endif; ?>
 				<colgroup>
 					<col style="width: 30%;" />
 					<col style="width: 20%;" />
-					<col style="width: 30%;" />
-					<col style="width: 20%;" />
+					<col style="width: 35%;" />
+					<col style="width: 15%;" />
 				</colgroup>
 				<td>
-					<input type="radio" name="Status"  value="All" checked="checked" />All
-					<input type="radio" name="Status"  value="Active"/>Active
+					<input type="radio" name="Status"  value="All" checked="checked" />All&nbsp;
+					<input type="radio" name="Status"  value="Active"/>Active&nbsp;
 					<input type="radio" name="Status"  value="Expired"/>Expired
 				</td>
-				<td>Area: <p id="selectArea"></p></td>
-				<td><div id="LocationSelect" style="display:none;">Estate/Court/Road: <p id="selectLocation"></p></div></td>
+				<td>Area: <a id="selectArea"></a></td>
+				<td><div id="LocationSelect" style="display:none;">Estate/Court/Road: <a id="selectLocation"></a></div></td>
 				<?php if($_SESSION['login_type'] != 3): ?>
 				<td><div class="card-tools"><a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_customer"><i class="fa fa-plus"></i> Upload Customers File</a></div></td>
 				<?php endif; ?>
