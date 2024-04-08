@@ -5,6 +5,11 @@ if($_SESSION['login_type'] != 1)
   $twhere = "  ";
 ?>
 <!-- Info boxes -->
+<style>
+  body{
+    font-size: 1rem;
+  }
+</style>
  <div class="col-12">
           <div class="card">
             <div class="card-body">
