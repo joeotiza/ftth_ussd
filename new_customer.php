@@ -6,6 +6,11 @@
 }
 endif;
 ?>
+<style>
+    body{
+        font-size: 1rem;
+    }
+</style>
 <div class="col-lg-12">
 	<div class="card">
 		<div class="card-body">

@@ -9,6 +9,9 @@
       /* height: 8%; */
       /* width: 100%; */
     }
+    p, .nav-link{
+      font-size: 1rem;
+    }
     </style>
     <div >
    	  <a href="./" class="brand-link bounding-box"></a>
