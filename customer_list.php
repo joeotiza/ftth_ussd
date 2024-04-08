@@ -46,27 +46,28 @@ endif; ?>
 			<table class="table table-hover table-bordered" id="list" style="table-layout: fixed;font-size:0.9vw;">
 				<colgroup>
 					<col style="width: 9%;" />
-					<col style="width: 10%;" />
-					<col style="width: 7%;" />
-					<col style="width: 6%;" />
-					<col style="width: 15%;" />
-					<!-- <col style="width: 8%;" /> -->
-					<col style="width: 27%;" />
 					<col style="width: 14%;" />
 					<col style="width: 11%;" />
+					<col style="width: 27%;" />
+					<col style="width: 10%;" />
+					<col style="width: 15%;" />
+					<col style="width: 7%;" />
+					<col style="width: 6%;" />
+					<col class="hidethis" style="width: 10%;" />
+					<col class="hidethis" style="width: 20%;" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">Account ID</th>
-						<th>Service ID</th>
-						<th>Status</th>
-						<th>TED</th>
-						<th>Current Package</th>
-						<th class="hidethis">Area</th>
-						<th class="hidethis">Estate/Court/Road</th>
-						<th>Address</th>
 						<th>Name</th>
 						<th>Mobile No</th>
+						<th>Address</th>
+						<th>Service ID</th>
+						<th>Current Package</th>
+						<th>Status</th>
+						<th>TED</th>
+						<th class="hidethis">Area</th>
+						<th class="hidethis">Estate/Court/Road</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -80,15 +81,15 @@ endif; ?>
 					?>
 					<tr class="dataRow <?=$row['Status']?>">
 						<td class="text-center"><b><?php echo $row['Account_ID'] ?></b></td>
-						<td><?= $row['Service ID'] ?></td>
-						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
-						<td><?= $row['TED'] ?></td>
-						<td><?= $row['Current_Package'] ?></td>
-						<td class="hidethis"><?= $row['AreaName'] ? $row['AreaName'] : "_" ?></td>
-						<td class="hidethis"><?= $row['EstateName'] ? $row['EstateName'] : "_" ?></td>
-						<td><?= $row['Address']?></td>
 						<td><?php echo ucwords($row['FirstName']. " ".$row['LastName']) ?></td>
 						<td><?php echo $row['MobileNumber'] ?></td>
+						<td><?= $row['Address']?></td>
+						<td><?= $row['Service ID'] ?></td>
+						<td><?= $row['Current_Package'] ?></td>
+						<td><b style="color:<?= $row['Status'] == 'Active' ? "green" : "red"?>;"><?php echo $row['Status'] ?></b></td>
+						<td><?= $row['TED'] ?></td>
+						<td class="hidethis"><?= $row['AreaName'] ? $row['AreaName'] : "_" ?></td>
+						<td class="hidethis"><?= $row['EstateName'] ? $row['EstateName'] : "_" ?></td>
 					</tr>	
 				<?php endwhile; ?>
 				</tbody>
@@ -121,9 +122,9 @@ endif; ?>
 	var primaryColIdx;
 	var secondaryColIdx;
 
-	const statusIndex = 2;
-	const areaIndex = 5;
-	const locationIndex = 6;
+	const statusIndex = 6;
+	const areaIndex = 8;
+	const locationIndex = 9;
 
 	$(".hidethis").hide()
 
