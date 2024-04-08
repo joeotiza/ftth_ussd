@@ -18,6 +18,16 @@
 	include 'header.php';
 	
 ?>
+<style>
+  @media only screen and (min-width: 768px) {
+    .nav-item-phone-only {
+      display: none;
+    }
+    body{
+      font-size: 0.8vw;
+    }
+  }
+</style>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
   <?php include 'topbar.php' ?>

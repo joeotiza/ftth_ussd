@@ -1,11 +1,4 @@
 <!-- Navbar -->
-  <style>
-    @media only screen and (min-width: 768px) {
-      .nav-item-phone-only {
-        display: none;
-      }
-    }
-  </style>
   <nav class="main-header navbar navbar-expand navbar-primary navbar-dark ">
     <!-- Left navbar links -->
     <ul class="navbar-nav mx-auto">
