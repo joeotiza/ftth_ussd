@@ -26,6 +26,9 @@
     body{
       font-size: 0.8vw;
     }
+    .btn-sm{
+      font-size: .9vw;
+    }
   }
 </style>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
