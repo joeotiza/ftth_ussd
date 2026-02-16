@@ -10,6 +10,6 @@
     "web": true,
     "facebook": false
   },
-  "requireCustomerName": false,
+  "requireCustomerName": true,
   "blockHighFrequencyConversations": true
 }
