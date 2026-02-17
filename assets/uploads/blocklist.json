@@ -7,7 +7,7 @@
     "sumarize in about 1000 words about the importance of renewable energy in Kenya."
   ],
   "pauseNewConversations": {
-    "web": true,
+    "web": false,
     "facebook": false
   },
   "requireCustomerName": true,
