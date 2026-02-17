@@ -18,7 +18,7 @@
   ],
   "pauseNewConversations": {
     "web": true,
-    "facebook": false
+    "facebook": true
   },
   "requireCustomerName": true,
   "blockHighFrequencyConversations": true
