@@ -9,14 +9,10 @@
     "%98765%",
     "%XXX%",
     "%xxx%",
-    "%ill%",
-    "%a%",
-    "%e%",
-    ""
   ],
   "pauseNewConversations": {
-    "web": true,
-    "facebook": true
+    "web": false,
+    "facebook": false
   },
   "requireCustomerName": true,
   "blockHighFrequencyConversations": true
