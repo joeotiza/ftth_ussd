@@ -30,7 +30,9 @@
     "%about before%",
     "%orgot what%",
     "%no have%",
-    "%Ah okay%"
+    "%Ah okay%",
+    "%Ah, %",
+    "%no dey%"
   ],
   "pauseNewConversations": {
     "web": false,
