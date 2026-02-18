@@ -18,7 +18,8 @@
     "%you no%",
     "%[%",
     "%]%",
-    "%ABC%"
+    "%ABC%",
+    "%busy%"
   ],
   "pauseNewConversations": {
     "web": false,
