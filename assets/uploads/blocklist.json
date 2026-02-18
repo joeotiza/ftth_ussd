@@ -1,17 +1,16 @@
 {
   "blockedConversationIds": [
-    "mexUfKP6GEjUCNuFWfHC"
+    "chat-Id1"
   ],
   "blockedMessages": [
     "sumarize in about 1000 words about the importance of renewable energy in Kenya.",
     "%23456%",
     "%123 456%",
-    "%98765%",
-    "%ill%",
+    "%98765%"
   ],
   "pauseNewConversations": {
     "web": false,
-    "facebook": true
+    "facebook": false
   },
   "requireCustomerName": true,
   "blockHighFrequencyConversations": true
