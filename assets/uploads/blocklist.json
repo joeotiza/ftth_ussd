@@ -21,6 +21,7 @@
     "%[%",
     "%]%",
     "%ABC%",
+    "%too high%",
     "%busy%",
     "%o call%",
     "%o reply%",
