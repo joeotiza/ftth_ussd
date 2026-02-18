@@ -27,7 +27,10 @@
     "%o reply%",
     "%I go%",
     "%emind me%",
-    "%about before%"
+    "%about before%",
+    "%orgot what%",
+    "%no have%",
+    "%Ah okay%"
   ],
   "pauseNewConversations": {
     "web": false,
