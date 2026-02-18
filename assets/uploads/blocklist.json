@@ -33,7 +33,8 @@
     "%Ah okay%",
     "%Ah, %",
     "%no dey%",
-    "%I no %"
+    "%I no %",
+    "%so still%"
   ],
   "pauseNewConversations": {
     "web": false,
