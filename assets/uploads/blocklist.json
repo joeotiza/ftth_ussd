@@ -8,11 +8,9 @@
     "%123 456%",
     "%98765%",
     "%ill%",
-    "%a%",
-    ""
   ],
   "pauseNewConversations": {
-    "web": true,
+    "web": false,
     "facebook": true
   },
   "requireCustomerName": true,
