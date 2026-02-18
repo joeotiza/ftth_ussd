@@ -34,7 +34,8 @@
     "%Ah, %",
     "%no dey%",
     "%I no %",
-    "%so still%"
+    "%so still%",
+    "%712..%"
   ],
   "pauseNewConversations": {
     "web": false,
