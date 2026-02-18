@@ -13,7 +13,6 @@
     "%123%",
     "%456%",
     "%3456%",
-    "%97771%",
     "%4620%",
     "%kay I%",
     "%ix this now%",
@@ -25,7 +24,7 @@
     "%too high%",
     "%busy%",
     "%o call%",
-    "%977%",
+    "% 977%",
     "%o reply%",
     "%I go%",
     "%emind %",
@@ -38,6 +37,7 @@
     "%no dey%",
     "%I no %",
     "%so still%",
+    "%ill still%",
     "%712..%"
   ],
   "pauseNewConversations": {
