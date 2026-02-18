@@ -21,7 +21,8 @@
     "%]%",
     "%ABC%",
     "%busy%",
-    "%no call%"
+    "%no call%",
+    "%I go%"
   ],
   "pauseNewConversations": {
     "web": false,
