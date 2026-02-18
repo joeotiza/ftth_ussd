@@ -25,7 +25,9 @@
     "%busy%",
     "%o call%",
     "%o reply%",
-    "%I go%"
+    "%I go%",
+    "%emind me%",
+    "%about before%"
   ],
   "pauseNewConversations": {
     "web": false,
