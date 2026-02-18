@@ -6,10 +6,11 @@
     "sumarize in about 1000 words about the importance of renewable energy in Kenya.",
     "%23456%",
     "%123 456%",
-    "%98765%"
+    "%98765%",
+    ""
   ],
   "pauseNewConversations": {
-    "web": false,
+    "web": true,
     "facebook": false
   },
   "requireCustomerName": true,
