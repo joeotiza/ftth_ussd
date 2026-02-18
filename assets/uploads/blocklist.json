@@ -15,7 +15,10 @@
     "%kay I%",
     "%ix this now%",
     "%no help%",
-    "%you no%"
+    "%you no%",
+    "%[%",
+    "%]%",
+    "%ABC%"
   ],
   "pauseNewConversations": {
     "web": false,
