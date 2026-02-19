@@ -47,6 +47,6 @@
     "web": false,
     "facebook": true
   },
-  "requireCustomerName": false,
+  "requireCustomerName": true,
   "blockHighFrequencyConversations": true
 }
