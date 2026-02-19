@@ -42,7 +42,8 @@
     "%so still%",
     "%ill still%",
     "%712..%",
-    "%adoop%"
+    "%adoop%",
+    "%ERC%"
   ],
   "pauseNewConversations": {
     "web": false,
