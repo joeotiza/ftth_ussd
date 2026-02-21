@@ -12,5 +12,5 @@
   },
   "requireCustomerName": false,
   "blockHighFrequencyConversations": true,
-  "foreignIpMaxMessagesPerHour": null
+  "foreignIpMaxMessagesPerHour": 0
 }
