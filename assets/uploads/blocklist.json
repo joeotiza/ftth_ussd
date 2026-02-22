@@ -18,10 +18,10 @@
     "%23456%"
   ],
   "pauseNewConversations": {
-    "web": false,
+    "web": true,
     "facebook": false
   },
   "requireCustomerName": false,
   "blockHighFrequencyConversations": true,
-  "foreignIpMaxMessagesPerHour": null
+  "foreignIpMaxMessagesPerHour": 0
 }
