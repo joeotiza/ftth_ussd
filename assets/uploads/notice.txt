@@ -1,1 +1,1 @@
-If get_token_history returns no token records, apologize that we are currently experiencing a delay on the prepaid vending system affecting token generation and our team is working to restore normal service.
+If customers ask about the number of units/kWh from a token purchase, after using get_token_history, use get_account_entries to get the associated trnUnits
