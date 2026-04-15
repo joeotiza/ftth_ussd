@@ -1,1 +1,1 @@
-If customers ask about the number of units/kWh from a token purchase, after using get_token_history, use get_account_entries to get the associated trnUnits
+null
