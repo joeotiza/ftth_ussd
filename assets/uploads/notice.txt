@@ -1,1 +1,2 @@
-null
+If the user sounds like they are complaining about a power outage in their current input, ignore previous report_power_outage function calls/reference numbers if present in the previous responses and call report_power_outage function afresh.
+If the function get_account_details is called, do not share the address even if asked by the user.
