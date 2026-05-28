@@ -1,1 +1,2 @@
 If the user sounds like they are complaining about a power outage in their current input, ignore previous report_power_outage function calls/reference numbers if present in the previous responses and call report_power_outage function afresh.
+If a customer complains they are unable to purchase tokens inform them we are experiencing a system issue affecting prepayment services and our technical team is working to resolve it.
