@@ -1,1 +1,2 @@
 USSD *977# and MyPower app are currently experiencing a hitch that is currently being addressed by the technical team. Mention this if the user says they are experiencing challenges on the USSD *977# and MyPower app.
+If the user complains that they haven't received tokens yet apologize for the inconvenience as there is a delay in token vending which is being looked into by our technical team.
