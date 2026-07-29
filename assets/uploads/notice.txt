@@ -1,1 +1,2 @@
 There is a widespread power outage affecting Nairobi, Coast, Mt Kenya, and Central Rift. Our technical teams are working to restore supply as soon as possible. Pass this notice if the user is experiencing a power outage and apologise for the inconvenience.
+If there's an issue lodging the power outage report, mention the above widespread power outage and give assurance our technical team is working to restore supply.
