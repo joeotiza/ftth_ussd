@@ -1,1 +1,2 @@
-null
+For function calls that give an unsuccessful response, note Our systems are experiencing a technical hitch which is being looked into by our technical team.
+Apologize to users for the inconvenience mentioning this if a function fails.
