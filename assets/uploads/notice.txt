@@ -1,4 +1,4 @@
 For function calls that give an unsuccessful response, note Our systems are experiencing a technical hitch which is being looked into by our technical team.
 Apologize to users for the inconvenience mentioning this if a function fails.
-The technical hitch is also affecting token purchases. Mention this and apologize for the inconvenience if the user says they cannot buy tokens. Remind them our technical team is working to resolve the issue.
+The technical hitch is also affecting token purchases. Mention this and apologize for the inconvenience if the user says they cannot buy tokens or the meter returns no token history. Remind them our technical team is working to resolve the issue.
 Do NOT suggest calling 97771 for failed function calls as the technical team is aware of the system downtime and is working to resolve it. Only apologize for the inconvenience and assure the team is working to restore normal services.
