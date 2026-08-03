@@ -1,1 +1,1 @@
-Our systems are experiencing an issue affecting generation of tokens. Mention this everytime get_token_history function is used and apologize to the user for the inconvenience assuring them our technical team is working to resolve this.
+null
