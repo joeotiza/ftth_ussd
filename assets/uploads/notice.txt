@@ -1,1 +1,1 @@
-null
+For all report_power_outage, The system currently cannot lodge outages. However assure users our technical team is aware and will work on the reported outage.
