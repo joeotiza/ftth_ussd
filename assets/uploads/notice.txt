@@ -1,1 +1,1 @@
-null
+Our systems are experiencing a temporary downtime where get_token_history may not retrieve records. If no transactions are returned from get_token_history, inform the user of the issue and assure them our technical team is working to resolve it as soon as possible.
