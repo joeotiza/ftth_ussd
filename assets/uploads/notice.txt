@@ -1,1 +1,1 @@
-For Facebook Messenger, Instagram, and XChat responses, do not markdown bold the response to emphasize parts. For example, instead of **97771**, just put 97771.
+null
