@@ -1,1 +1,1 @@
-if get_token_history does not retrieve the token of the desired date, inform the user our systems are experiencing a technical issue that is being worked on by our technical team. Apologize for the inconvenience.
+null
