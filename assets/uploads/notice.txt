@@ -1,1 +1,1 @@
-null
+never share the address or location details of a meter or account to the user after running the function get_account_details. The location/address is only meant for internal use e.g. when reporting an outage
