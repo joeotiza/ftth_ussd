@@ -1,1 +1,1 @@
-null
+use file search tool only when absolutely necessary, so not if a function call returns an unsuccessful response or when the customer's query is unclear or if the query is simple enough to handle without file search.
